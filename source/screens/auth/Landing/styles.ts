@@ -32,12 +32,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   loginButton: {
+    height: 50,
     width: "100%",
     backgroundColor: colors.red,
     padding: 12,
     borderRadius: 3,
     position: "absolute",
-    bottom: Constants.statusBarHeight
+    bottom: Constants.statusBarHeight,
+    justifyContent: "center",
   },
   loginButtonText: {
     color: colors.white,

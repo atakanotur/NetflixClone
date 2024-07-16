@@ -9,7 +9,7 @@ const Loading = () => {
     useEffect(() => {
         setTimeout(() => {
             router.replace("/(auth)/landing")
-        }, 3000)
+        }, 1000)
     }, [])
 
     return (

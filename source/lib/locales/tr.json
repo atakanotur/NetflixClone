@@ -3,5 +3,12 @@
   "hello": "Merhaba",
   "signIn": "OTURUM AÇ",
   "privacy": "Gizlilik",
-  "help": "Yardım"
+  "help": "Yardım",
+  "watchEverywhere": "İstediğiniz her yerde izleyin",
+  "watchOnAnyDevice": "Telefonda, tablette, dizüstü bilgisayarda ve TV'de izleyin.",
+  "suitablePaymentPlan": "Tüm hayranlara uygun plan seçenekleri",
+  "littlePriceBigFun": "Küçük ücret. Büyük eğlence.",
+  "cancelIfYouWant": "İstediğiniz zaman çevrimiçin olarak iptal edin",
+  "joinToday": "Bugün katılın, beklemenize gerek yok.",
+  "signUp": "adresine gideriz bir Netflix hesabı oluşturabilir ve diğer işlemleri yapabilirsiniz"
 }
