@@ -1,4 +1,5 @@
-import { View, TouchableOpacity, Pressable, Text, Image } from "react-native";
+import { View, TouchableOpacity, Text, Image, Linking } from "react-native";
+import { router } from "expo-router";
 import styles from "./styles";
 import localization from "@/source/lib/locales/localization";
 import LandingList from "@/source/components/Molecules/LandingList";
@@ -23,9 +24,9 @@ const landingData: { image: string, header: string, description: string, signUp:
         signUp: localization.t("signUp"),
     },
     {
-        image: require("@/assets/images/page3.jpeg"),
-        header: localization.t("cancelIfYouWant"),
-        description: localization.t("joinToday"),
+        image: null,
+        header: localization.t("howCanIWatch"),
+        description: localization.t("youCanWatchOnThisApp"),
         signUp: localization.t("signUp"),
     }
 ];
@@ -37,19 +38,15 @@ const Landing = () => {
             <View style={styles.banner}>
                 <Image source={{ uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj0jWPJ2dABPXDnURT5UrGTNzA5ONHfTO2qQ&s" }} resizeMode="contain" style={styles.logo} />
                 <View style={styles.bannerButtons}>
-                    <Pressable onPress={() => console.log("Privacy")} style={styles.bannerButton}>
-                        <Text style={styles.bannerButtonText}>
-                            {localization.t("privacy")}
-                        </Text>
-                    </Pressable>
-                    <Pressable onPress={() => console.log("Help")} style={styles.bannerButton}>
-                        <Text style={styles.bannerButtonText}>
-                            {localization.t("help")}
-                        </Text>
-                    </Pressable>
+                    <Text style={styles.bannerButtonText} onPress={() => Linking.openURL("https://help.netflix.com/legal/privacy")}>
+                        {localization.t("privacy")}
+                    </Text>
+                    <Text style={styles.bannerButtonText} onPress={() => Linking.openURL("https://help.netflix.com")}>
+                        {localization.t("help")}
+                    </Text>
                 </View>
             </View>
-            <TouchableOpacity style={styles.loginButton}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => router.push("/(auth)/login")}>
                 <Text style={styles.loginButtonText}>
                     {localization.t("signIn")}
                 </Text>

@@ -23,13 +23,11 @@ const styles = StyleSheet.create({
   bannerButtons: {
     flexDirection: "row",
   },
-  bannerButton: {
-    alignSelf: "center",
-  },
   bannerButtonText: {
     color: colors.white,
     padding: 5,
     fontWeight: "bold",
+    alignSelf: "center",
   },
   loginButton: {
     height: 50,
