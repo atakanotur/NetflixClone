@@ -23,21 +23,21 @@ const styles = StyleSheet.create({
   bannerButtons: {
     flexDirection: "row",
   },
-  bannerButton: {
-    alignSelf: "center",
-  },
   bannerButtonText: {
     color: colors.white,
     padding: 5,
     fontWeight: "bold",
+    alignSelf: "center",
   },
   loginButton: {
+    height: 50,
     width: "100%",
     backgroundColor: colors.red,
     padding: 12,
     borderRadius: 3,
     position: "absolute",
-    bottom: Constants.statusBarHeight
+    bottom: Constants.statusBarHeight,
+    justifyContent: "center",
   },
   loginButtonText: {
     color: colors.white,

@@ -3,5 +3,14 @@
   "hello": "Hello",
   "signIn": "SIGN IN",
   "privacy": "Privacy",
-  "help": "Help"
+  "help": "Help",
+  "watchEverywhere": "Watch anywhere you want",
+  "watchOnAnyDevice": "Watch on phone, tablet, laptop, and TV.",
+  "suitablePaymentPlan": "Plan options suitable for all fans",
+  "littlePriceBigFun": "Small fee. Big fun.",
+  "cancelIfYouWant": "Cancel online anytime",
+  "joinToday": "Join today, no need to wait.",
+  "signUp": "go to the address to create a Netflix account and perform other transactions",
+  "howCanIWatch": "How can I watch?",
+  "youCanWatchOnThisApp": "Once you become a Netflix member, you can watch content from this application."
 }
