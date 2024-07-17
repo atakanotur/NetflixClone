@@ -12,5 +12,9 @@
   "joinToday": "Join today, no need to wait.",
   "signUp": "go to the address to create a Netflix account and perform other transactions",
   "howCanIWatch": "How can I watch?",
-  "youCanWatchOnThisApp": "Once you become a Netflix member, you can watch content from this application."
+  "youCanWatchOnThisApp": "Once you become a Netflix member, you can watch content from this application.",
+  "or": "OR",
+  "useSignUpCode": "Use Sign Up Code",
+  "forgotPassword": "Forgot Password",
+  "reCAPTCHA": "“The sign-in process is protected by Google reCAPTCHA to prove that you are not a robot."
 }

@@ -3,7 +3,7 @@ import colors from '@/source/theme/colors';
 import responsiveFontSize from '@/source/theme/responsiveFontSize';
 
 type CustomTextProps = {
-    text: string
+    text: string | undefined
     style?: StyleProp<TextStyle>
     adjustsFontSizeToFit?: boolean | undefined
     onPress?: ((event: GestureResponderEvent) => void) | undefined

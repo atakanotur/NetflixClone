@@ -12,5 +12,9 @@
   "joinToday": "Bugün katılın, beklemenize gerek yok.",
   "signUp": "adresine gideriz bir Netflix hesabı oluşturabilir ve diğer işlemleri yapabilirsiniz",
   "howCanIWatch": "Nasıl izleyebilirim?",
-  "youCanWatchOnThisApp": "Netflix üyesi olduktan sonra içerikleri bu uygulamadan izleyebilirsiniz."
+  "youCanWatchOnThisApp": "Netflix üyesi olduktan sonra içerikleri bu uygulamadan izleyebilirsiniz.",
+  "or": "VEYA",
+  "useSignUpCode": "Oturum Açma Kodu Kullan",
+  "forgotPassword": "Parolamı unuttum",
+  "reCAPTCHA": "Oturum açma işlemi , robot olmadığınızı kanıtlamak için Google reCAPTCHA ile korunuyor."
 }
