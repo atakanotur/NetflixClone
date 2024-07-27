@@ -1,4 +1,5 @@
 import LandingList from "./LandingList";
-import ControlledInput from "./ControlledInput/ControlledInput";
+import ControlledInput from "./ControlledInput";
+import PasswordModal from "./PasswordModal";
 
-export { LandingList, ControlledInput };
+export { LandingList, ControlledInput, PasswordModal };

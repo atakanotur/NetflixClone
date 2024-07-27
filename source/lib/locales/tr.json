@@ -14,7 +14,19 @@
   "howCanIWatch": "Nasıl izleyebilirim?",
   "youCanWatchOnThisApp": "Netflix üyesi olduktan sonra içerikleri bu uygulamadan izleyebilirsiniz.",
   "or": "VEYA",
-  "useSignUpCode": "Oturum Açma Kodu Kullan",
+  "useSignInCode": "Oturum Açma Kodu Kullan",
   "forgotPassword": "Parolamı unuttum",
-  "reCAPTCHA": "Oturum açma işlemi , robot olmadığınızı kanıtlamak için Google reCAPTCHA ile korunuyor."
+  "reCAPTCHA": "Oturum açma işlemi , robot olmadığınızı kanıtlamak için Google reCAPTCHA ile korunuyor.",
+  "emailOrPhoneNumber": "E-posta veya telefon numarası",
+  "password": "Parola",
+  "show": "GÖSTER",
+  "hide": "GİZLE",
+  "wrongPassword": "Parola yanlış",
+  "enterYourPIN": "Bu profile erişmek için PIN kodunu girin.",
+  "forgotPIN": "PIN'i mi unutunuz?",
+  "cancel": "İptal",
+  "done": "Tamam",
+  "edit": "Düzenle",
+  "profileManagement": "Profili Yönet",
+  "whoIsWatching": "Kim izliyor ?"
 }
