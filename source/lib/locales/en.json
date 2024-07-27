@@ -12,5 +12,21 @@
   "joinToday": "Join today, no need to wait.",
   "signUp": "go to the address to create a Netflix account and perform other transactions",
   "howCanIWatch": "How can I watch?",
-  "youCanWatchOnThisApp": "Once you become a Netflix member, you can watch content from this application."
+  "youCanWatchOnThisApp": "Once you become a Netflix member, you can watch content from this application.",
+  "or": "OR",
+  "useSignInCode": "Use Sign In Code",
+  "forgotPassword": "Forgot Password",
+  "reCAPTCHA": "The sign-in process is protected by Google reCAPTCHA to prove that you are not a robot.",
+  "emailOrPhoneNumber": "E-mail or phone number",
+  "password": "Password",
+  "show": "SHOW",
+  "hide": "HIDE",
+  "wrongPassword": "Wrong Password",
+  "enterYourPIN": "Access to this profile enter your PIN code.",
+  "forgotPIN": "Are you forget your PIN?",
+  "cancel": "Cancel",
+  "done": "Done",
+  "edit": "Edit",
+  "profileManagement": "Profile Management",
+  "whoIsWatching": "Who is watching ?"
 }
