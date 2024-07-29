@@ -23,6 +23,8 @@
   "hide": "GİZLE",
   "wrongPassword": "Parola yanlış",
   "enterYourPIN": "Bu profile erişmek için PIN kodunu girin.",
+  "wrongPIN": "Yanlış PIN",
+  "tryAgain": "Lütfen yeniden deneyin.",
   "forgotPIN": "PIN'i mi unutunuz?",
   "cancel": "İptal",
   "done": "Tamam",
