@@ -1,4 +1,4 @@
-import { useRef, createRef } from "react";
+import React, { useRef, createRef, useState } from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import colors from "@/source/theme/colors";
 import { Text, Button } from "../../Atoms";
@@ -6,43 +6,64 @@ import localization from "@/source/lib/locales/localization";
 import responsiveFontSize from "@/source/theme/responsiveFontSize";
 
 type PasswordModalProps = {
-    onConfirm: (value: string) => void;
+    onChange: (value: string) => boolean;
     onCancel: () => void;
 };
 
-const PasswordModal = ({ onConfirm, onCancel }: PasswordModalProps) => {
-    let password = "";
+const PasswordModal = ({ onChange, onCancel }: PasswordModalProps) => {
+    const [isWrongCode, setIsWrongCode] = useState<boolean>(false);
+    const [inputs, setInputs] = useState(["", "", "", ""]);
     const inputRefs = useRef([createRef<TextInput>(), createRef<TextInput>(), createRef<TextInput>(), createRef<TextInput>()]);
+
     const handleChange = (index: number, value: string) => {
-        password = `${password}${value}`
+        const newInputs = [...inputs];
+        newInputs[index] = value;
+        setInputs(newInputs);
         if (value.length === 1 && index < inputRefs.current.length - 1) {
-            inputRefs.current[index + 1]?.focus();
+            inputRefs.current[index + 1]?.current?.focus();
+        } else if (value.length === 0 && index > 0) {
+            inputRefs.current[index - 1]?.current?.focus();
         }
-        if (value.length === 0) {
-            if (index === 0) password = "";
-            if (index > 0) {
-                inputRefs.current[index - 1]?.focus();
-                password = password.slice(0, -1);
-            }
+        const password = newInputs.join('');
+        if (!onChange(password)) {
+            setInputs(["", "", "", ""]);
+            inputRefs.current[0]?.current?.focus();
+            setIsWrongCode(true);
         }
-        onConfirm(password);
+    };
+
+    const handleKeyPress = (index: number, event: any) => {
+        if (event.nativeEvent.key === 'Backspace' && inputs[index] === "" && index > 0) {
+            inputRefs.current[index - 1]?.current?.focus();
+        }
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.main}>
-                <Text text={localization.t("enterYourPIN")} style={styles.banner} numberOfLines={2} />
+                <View style={styles.banner}>
+                    {isWrongCode ?
+                        (
+                            <>
+                                <Text text={localization.t("wrongPIN")} style={styles.wrongPIN} />
+                                <Text text={localization.t("tryAgain")} style={styles.wrongPIN} />
+                            </>
+                        ) :
+                        <Text text={isWrongCode ? localization.t("wrongPIN") : localization.t("enterYourPIN")} style={styles.enterPIN} numberOfLines={2} />}
+                </View>
                 <View style={styles.inputs}>
-                    {Array.from({ length: 4 }).map((_, index) => (
+                    {inputs.map((value, index) => (
                         <TextInput
                             key={index}
-                            ref={el => (inputRefs.current[index] = el)}
+                            ref={inputRefs.current[index]}
                             style={styles.input}
                             maxLength={1}
                             keyboardType="number-pad"
                             onChangeText={(value) => handleChange(index, value)}
+                            onKeyPress={(event) => handleKeyPress(index, event)}
                             secureTextEntry
                             autoFocus={index === 0}
+                            value={value}
                         />
                     ))}
                 </View>
@@ -52,8 +73,8 @@ const PasswordModal = ({ onConfirm, onCancel }: PasswordModalProps) => {
                 </View>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -74,13 +95,21 @@ const styles = StyleSheet.create({
         backgroundColor: "#CACACA",
     },
     banner: {
+        padding: 15
+    },
+    wrongPIN: {
+        alignSelf: 'center',
+        color: colors.red,
+        fontSize: responsiveFontSize(15),
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    enterPIN: {
         alignSelf: 'center',
         color: colors.black,
         fontSize: responsiveFontSize(15),
         fontWeight: 'bold',
         textAlign: 'center',
-        paddingTop: 10,
-        paddingBottom: 10
     },
     inputs: {
         flexDirection: 'row',
@@ -109,7 +138,6 @@ const styles = StyleSheet.create({
         color: colors.darkBlue,
         fontSize: responsiveFontSize(16)
     },
+});
 
-})
-
-export default PasswordModal
+export default PasswordModal;

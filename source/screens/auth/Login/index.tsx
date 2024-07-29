@@ -28,7 +28,7 @@ const Login = () => {
     }
 
     const onSubmit = ({ emailOrPhoneNumber, password }: { emailOrPhoneNumber: string, password: string }) => {
-        if (emailOrPhoneNumber && password) if (emailOrPhoneNumber === "atakan.otur@hotmail.com" && password === "12345678") router.push("/(auth)/home");
+        if (emailOrPhoneNumber && password) if (emailOrPhoneNumber === "atakan.otur@hotmail.com" && password === "12345678") router.push("/(auth)/profiles");
     }
 
     return (

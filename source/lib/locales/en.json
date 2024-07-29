@@ -23,6 +23,8 @@
   "hide": "HIDE",
   "wrongPassword": "Wrong Password",
   "enterYourPIN": "Access to this profile enter your PIN code.",
+  "wrongPIN": "Wrong PIN",
+  "tryAgain": "Please try again.",
   "forgotPIN": "Are you forget your PIN?",
   "cancel": "Cancel",
   "done": "Done",

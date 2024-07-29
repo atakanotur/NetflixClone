@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Pressable, View, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
 import { PasswordModal, Text } from "@/source/components";
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from "./styles";
 import { EvilIcons } from '@expo/vector-icons';
 import colors from '@/source/theme/colors';
 import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
 import { router } from 'expo-router';
 import localization from '@/source/lib/locales/localization';
+import styles from './styles';
 
 type Profile = {
     id: number,
@@ -18,7 +18,6 @@ type Profile = {
 }
 
 const Profiles = () => {
-
     const [editMode, setEditMode] = useState<boolean>(false);
     const editModeBackgroundOpacity = useSharedValue("rgba(0, 0, 0, 0)");
     const [profilePasswordVisible, setProfileVisiblePassword] = useState<boolean>(false);
@@ -66,8 +65,14 @@ const Profiles = () => {
     }
 
     const onConfirmProfilePassword = (value: string) => {
-        console.log("x", value);
-        if (value === profile?.password) router.push("/(main)/home");
+        if (value.length === 4) {
+            if (value === profile?.password) {
+                router.push("/(main)/home");
+                return true;
+            }
+            return false;
+        }
+        return true
     }
 
     const selectProfile = (profile: Profile) => {
@@ -113,7 +118,7 @@ const Profiles = () => {
                 scrollEnabled={false}
                 contentContainerStyle={styles.profilesListContentContainer}
             />
-            {profilePasswordVisible && <PasswordModal onCancel={() => setProfileVisiblePassword(false)} onConfirm={(value) => onConfirmProfilePassword(value)} />}
+            {profilePasswordVisible && <PasswordModal onCancel={() => setProfileVisiblePassword(false)} onChange={(value) => onConfirmProfilePassword(value)} />}
         </SafeAreaView>
     )
 }
