@@ -1,22 +1,32 @@
-import { EvilIcons, Ionicons, Foundation } from "@expo/vector-icons";
+import localization from "@/source/lib/locales/localization";
+import { EvilIcons, Ionicons, Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 const MainLayout = () => {
   return (
     <Tabs
       screenOptions={{
+        tabBarStyle: { backgroundColor: "rgba(0,0,0,0.9)", borderBlockColor: "rgba(0,0,0,0.9)" },
         headerShown: false,
-        tabBarActiveBackgroundColor: "rgba(0,0,0,0.1)",
-        tabBarBackground: (() => {
-          return null
-        }),
-        tabBarIcon: (
-          { color, focused, size }
-        ) => {
+      }} initialRouteName="profiles" >
+      <Tabs.Screen name="home" options={{
+        title: localization.t("home"),
+        headerShown: false, tabBarIcon: ({ color, size }) => {
           return <Foundation name="home" size={size} color={color} />
         }
-      }} initialRouteName="profiles" >
-      <Tabs.Screen name="home" options={{ headerShown: false }} />
+      }} />
+      <Tabs.Screen name="newAndPopular" options={{
+        title: localization.t("newAndPopular"),
+        headerShown: false, tabBarIcon: ({ color, size }) => {
+          return <MaterialCommunityIcons name="animation-play-outline" size={size} color={color} />
+        }
+      }} />
+      <Tabs.Screen name="myNetflix" options={{
+        title: localization.t("myNetflix"),
+        headerShown: false, tabBarIcon: ({ color, size }) => {
+          return <Foundation name="home" size={size} color={color} />
+        }
+      }} />
     </Tabs>
   )
 };

@@ -8,7 +8,7 @@ const Loading = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            router.replace("/(auth)/landing")
+            router.replace({ pathname: "/landing" })
         }, 1000)
     }, [])
 

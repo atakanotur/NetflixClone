@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const loginSchema = z.object({
   emailOrPhoneNumber: z.string(),
-  password: z.string().min(8),
+  password: z.string(),
 });
 
 type LoginFormFields = z.infer<typeof loginSchema>;
