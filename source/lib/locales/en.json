@@ -30,5 +30,11 @@
   "done": "Done",
   "edit": "Edit",
   "profileManagement": "Profile Management",
-  "whoIsWatching": "Who is watching ?"
+  "whoIsWatching": "Who is watching ?",
+  "for": "for",
+  "play": "Play",
+  "myList": "My List",
+  "home": "Home",
+  "newAndPopular": "New & Popular",
+  "myNetflix": "My Netflix"
 }

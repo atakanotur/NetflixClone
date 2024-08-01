@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     padding: 7,
     borderRadius: 5,
     marginBottom: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   signInButtonTitle: {
     fontSize: responsiveFontSize(15),
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signInButtonTitleDisabled: {
+    fontSize: responsiveFontSize(15),
     color: colors.whiteGrey,
     fontWeight: "bold",
   },

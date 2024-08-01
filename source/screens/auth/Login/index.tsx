@@ -8,27 +8,78 @@ import localization from '@/source/lib/locales/localization';
 import { ControlledInput, Button } from '@/source/components/';
 import { useLoginForm } from '@/source/lib/resolverSchema';
 import { router } from 'expo-router';
+import userStore from '@/source/store/userStore';
+import categoryStore from '@/source/store/categoryStore';
+import movieStore from '@/source/store/movieStore';
+import movies from '@/source/data/movie';
+import categories from '@/source/data/categories';
 
 const Login = () => {
     const { handleSubmit, control } = useLoginForm();
     const [singInDisabled, setSignInDisabled] = useState<boolean>(true);
-    const [emailOrPhoneNumber, setEmailOrPhoneNumber] = useState<string>("atakan.otur@hotmail.com");
-    const [password, setPassword] = useState<string>("12345678");
+    const user = userStore((state) => state.user);
+    const setUser = userStore((state) => state.setUser);
+    const setCategories = categoryStore((state) => state.setCategories);
+    const setMovies = movieStore((state) => state.setMovies);
+    const [emailOrPhoneNumber, setEmailOrPhoneNumber] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
     const onChangeEmailOrPhoneNumber = (text: string) => {
-        setEmailOrPhoneNumber(text);
-        if (text.length > 4 && password.length > 8) setSignInDisabled(false);
+        setEmailOrPhoneNumber(text)
+        if (text.length > 4 && password.length >= 8) setSignInDisabled(false);
         else setSignInDisabled(true);
     }
 
     const onChangePassword = (text: string) => {
         setPassword(text);
-        if (text.length > 8 && emailOrPhoneNumber.length > 4) setSignInDisabled(false);
+        if (text.length >= 8 && emailOrPhoneNumber.length > 4) setSignInDisabled(false);
         else setSignInDisabled(true);
     }
 
-    const onSubmit = ({ emailOrPhoneNumber, password }: { emailOrPhoneNumber: string, password: string }) => {
-        if (emailOrPhoneNumber && password) if (emailOrPhoneNumber === "atakan.otur@hotmail.com" && password === "12345678") router.push("/(auth)/profiles");
+    const onSubmit = () => {
+        if ((emailOrPhoneNumber === user.email || emailOrPhoneNumber === user.phoneNumber) && password === user.password) {
+            setUser({
+                ...user,
+                profiles: [
+                    {
+                        id: "0",
+                        name: "Profile 1",
+                        imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
+                        locked: true,
+                        password: "1234"
+                    },
+                    {
+                        id: "1",
+                        name: "Profile 2",
+                        imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
+                        locked: true,
+                        password: "1234"
+                    },
+                    {
+                        id: "2",
+                        name: "Profile 3",
+                        imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
+                        locked: true,
+                        password: "1234"
+                    },
+                    {
+                        id: "3",
+                        name: "Profile 4",
+                        imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
+                        locked: false
+                    },
+                    {
+                        id: "4",
+                        name: "Profile 5",
+                        imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
+                        locked: false
+                    },
+                ]
+            });
+            setMovies(movies);
+            setCategories(categories);
+            router.replace({ pathname: "/profiles" });
+        }
     }
 
     return (

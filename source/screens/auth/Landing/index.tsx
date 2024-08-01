@@ -46,7 +46,7 @@ const Landing = () => {
                     </Text>
                 </View>
             </View>
-            <TouchableOpacity style={styles.loginButton} onPress={() => router.push("/(auth)/login")}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => router.push({ pathname: "/login" })}>
                 <Text style={styles.loginButtonText}>
                     {localization.t("signIn")}
                 </Text>

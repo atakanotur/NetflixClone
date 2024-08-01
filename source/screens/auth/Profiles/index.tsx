@@ -8,55 +8,14 @@ import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
 import { router } from 'expo-router';
 import localization from '@/source/lib/locales/localization';
 import styles from './styles';
-
-type Profile = {
-    id: number,
-    name: string,
-    imageUrl: string,
-    locked: boolean,
-    password?: string
-}
+import userStore from '@/source/store/userStore';
 
 const Profiles = () => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const editModeBackgroundOpacity = useSharedValue("rgba(0, 0, 0, 0)");
     const [profilePasswordVisible, setProfileVisiblePassword] = useState<boolean>(false);
     const [profile, setProfile] = useState<Profile>();
-    const profilesData: Profile[] = [
-        {
-            id: 1,
-            name: "Profile 1",
-            imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
-            locked: true,
-            password: "1234"
-        },
-        {
-            id: 2,
-            name: "Profile 2",
-            imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
-            locked: true,
-            password: "1234"
-        },
-        {
-            id: 3,
-            name: "Profile 3",
-            imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
-            locked: false
-        },
-        {
-            id: 4,
-            name: "Profile 3",
-            imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
-            locked: false
-        },
-        {
-            id: 5,
-            name: "Profile 3",
-            imageUrl: "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
-            locked: true,
-            password: "1234"
-        },
-    ];
+    const profiles = userStore((state) => state.user.profiles);
 
     const onChangeEditMode = () => {
         setEditMode(!editMode);
@@ -112,7 +71,8 @@ const Profiles = () => {
                 </Pressable>
             </View>
             <FlatList
-                data={profilesData}
+                extraData={profiles}
+                data={profiles}
                 renderItem={profilesRenderItem}
                 numColumns={2}
                 scrollEnabled={false}
