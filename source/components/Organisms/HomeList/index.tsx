@@ -2,15 +2,17 @@ import { View, StyleSheet, Image, Dimensions } from "react-native";
 import { Text } from "../../Atoms";
 import { CategoryList, CategoryListHeader, MovieList } from "../../Molecules";
 import colors from "@/source/theme/colors";
+import localization from "@/source/lib/locales/localization";
 
 type HomeListProps = {
+    profile: Profile
     categories: Category[]
     movies: Movie[]
 }
 
 const { width } = Dimensions.get('screen');
 
-const HomeList = ({ categories, movies }: HomeListProps) => {
+const HomeList = ({ profile, categories, movies }: HomeListProps) => {
     const movieListRenderItem = ({ item, index }: { item: MovieRepresentation, index: number }) => {
         return (
             <View style={styles.movieContainer}>
@@ -18,6 +20,7 @@ const HomeList = ({ categories, movies }: HomeListProps) => {
             </View>
         )
     }
+
     const categoryListRenderItem = ({ item, index }: { item: Category, index: number }) => {
         return (
             <View style={styles.categoryContainer}>
@@ -31,11 +34,22 @@ const HomeList = ({ categories, movies }: HomeListProps) => {
     }
 
     return (
-        <CategoryList
-            data={categories}
-            renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
-            ListHeaderComponent={CategoryListHeader}
-        />
+        <>
+            <View>
+                <View>
+                    <Text text={profile.name} />
+                    <Text text={localization.t("for")} />
+                </View>
+                <View>
+
+                </View>
+            </View>
+            <CategoryList
+                data={categories}
+                renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
+                ListHeaderComponent={CategoryListHeader}
+            />
+        </>
     )
 }
 
