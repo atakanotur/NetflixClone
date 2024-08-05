@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import { View, StyleSheet, Image, Dimensions, Pressable, NativeSyntheticEvent, NativeScrollEvent, LayoutChangeEvent } from "react-native";
 import { Text } from "../../Atoms";
-import { CategoryList, CategoryListHeader, MovieList } from "../../Molecules";
+import { CategoryList, CategoryListHeader, MovieList, TopBar } from "../../Molecules";
 import colors from "@/source/theme/colors";
-import localization from "@/source/lib/locales/localization";
-import { Ionicons, MaterialIcons, Octicons } from "@expo/vector-icons";
-import responsiveFontSize from "@/source/theme/responsiveFontSize";
-import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
+import { useSharedValue, withSpring } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { BlurView } from "expo-blur";
 
 type HomeListProps = {
     profile: Profile
@@ -29,14 +25,7 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
     const topBarButtonsPosition = useSharedValue(topBarHeight + top);
     const topBarButtonsOpacity = useSharedValue(1);
     const topBarBlurIntensity = useSharedValue(0);
-    const onLayoutTopBar = (event: LayoutChangeEvent) => {
-        const { height } = event.nativeEvent.layout;
-        setTopBarHeight(height);
-    };
-    const onLayoutTopBarButtons = (event: LayoutChangeEvent) => {
-        const { height } = event.nativeEvent.layout;
-        setTopBarButtonsHeight(height);
-    }
+
 
     const categoryListOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         if (event.nativeEvent.contentOffset.y > -top * 2 + 10) {
@@ -77,30 +66,7 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
 
     return (
         <>
-            <Animated.View style={[styles.topBarContainer, { height: topBarHeight + top, paddingLeft: topBarPadding, paddingRight: topBarPadding }]}>
-                <View style={styles.topBarProfile} onLayout={onLayoutTopBar}>
-                    <Text text={profile.name} style={styles.profileName} />
-                    <Text text={localization.t("for")} style={styles.for} />
-                </View>
-                <View style={styles.topBarIcons}>
-                    <MaterialIcons name="cast" size={responsiveFontSize(30)} color={colors.white} style={styles.topBarIcon} />
-                    <Octicons name="download" size={responsiveFontSize(30)} color={colors.white} style={styles.topBarIcon} />
-                    <Ionicons name="search" size={responsiveFontSize(30)} color={colors.white} style={styles.topBarIcon} />
-                </View>
-                <BlurView style={styles.blurView} intensity={topBarBlurIntensity.value}></BlurView>
-            </Animated.View>
-            <Animated.View style={[styles.topBarButtons, { top: topBarButtonsPosition, opacity: topBarButtonsOpacity }]} onLayout={onLayoutTopBarButtons}>
-                <Pressable style={styles.topBarButton}>
-                    <Text text={localization.t("series")} style={styles.topBarButtonText} />
-                </Pressable>
-                <Pressable style={styles.topBarButton}>
-                    <Text text={localization.t("movies")} style={styles.topBarButtonText} />
-                </Pressable>
-                <Pressable style={[styles.topBarButton, { flexDirection: 'row' }]}>
-                    <Text text={localization.t("categories")} style={styles.topBarButtonText} />
-                    <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
-                </Pressable>
-            </Animated.View>
+            <TopBar top={top} profile={profile} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} />
             <CategoryList
                 data={categories}
                 renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
@@ -113,64 +79,6 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
 }
 
 const styles = StyleSheet.create({
-    container: {
-
-    },
-    topBarContainer: {
-        position: "absolute",
-        left: 0,
-        right: 0,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
-        zIndex: 2,
-    },
-    topBarProfile: {
-        flexDirection: 'row',
-        padding: 5,
-        zIndex: 1
-    },
-    topBarIcons: {
-        flexDirection: 'row',
-        padding: 5,
-        zIndex: 1
-    },
-    profileName: {
-        fontSize: responsiveFontSize(25),
-        fontWeight: 'bold',
-    },
-    for: {
-        fontSize: responsiveFontSize(25),
-        fontWeight: 'bold',
-        marginLeft: 5
-    },
-    topBarIcon: {
-        marginLeft: 25
-    },
-    topBarButtons: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        flexDirection: 'row',
-        zIndex: 1
-    },
-    topBarButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 20,
-        borderWidth: 0.5,
-        borderColor: colors.whiteGrey,
-        marginLeft: 5,
-        marginTop: 10,
-        padding: 5,
-        paddingLeft: 13,
-        paddingRight: 13
-    },
-    topBarButtonText: {
-        color: colors.whiteGrey,
-        fontSize: responsiveFontSize(15),
-        fontWeight: "bold"
-    },
     categoryContainer: {
         padding: 5,
         margin: 5
@@ -190,14 +98,7 @@ const styles = StyleSheet.create({
         width: width / 3.275,
         borderRadius: 5,
     },
-    blurView: {
-        zIndex: 0,
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-    }
+
 });
 
 export default HomeList;
