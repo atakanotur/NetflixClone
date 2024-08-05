@@ -24,9 +24,13 @@ const Home = () => {
         console.log("posterOnPress", movie);
     }
 
+    const movieOnPress = (movie: Movie) => {
+        console.log("movieOnPress", movie);
+    }
+
     return (
         <SafeAreaView style={styles.container} edges={["left", "right"]}>
-            <HomeList profile={user.profiles[0]} movies={movies} categories={categories} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />
+            <HomeList profile={user.profiles[0]} movies={movies} categories={categories} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} movieOnPress={movieOnPress} />
         </SafeAreaView>
     )
 }

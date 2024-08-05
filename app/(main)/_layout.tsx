@@ -1,5 +1,5 @@
 import localization from "@/source/lib/locales/localization";
-import { EvilIcons, Ionicons, Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 const MainLayout = () => {
@@ -9,7 +9,7 @@ const MainLayout = () => {
         tabBarStyle: { backgroundColor: "rgba(0,0,0,0.9)", borderBlockColor: "rgba(0,0,0,0.9)" },
         headerShown: false,
       }} initialRouteName="profiles" >
-      <Tabs.Screen name="home" options={{
+      <Tabs.Screen name="(home)" options={{
         title: localization.t("home"),
         headerShown: false, tabBarIcon: ({ color, size }) => {
           return <Foundation name="home" size={size} color={color} />

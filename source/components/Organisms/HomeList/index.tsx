@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { View, StyleSheet, Image, Dimensions, Pressable, NativeSyntheticEvent, NativeScrollEvent, LayoutChangeEvent } from "react-native";
+import { View, StyleSheet, Image, Dimensions, Pressable, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 import { Text } from "../../Atoms";
 import { CategoryList, CategoryListHeader, MovieList, TopBar } from "../../Molecules";
 import colors from "@/source/theme/colors";
-import { useSharedValue, withSpring } from "react-native-reanimated";
+import { ReduceMotion, useSharedValue, withSpring, withTiming, Easing } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type HomeListProps = {
@@ -13,11 +13,12 @@ type HomeListProps = {
     myListOnPress: (movie: Movie) => void;
     playOnPress: (movie: Movie) => void;
     posterOnPress: (movie: Movie) => void;
+    movieOnPress: (movie: Movie) => void;
 }
 
 const { width } = Dimensions.get('screen');
 
-const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, posterOnPress }: HomeListProps) => {
+const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, posterOnPress, movieOnPress }: HomeListProps) => {
     const { top } = useSafeAreaInsets();
     const [topBarHeight, setTopBarHeight] = useState(0);
     const [topBarButtonsHeight, setTopBarButtonsHeight] = useState(0);
@@ -30,13 +31,13 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
     const categoryListOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         if (event.nativeEvent.contentOffset.y > -top * 2 + 10) {
             topBarPadding.value = withSpring(10);
-            topBarButtonsPosition.value = withSpring((topBarHeight + top) - topBarButtonsHeight, { duration: 2000 });
-            topBarButtonsOpacity.value = withSpring(0, { duration: 1200 });
+            topBarButtonsPosition.value = withTiming((topBarHeight + top) - topBarButtonsHeight, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
+            topBarButtonsOpacity.value = withSpring(0, { duration: 1000 });
             topBarBlurIntensity.value = withSpring(40, { duration: 1200 });
         }
         else {
             topBarPadding.value = withSpring(0);
-            topBarButtonsPosition.value = withSpring(topBarHeight + top)
+            topBarButtonsPosition.value = withTiming(topBarHeight + top, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
             topBarButtonsOpacity.value = withSpring(1);
             topBarBlurIntensity.value = withSpring(0, { duration: 1200 });
         }
@@ -45,7 +46,7 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
     const movieListRenderItem = ({ item, index }: { item: MovieRepresentation, index: number }) => {
         return (
             <View style={styles.movieContainer}>
-                <Pressable>
+                <Pressable onPress={() => movieOnPress({ ...movies[0] })}>
                     <Image source={{ uri: item.poster }} style={styles.moviePoster} resizeMode="stretch" />
                 </Pressable>
             </View>
@@ -70,7 +71,7 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
             <CategoryList
                 data={categories}
                 renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
-                ListHeaderComponent={<CategoryListHeader myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
+                ListHeaderComponent={<CategoryListHeader movie={movies[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
                 onScroll={categoryListOnScroll}
                 contentInset={{ top: top * 2 + topBarHeight + 5, left: 0, right: 0, bottom: 0 }}
             />

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { View, StyleSheet, Pressable, LayoutChangeEvent } from 'react-native';
-import Animated, { SharedValue, useSharedValue } from 'react-native-reanimated';
+import Animated, { SharedValue } from 'react-native-reanimated';
 import { Text } from '../../Atoms';
 import colors from '@/source/theme/colors';
 import responsiveFontSize from '@/source/theme/responsiveFontSize';
 import localization from '@/source/lib/locales/localization';
 import { MaterialIcons, Octicons, Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 
 type TopBarProps = {
     top: number
@@ -34,27 +34,27 @@ const TopBar = ({ top, profile, topBarPadding, topBarButtonsPosition, topBarButt
 
     return (
         <>
-            <Animated.View style={[styles.topBarContainer, { height: height + top, paddingLeft: topBarPadding, paddingRight: topBarPadding }]}>
-                <View style={styles.topBarProfile} onLayout={onLayoutTopBar}>
+            <Animated.View style={[styles.container, { height: height + top, paddingLeft: topBarPadding, paddingRight: topBarPadding }]}>
+                <View style={styles.profile} onLayout={onLayoutTopBar}>
                     <Text text={profile.name} style={styles.profileName} />
                     <Text text={localization.t("for")} style={styles.for} />
                 </View>
-                <View style={styles.topBarIcons}>
-                    <MaterialIcons name="cast" size={responsiveFontSize(30)} color={colors.white} style={styles.topBarIcon} />
-                    <Octicons name="download" size={responsiveFontSize(30)} color={colors.white} style={styles.topBarIcon} />
-                    <Ionicons name="search" size={responsiveFontSize(30)} color={colors.white} style={styles.topBarIcon} />
+                <View style={styles.icons}>
+                    <MaterialIcons name="cast" size={responsiveFontSize(30)} color={colors.white} style={styles.icon} />
+                    <Octicons name="download" size={responsiveFontSize(30)} color={colors.white} style={styles.icon} onPress={() => router.push({ pathname: "/downloads" })} />
+                    <Ionicons name="search" size={responsiveFontSize(30)} color={colors.white} style={styles.icon} onPress={() => router.push({ pathname: "/search" })} />
                 </View>
                 <BlurView style={styles.blurView} intensity={topBarBlurIntensity.value}></BlurView>
             </Animated.View>
-            <Animated.View style={[styles.topBarButtons, { top: topBarButtonsPosition, opacity: topBarButtonsOpacity }]} onLayout={onLayoutTopBarButtons}>
-                <Pressable style={styles.topBarButton}>
-                    <Text text={localization.t("series")} style={styles.topBarButtonText} />
+            <Animated.View style={[styles.buttons, { top: topBarButtonsPosition, opacity: topBarButtonsOpacity }]} onLayout={onLayoutTopBarButtons}>
+                <Pressable style={styles.button}>
+                    <Text text={localization.t("series")} style={styles.buttonText} />
                 </Pressable>
-                <Pressable style={styles.topBarButton}>
-                    <Text text={localization.t("movies")} style={styles.topBarButtonText} />
+                <Pressable style={styles.button}>
+                    <Text text={localization.t("movies")} style={styles.buttonText} />
                 </Pressable>
-                <Pressable style={[styles.topBarButton, { flexDirection: 'row' }]}>
-                    <Text text={localization.t("categories")} style={styles.topBarButtonText} />
+                <Pressable style={[styles.button, { flexDirection: 'row' }]}>
+                    <Text text={localization.t("categories")} style={styles.buttonText} />
                     <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
                 </Pressable>
             </Animated.View>
@@ -63,7 +63,7 @@ const TopBar = ({ top, profile, topBarPadding, topBarButtonsPosition, topBarButt
 }
 
 const styles = StyleSheet.create({
-    topBarContainer: {
+    container: {
         position: "absolute",
         left: 0,
         right: 0,
@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         zIndex: 2,
     },
-    topBarProfile: {
+    profile: {
         flexDirection: 'row',
         padding: 5,
         zIndex: 1
     },
-    topBarIcons: {
+    icons: {
         flexDirection: 'row',
         padding: 5,
         zIndex: 1
@@ -91,17 +91,17 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 5
     },
-    topBarIcon: {
+    icon: {
         marginLeft: 25
     },
-    topBarButtons: {
+    buttons: {
         position: 'absolute',
         left: 0,
         right: 0,
         flexDirection: 'row',
         zIndex: 1
     },
-    topBarButton: {
+    button: {
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 20,
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         paddingLeft: 13,
         paddingRight: 13
     },
-    topBarButtonText: {
+    buttonText: {
         color: colors.whiteGrey,
         fontSize: responsiveFontSize(15),
         fontWeight: "bold"
