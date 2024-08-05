@@ -12,9 +12,21 @@ const Home = () => {
     // const categories = categoryStore((state) => state.categories);
     // const movies = movieStore((state) => state.movies);
 
+    const myListOnPress = (movie: Movie) => {
+        console.log("myListOnPress", movie);
+    }
+
+    const playOnPress = (movie: Movie) => {
+        console.log("playOnPress", movie);
+    }
+
+    const posterOnPress = (movie: Movie) => {
+        console.log("posterOnPress", movie);
+    }
+
     return (
-        <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-            <HomeList profile={user.profiles[0]} movies={movies} categories={categories} />
+        <SafeAreaView style={styles.container} edges={["left", "right"]}>
+            <HomeList profile={user.profiles[0]} movies={movies} categories={categories} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />
         </SafeAreaView>
     )
 }

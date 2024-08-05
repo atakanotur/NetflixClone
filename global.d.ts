@@ -12,6 +12,7 @@ declare global {
     imageUrl: string;
     locked: boolean;
     password?: string;
+    myList?: Movie[];
   };
 
   type Category = {

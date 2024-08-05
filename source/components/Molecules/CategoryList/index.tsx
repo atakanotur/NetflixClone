@@ -1,6 +1,6 @@
 import { ComponentType, ReactElement } from "react";
-import { FlashList, ListRenderItem } from "@shopify/flash-list";
-import { NativeScrollEvent, NativeSyntheticEvent } from "react-native";
+import { FlashList, ListRenderItem, } from "@shopify/flash-list";
+import { Insets, NativeScrollEvent, NativeSyntheticEvent, PointProp } from "react-native";
 
 type CategoryListProps = {
     data: Category[];
@@ -11,9 +11,12 @@ type CategoryListProps = {
     onScrollBeginDrag?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void) | undefined
     onScrollEndDrag?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void) | undefined
     onScrollToTop?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void) | undefined
+    contentOffset?: PointProp
+    contentInset?: Insets
+    snapToOffsets?: number[]
 }
 
-const CategoryList = ({ data, renderItem, ListHeaderComponent, onScroll, onScrollAnimationEnd, onScrollBeginDrag, onScrollEndDrag, onScrollToTop }: CategoryListProps) => {
+const CategoryList = ({ data, renderItem, ListHeaderComponent, onScroll, onScrollAnimationEnd, onScrollBeginDrag, onScrollEndDrag, onScrollToTop, contentOffset, contentInset, snapToOffsets }: CategoryListProps) => {
     return (
         <FlashList
             data={data}
@@ -25,6 +28,11 @@ const CategoryList = ({ data, renderItem, ListHeaderComponent, onScroll, onScrol
             onScrollBeginDrag={onScrollBeginDrag}
             onScrollEndDrag={onScrollEndDrag}
             onScrollToTop={onScrollToTop}
+            contentOffset={contentOffset}
+            contentInset={contentInset}
+            showsVerticalScrollIndicator={false}
+            scrollEventThrottle={16}
+
         />
     )
 }

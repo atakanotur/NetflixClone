@@ -36,5 +36,8 @@
   "myList": "My List",
   "home": "Home",
   "newAndPopular": "New & Popular",
-  "myNetflix": "My Netflix"
+  "myNetflix": "My Netflix",
+  "series": "Series",
+  "movies": "Movies",
+  "categories": "Categories"
 }

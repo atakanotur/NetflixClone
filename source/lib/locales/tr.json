@@ -36,5 +36,8 @@
   "myList": "Listem",
   "home": "Ana Sayfa",
   "newAndPopular": "Yeni ve Popüler",
-  "myNetflix": "Benim Netflix'im"
+  "myNetflix": "Benim Netflix'im",
+  "series": "Diziler",
+  "movies": "Filmler",
+  "categories": "Kategoriler"
 }
