@@ -6,11 +6,11 @@ type CategoryListProps = {
     data: Category[];
     renderItem: ListRenderItem<Category>
     ListHeaderComponent?: ComponentType<any> | ReactElement<any, string | React.JSXElementConstructor<any>>
-    onScroll?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void) | undefined
-    onScrollAnimationEnd?: (() => void) | undefined;
-    onScrollBeginDrag?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void) | undefined
-    onScrollEndDrag?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void) | undefined
-    onScrollToTop?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void) | undefined
+    onScroll?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void)
+    onScrollAnimationEnd?: (() => void)
+    onScrollBeginDrag?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void)
+    onScrollEndDrag?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void)
+    onScrollToTop?: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void)
     contentOffset?: PointProp
     contentInset?: Insets
     snapToOffsets?: number[]

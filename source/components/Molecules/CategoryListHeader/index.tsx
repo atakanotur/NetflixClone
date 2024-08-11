@@ -10,24 +10,24 @@ import responsiveFontSize from '@/source/theme/responsiveFontSize';
 const { height } = Dimensions.get('screen');
 
 type CategoryListHeaderProps = {
-    movie: Movie
-    posterOnPress: (movie: Movie) => void;
-    playOnPress: (movie: Movie) => void;
-    myListOnPress: (movie: Movie) => void;
+    content: EntertainmentContent
+    posterOnPress: (movie: EntertainmentContent) => void;
+    playOnPress: (movie: EntertainmentContent) => void;
+    myListOnPress: (movie: EntertainmentContent) => void;
 }
 
-const CategoryListHeader = ({ movie, posterOnPress, playOnPress, myListOnPress }: CategoryListHeaderProps) => {
+const CategoryListHeader = ({ content, posterOnPress, playOnPress, myListOnPress }: CategoryListHeaderProps) => {
     const [listAdded, setListAdded] = useState<boolean>(false);
     const myListButton = () => {
         setListAdded(!listAdded);
-        myListOnPress(movie)
+        myListOnPress(content)
     }
 
     return (
-        <Pressable style={styles.container} onPress={() => posterOnPress(movie)}>
-            <ImageBackground style={styles.posterContainer} source={{ uri: categories[0].movies[1].poster }} resizeMode="cover" imageStyle={styles.poster}>
+        <Pressable style={styles.container} onPress={() => posterOnPress(content)}>
+            <ImageBackground style={styles.posterContainer} source={{ uri: categories[0].contents[1].poster }} resizeMode="cover" imageStyle={styles.poster}>
                 <View style={styles.buttons}>
-                    <Pressable style={styles.playButtonContainer} onPress={() => playOnPress(movie)}>
+                    <Pressable style={styles.playButtonContainer} onPress={() => playOnPress(content)}>
                         <Ionicons name="play-sharp" size={25} color={colors.black} />
                         <Text text={localization.t("play")} style={[styles.buttonText, { color: colors.black }]} />
                     </Pressable>

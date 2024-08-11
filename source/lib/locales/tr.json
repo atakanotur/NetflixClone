@@ -39,5 +39,6 @@
   "myNetflix": "Benim Netflix'im",
   "series": "Diziler",
   "movies": "Filmler",
-  "categories": "Kategoriler"
+  "categories": "Kategoriler",
+  "allCategories": "Tüm Kategoriler"
 }

@@ -39,5 +39,6 @@
   "myNetflix": "My Netflix",
   "series": "Series",
   "movies": "Movies",
-  "categories": "Categories"
+  "categories": "Categories",
+  "allCategories": "All Categories"
 }

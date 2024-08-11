@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, Dimensions, Pressable, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 import { Text } from "../../Atoms";
 import { CategoryList, CategoryListHeader, MovieList, TopBar } from "../../Molecules";
@@ -9,16 +9,16 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 type HomeListProps = {
     profile: Profile
     categories: Category[]
-    movies: Movie[],
-    myListOnPress: (movie: Movie) => void;
-    playOnPress: (movie: Movie) => void;
-    posterOnPress: (movie: Movie) => void;
-    movieOnPress: (movie: Movie) => void;
+    contents: EntertainmentContent[],
+    myListOnPress: (movie: EntertainmentContent) => void;
+    playOnPress: (movie: EntertainmentContent) => void;
+    posterOnPress: (movie: EntertainmentContent) => void;
+    movieOnPress: (movie: EntertainmentContent) => void;
 }
 
 const { width } = Dimensions.get('screen');
 
-const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, posterOnPress, movieOnPress }: HomeListProps) => {
+const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, posterOnPress, movieOnPress }: HomeListProps) => {
     const { top } = useSafeAreaInsets();
     const [topBarHeight, setTopBarHeight] = useState(0);
     const [topBarButtonsHeight, setTopBarButtonsHeight] = useState(0);
@@ -26,7 +26,6 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
     const topBarButtonsPosition = useSharedValue(topBarHeight + top);
     const topBarButtonsOpacity = useSharedValue(1);
     const topBarBlurIntensity = useSharedValue(0);
-
 
     const categoryListOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         if (event.nativeEvent.contentOffset.y > -top * 2 + 10) {
@@ -37,16 +36,16 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
         }
         else {
             topBarPadding.value = withSpring(0);
-            topBarButtonsPosition.value = withTiming(topBarHeight + top, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
+            topBarButtonsPosition.value = withTiming(topBarHeight + top + 5, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
             topBarButtonsOpacity.value = withSpring(1);
             topBarBlurIntensity.value = withSpring(0, { duration: 1200 });
         }
     }
 
-    const movieListRenderItem = ({ item, index }: { item: MovieRepresentation, index: number }) => {
+    const movieListRenderItem = ({ item, index }: { item: any, index: number }) => {
         return (
             <View style={styles.movieContainer}>
-                <Pressable onPress={() => movieOnPress({ ...movies[0] })}>
+                <Pressable onPress={() => movieOnPress({ ...contents[0] })}>
                     <Image source={{ uri: item.poster }} style={styles.moviePoster} resizeMode="stretch" />
                 </Pressable>
             </View>
@@ -58,7 +57,7 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
             <View style={styles.categoryContainer}>
                 <Text text={item.title} style={styles.categoryTitle} />
                 <MovieList
-                    data={categories[index].movies}
+                    data={categories[index].contents}
                     renderItem={movieListRenderItem}
                 />
             </View>
@@ -71,7 +70,7 @@ const HomeList = ({ profile, categories, movies, myListOnPress, playOnPress, pos
             <CategoryList
                 data={categories}
                 renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
-                ListHeaderComponent={<CategoryListHeader movie={movies[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
+                ListHeaderComponent={<CategoryListHeader content={contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
                 onScroll={categoryListOnScroll}
                 contentInset={{ top: top * 2 + topBarHeight + 5, left: 0, right: 0, bottom: 0 }}
             />

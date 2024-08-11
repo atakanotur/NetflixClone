@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 type State = {
-  movies: Movie[];
+  movies: EntertainmentContent[];
 };
 
 type Action = {
