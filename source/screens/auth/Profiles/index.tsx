@@ -26,7 +26,7 @@ const Profiles = () => {
     const onConfirmProfilePassword = (value: string) => {
         if (value.length === 4) {
             if (value === profile?.password) {
-                router.push("/(main)/home");
+                router.push({ pathname: "/home" });
                 return true;
             }
             return false;
@@ -42,7 +42,7 @@ const Profiles = () => {
         if (profile.locked) {
             return setProfileVisiblePassword(true);
         }
-        return router.push("/(main)/home");
+        return router.push({ pathname: "/home" });
     }
 
     const profilesRenderItem = ({ item }: { item: Profile, index: number }) => {

@@ -5,6 +5,7 @@ import Banner from "./Banner";
 import CategoryList from "./CategoryList";
 import CategoryListHeader from "./CategoryListHeader";
 import MovieList from "./MovieList";
+import TopBar from "./TopBar";
 
 export {
   LandingList,
@@ -14,4 +15,5 @@ export {
   CategoryList,
   CategoryListHeader,
   MovieList,
+  TopBar,
 };

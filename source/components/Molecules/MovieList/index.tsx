@@ -2,9 +2,9 @@ import { FlashList, ListRenderItem } from "@shopify/flash-list";
 import { LegacyRef } from "react";
 
 type MovieListProps = {
-    ref?: LegacyRef<FlashList<MovieRepresentation>>;
-    data: MovieRepresentation[];
-    renderItem: ListRenderItem<MovieRepresentation>
+    ref?: LegacyRef<FlashList<ContentRepresentation>>;
+    data: ContentRepresentation[];
+    renderItem: ListRenderItem<ContentRepresentation>
 }
 
 const MovieList = ({ ref, data, renderItem }: MovieListProps) => {

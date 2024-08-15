@@ -1,5 +1,5 @@
 import localization from "@/source/lib/locales/localization";
-import { EvilIcons, Ionicons, Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 const MainLayout = () => {

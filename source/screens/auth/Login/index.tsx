@@ -11,7 +11,7 @@ import { router } from 'expo-router';
 import userStore from '@/source/store/userStore';
 import categoryStore from '@/source/store/categoryStore';
 import movieStore from '@/source/store/movieStore';
-import movies from '@/source/data/movie';
+import movies from '@/source/data/content';
 import categories from '@/source/data/categories';
 
 const Login = () => {

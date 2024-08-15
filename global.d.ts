@@ -6,34 +6,47 @@ declare global {
     password: string;
     profiles: Profile[];
   };
+
   type Profile = {
     id: string;
     name: string;
     imageUrl: string;
     locked: boolean;
     password?: string;
+    myList?: (Movie | Series)[];
   };
 
   type Category = {
     id: string;
     title: string;
-    movies: MovieRepresentation[];
+    type: "series" | "movie" | "mixed";
+    contents: {
+      id: string;
+      type: "movie" | "series";
+      title: string;
+      poster: string;
+    }[];
   };
 
-  type MovieRepresentation = {
+  type EntertainmentContent = {
     id: string;
-    poster: string;
-  };
-
-  type Movie = {
-    id: string;
+    type: "movie" | "series";
     title: string;
     year: number;
-    numberOfSeasons: number;
     plot: string;
     cast: string;
     creator: string;
+    poster: string;
+  };
+
+  type Series = EntertainmentContent & {
+    type: "series";
+    numberOfSeasons: number;
     seasons: Season[];
+  };
+
+  type Movie = EntertainmentContent & {
+    type: "movie";
   };
 
   type Season = {
@@ -52,4 +65,12 @@ declare global {
   };
 }
 
-export { User, Profile, Category, MovieRepresentation, Movie, Season, Episode };
+export {
+  User,
+  Profile,
+  Category,
+  ContentRepresentation,
+  EntertainmentContent,
+  Season,
+  Episode,
+};

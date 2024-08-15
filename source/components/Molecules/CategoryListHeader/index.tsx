@@ -9,23 +9,35 @@ import responsiveFontSize from '@/source/theme/responsiveFontSize';
 
 const { height } = Dimensions.get('screen');
 
-const CategoryListHeader = () => {
+type CategoryListHeaderProps = {
+    content: EntertainmentContent
+    posterOnPress: (movie: EntertainmentContent) => void;
+    playOnPress: (movie: EntertainmentContent) => void;
+    myListOnPress: (movie: EntertainmentContent) => void;
+}
+
+const CategoryListHeader = ({ content, posterOnPress, playOnPress, myListOnPress }: CategoryListHeaderProps) => {
     const [listAdded, setListAdded] = useState<boolean>(false);
+    const myListButton = () => {
+        setListAdded(!listAdded);
+        myListOnPress(content)
+    }
+
     return (
-        <View style={styles.container}>
-            <ImageBackground style={styles.posterContainer} source={{ uri: categories[0].movies[1].poster }} resizeMode="cover" imageStyle={styles.poster}>
+        <Pressable style={styles.container} onPress={() => posterOnPress(content)}>
+            <ImageBackground style={styles.posterContainer} source={{ uri: categories[0].contents[1].poster }} resizeMode="cover" imageStyle={styles.poster}>
                 <View style={styles.buttons}>
-                    <Pressable style={styles.playButtonContainer}>
+                    <Pressable style={styles.playButtonContainer} onPress={() => playOnPress(content)}>
                         <Ionicons name="play-sharp" size={25} color={colors.black} />
                         <Text text={localization.t("play")} style={[styles.buttonText, { color: colors.black }]} />
                     </Pressable>
-                    <Pressable style={styles.myListButtonContainer} onPress={() => setListAdded(!listAdded)}>
+                    <Pressable style={styles.myListButtonContainer} onPress={() => myListButton()}>
                         <Ionicons name={listAdded ? "checkmark" : "add"} size={25} color={colors.whiteGrey} />
                         <Text text={localization.t("myList")} style={styles.buttonText} />
                     </Pressable>
                 </View>
             </ImageBackground>
-        </View>
+        </Pressable>
     )
 }
 
