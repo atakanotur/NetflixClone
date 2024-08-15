@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View, StyleSheet, Image, Dimensions, Pressable, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 import { Text } from "../../Atoms";
 import { CategoryList, CategoryListHeader, MovieList, TopBar } from "../../Molecules";
@@ -9,16 +9,18 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 type HomeListProps = {
     profile: Profile
     categories: Category[]
-    contents: EntertainmentContent[],
-    myListOnPress: (movie: EntertainmentContent) => void;
-    playOnPress: (movie: EntertainmentContent) => void;
-    posterOnPress: (movie: EntertainmentContent) => void;
-    movieOnPress: (movie: EntertainmentContent) => void;
+    contents: (Series | Movie)[]
+    myListOnPress: (content: EntertainmentContent) => void;
+    playOnPress: (content: EntertainmentContent) => void;
+    posterOnPress: (content: EntertainmentContent) => void;
+    movieOnPress: (content: EntertainmentContent) => void;
 }
 
 const { width } = Dimensions.get('screen');
 
 const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, posterOnPress, movieOnPress }: HomeListProps) => {
+    const [tempCategories, setTempCategories] = useState<Category[]>(categories);
+
     const { top } = useSafeAreaInsets();
     const [topBarHeight, setTopBarHeight] = useState(0);
     const [topBarButtonsHeight, setTopBarButtonsHeight] = useState(0);
@@ -64,11 +66,19 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
         )
     }
 
+    const onChangeContenType = (contentType: "movie" | "series" | "mixed") => {
+        console.log('onChangeContenType', contentType);
+        if (contentType === "movie") return setTempCategories(categories.filter((category) => category.type === "movie"));
+        if (contentType === "series") return setTempCategories(categories.filter((category) => category.type === "series"));
+        if (contentType === "mixed") return setTempCategories(categories.filter((category) => category.type === "mixed"));
+    }
+
     return (
         <>
-            <TopBar top={top} profile={profile} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} />
+            <TopBar top={top} profile={profile} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} onChangeContentType={(contentType) => onChangeContenType(contentType)} />
             <CategoryList
-                data={categories}
+                data={tempCategories}
+                extraData={tempCategories}
                 renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
                 ListHeaderComponent={<CategoryListHeader content={contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
                 onScroll={categoryListOnScroll}

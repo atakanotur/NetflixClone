@@ -19,7 +19,13 @@ declare global {
   type Category = {
     id: string;
     title: string;
-    contents: Series | Movies;
+    type: "series" | "movie" | "mixed";
+    contents: {
+      id: string;
+      type: "movie" | "series";
+      title: string;
+      poster: string;
+    }[];
   };
 
   type EntertainmentContent = {
