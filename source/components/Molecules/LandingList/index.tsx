@@ -6,7 +6,6 @@ import colors from '@/source/theme/colors';
 import responsiveFontSize from '@/source/theme/responsiveFontSize';
 import Pagination from './Pagination';
 import Constants from "expo-constants";
-import Dot from './Dot';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -58,18 +57,19 @@ const renderItem: ListRenderItem<LadingListItemProps> = ({ item }) => {
 
 const LandingList = ({ data }: LandingListProps) => {
     const listRef = useRef<FlashList<LadingListItemProps>>(null);
-    const [paginationIndex, setPaginationIndex] = useState<number>(0);
+    const [redDotIndex, setRedDotIndex] = useState<number>(0);
     let currentPage = 0;
 
-    const handleScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         const contentOffsetX = event.nativeEvent.contentOffset.x;
+        const contentWidth = event.nativeEvent.contentSize.width;
         const newPage = Math.round(contentOffsetX / width);
         if (newPage !== currentPage) {
             currentPage = newPage;
             listRef.current?.scrollToIndex({ index: currentPage, animated: true });
         }
-        setPaginationIndex(currentPage);
-    };
+        setRedDotIndex(newPage);
+    }
 
     return (
         <View style={styles.container}>
@@ -80,11 +80,10 @@ const LandingList = ({ data }: LandingListProps) => {
                 estimatedItemSize={300}
                 horizontal
                 pagingEnabled
-                onMomentumScrollEnd={handleScrollEnd}
+                onScroll={handleScroll}
                 showsHorizontalScrollIndicator={false}
             />
-            <Pagination data={data} paginationIndex={paginationIndex} />
-
+            <Pagination redDotIndex={redDotIndex} data={data} />
         </View>
     )
 }

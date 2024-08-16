@@ -3,13 +3,12 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 type Props = {
-  index: number;
-  paginationIndex: number;
+  isRed: boolean;
 };
 
-const Dot = ({ index, paginationIndex }: Props) => {
+const Dot = ({ isRed }: Props) => {
   return (
-    <View style={paginationIndex === index ? styles.dot : styles.dotOpacity} />
+    <View style={isRed ? styles.dot : styles.dotOpacity} />
   );
 };
 
