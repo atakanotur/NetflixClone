@@ -5,16 +5,17 @@ import colors from '@/source/theme/colors';
 import Constants from 'expo-constants';
 
 type Props = {
-    paginationIndex: number;
+    redDotIndex: number;
     data: readonly any[];
 };
 
-const Pagination = ({ paginationIndex, data }: Props) => {
+const Pagination = ({ data, redDotIndex }: Props) => {
     return (
         <View style={styles.container}>
             {data.map((_, index) => {
+
                 return (
-                    <Dot index={index} key={index} paginationIndex={paginationIndex} />
+                    <Dot isRed={redDotIndex === index} key={index} />
                 );
             })}
         </View>
