@@ -13,7 +13,7 @@ declare global {
     imageUrl: string;
     locked: boolean;
     password?: string;
-    myList?: (Movie | Series)[];
+    myList: (Movie | Series)[];
   };
 
   type Category = {

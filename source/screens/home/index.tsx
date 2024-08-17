@@ -1,19 +1,34 @@
-import { Banner, Text, HomeList } from "@/source/components";
+import { HomeList } from "@/source/components";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./styles";
-import categoryStore from '@/source/store/categoryStore';
-import movieStore from '@/source/store/movieStore';
-import contents from "@/source/data/content";
-import categories from "@/source/data/categories";
-import user from "@/source/data/user";
 import userStore from "@/source/store/userStore";
+import contentStore from "@/source/store/contentStore";
+import categoryStore from "@/source/store/categoryStore";
 
 const Home = () => {
-    // const categories = categoryStore((state) => state.categories);
-    // const movies = movieStore((state) => state.movies);
+    const user = userStore((state) => state.user);
+    const categories = categoryStore((state) => state.categories);
+    const contents = contentStore((state) => state.contents);
+    const setUser = userStore((state) => state.setUser);
 
-    const myListOnPress = (movie: EntertainmentContent) => {
-        console.log("myListOnPress", movie);
+    const myListOnPress = (content: (Movie | Series)) => {
+        if (user.profiles[0].myList.includes(content)) {
+            setUser({
+                ...user,
+                profiles: [{
+                    ...user.profiles[0],
+                    myList: user.profiles[0].myList.filter((item) => item !== content)
+                }]
+            });
+            return;
+        }
+        setUser({
+            ...user,
+            profiles: [{
+                ...user.profiles[0],
+                myList: [...user.profiles[0].myList, content]
+            }]
+        })
     }
 
     const playOnPress = (movie: EntertainmentContent) => {
@@ -27,6 +42,9 @@ const Home = () => {
     const movieOnPress = (movie: EntertainmentContent) => {
         console.log("movieOnPress", movie);
     }
+
+    console.log("user", user.profiles);
+
 
     return (
         <SafeAreaView style={styles.container} edges={["left", "right"]}>
