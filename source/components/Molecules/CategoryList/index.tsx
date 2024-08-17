@@ -18,6 +18,7 @@ type CategoryListProps = {
 }
 
 const CategoryList = ({ data, extraData, renderItem, ListHeaderComponent, onScroll, onScrollAnimationEnd, onScrollBeginDrag, onScrollEndDrag, onScrollToTop, contentOffset, contentInset, snapToOffsets }: CategoryListProps) => {
+    console.log("data", data);
     return (
         <FlashList
             data={data}

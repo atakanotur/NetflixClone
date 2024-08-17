@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, StyleSheet, LayoutChangeEvent, Pressable, Text as RNText } from 'react-native';
 import Animated, { SharedValue, useSharedValue, withSpring } from 'react-native-reanimated';
 import { Text } from '../../Atoms';
@@ -29,6 +29,11 @@ const TopBar = ({ top, profile, topBarPadding, topBarButtonsPosition, topBarButt
     const [currentContentType, setCurrentContentType] = useState<"movie" | "series" | "mixed">("mixed")
 
     const [height, setHeight] = useState(0);
+
+    useEffect(() => {
+        console.log("profile", profile)
+    }, [profile])
+    
 
     const [seriesButtonWidth, setSeriesButtonWidth] = useState(0);
     const seriesButtonLeft = useSharedValue(0);

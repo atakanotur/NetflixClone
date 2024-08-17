@@ -10,17 +10,17 @@ type HomeListProps = {
     profile: Profile
     categories: Category[]
     contents: (Series | Movie)[]
-    myListOnPress: (content: EntertainmentContent) => void;
-    playOnPress: (content: EntertainmentContent) => void;
-    posterOnPress: (content: EntertainmentContent) => void;
-    movieOnPress: (content: EntertainmentContent) => void;
+    myListOnPress: (content: Series | Movie) => void;
+    playOnPress: (content: Series | Movie) => void;
+    posterOnPress: (content: Series | Movie) => void;
+    movieOnPress: (content: Series | Movie) => void;
 }
 
 const { width } = Dimensions.get('screen');
 
 const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, posterOnPress, movieOnPress }: HomeListProps) => {
     const [tempCategories, setTempCategories] = useState<Category[]>(categories);
-
+    console.log("contents", contents);
     const { top } = useSafeAreaInsets();
     const [topBarHeight, setTopBarHeight] = useState(0);
     const [topBarButtonsHeight, setTopBarButtonsHeight] = useState(0);

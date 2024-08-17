@@ -10,10 +10,10 @@ import responsiveFontSize from '@/source/theme/responsiveFontSize';
 const { height } = Dimensions.get('screen');
 
 type CategoryListHeaderProps = {
-    content: EntertainmentContent
-    posterOnPress: (movie: EntertainmentContent) => void;
-    playOnPress: (movie: EntertainmentContent) => void;
-    myListOnPress: (movie: EntertainmentContent) => void;
+    content: Series | Movie
+    posterOnPress: (movie: Series | Movie) => void;
+    playOnPress: (movie: Series | Movie) => void;
+    myListOnPress: (movie: Series | Movie) => void;
 }
 
 const CategoryListHeader = ({ content, posterOnPress, playOnPress, myListOnPress }: CategoryListHeaderProps) => {

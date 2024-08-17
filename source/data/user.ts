@@ -11,6 +11,7 @@ const user: User = {
         "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
       locked: true,
       password: "1234",
+      myList: [],
     },
     {
       id: "1",
@@ -19,6 +20,7 @@ const user: User = {
         "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
       locked: true,
       password: "1234",
+      myList: [],
     },
     {
       id: "2",
@@ -27,6 +29,7 @@ const user: User = {
         "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
       locked: true,
       password: "1234",
+      myList: [],
     },
     {
       id: "3",
@@ -34,6 +37,7 @@ const user: User = {
       imageUrl:
         "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
       locked: false,
+      myList: [],
     },
     {
       id: "4",
@@ -41,6 +45,7 @@ const user: User = {
       imageUrl:
         "https://occ-0-4609-769.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbHuAP6AwsPJ8qFBs6GRLRjPnViP_Q1d-QL2M_Rq7YdGyi8RcwZgLFbuAtuRJtjSd2liw0G8_c0nWUG3HD9J7Eeu2cxbZVTiMOFw.png?r=558",
       locked: false,
+      myList: [],
     },
   ],
 };
