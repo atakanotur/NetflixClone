@@ -14,7 +14,8 @@ const Profiles = () => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const editModeBackgroundOpacity = useSharedValue("rgba(0, 0, 0, 0)");
     const [profilePasswordVisible, setProfileVisiblePassword] = useState<boolean>(false);
-    const [profile, setProfile] = useState<Profile>();
+    const profile = userStore((state) => state.profile);
+    const setProfile = userStore((state) => state.setProfile);
     const profiles = userStore((state) => state.user.profiles);
 
     const onChangeEditMode = () => {

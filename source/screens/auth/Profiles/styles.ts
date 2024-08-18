@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
   profileListRenderItemImage: {
     height: width / 4.2,
     width: width / 4.2,
-    backgroundColor: "red",
     borderRadius: 10,
     justifyContent: "center",
   },

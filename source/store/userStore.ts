@@ -2,10 +2,12 @@ import { create } from "zustand";
 
 type Action = {
   setUser: (user: State["user"]) => void;
+  setProfile: (profile: State["profile"]) => void;
 };
 
 type State = {
   user: User;
+  profile: Profile;
 };
 
 const userStore = create<State & Action>()((set) => ({
@@ -61,6 +63,8 @@ const userStore = create<State & Action>()((set) => ({
     password: "12345678",
   },
   setUser: (user) => set(() => ({ user: user })),
+  profile: {} as Profile,
+  setProfile: (profile) => set(() => ({ profile: profile })),
 }));
 
 export default userStore;

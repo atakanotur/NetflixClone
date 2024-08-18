@@ -10,6 +10,7 @@ const Home = () => {
     const categories = categoryStore((state) => state.categories);
     const contents = contentStore((state) => state.contents);
     const setUser = userStore((state) => state.setUser);
+    const profile = userStore((state) => state.profile);
 
     const myListOnPress = (content: (Movie | Series)) => {
         if (user.profiles[0].myList.includes(content)) {
@@ -31,24 +32,21 @@ const Home = () => {
         })
     }
 
-    const playOnPress = (movie: EntertainmentContent) => {
-        console.log("playOnPress", movie);
+    const playOnPress = (content: Series | Movie) => {
+        console.log("playOnPress", content);
     }
 
-    const posterOnPress = (movie: EntertainmentContent) => {
-        console.log("posterOnPress", movie);
+    const posterOnPress = (content: Series | Movie) => {
+        console.log("posterOnPress", content);
     }
 
-    const movieOnPress = (movie: EntertainmentContent) => {
-        console.log("movieOnPress", movie);
+    const movieOnPress = (content: Series | Movie) => {
+        console.log("movieOnPress", content);
     }
-
-    console.log("user", user.profiles);
-
 
     return (
         <SafeAreaView style={styles.container} edges={["left", "right"]}>
-            <HomeList profile={user.profiles[0]} contents={contents} categories={categories} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} movieOnPress={movieOnPress} />
+            <HomeList profile={profile} contents={contents} categories={categories} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} movieOnPress={movieOnPress} />
         </SafeAreaView>
     )
 }
