@@ -18,7 +18,7 @@ const { height, width } = Dimensions.get('screen');
 const CategoryList = ({ visible = false, selectCategory, setVisible }: CategoryListProps) => {
 
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
-    const selectCategoryOnPress = (categoryId: string) => {
+    const handleSelectCategory = (categoryId: string) => {
         selectCategory(categoryId);
         setSelectedCategoryId(categoryId);
         setTimeout(() => {
@@ -31,8 +31,8 @@ const CategoryList = ({ visible = false, selectCategory, setVisible }: CategoryL
         <BlurView style={styles.blurView}>
             <ScrollView style={styles.container} scrollEnabled>
                 {categories.map((category) => (
-                    <Pressable key={category.id} onPress={() => selectCategoryOnPress(category.id)}>
-                        <Text key={category.id} text={category.title} style={selectedCategoryId !== category.id ? styles.categoryTitle : { padding: 20, color: colors.white, fontSize: responsiveFontSize(25), fontWeight: "800" }} />
+                    <Pressable key={category.id} onPress={() => handleSelectCategory(category.id)}>
+                        <Text text={category.title} style={selectedCategoryId !== category.id ? styles.categoryTitle : { padding: 20, color: colors.white, fontSize: responsiveFontSize(25), fontWeight: "800" }} />
                     </Pressable>
                 ))}
             </ScrollView>

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, StyleSheet, LayoutChangeEvent, Pressable, Text as RNText } from 'react-native';
 import Animated, { SharedValue } from 'react-native-reanimated';
 import { Text } from '../../Atoms';
@@ -48,6 +48,11 @@ const TopBar = ({ top, profile, categories, topBarPadding, topBarButtonsPosition
     const selectContentType = useCallback((contentType: "movie" | "series" | "mixed") => {
         animateContentTypeSelection(contentType, currentContentType, xButtonWidth, seriesButtonWidth, moviesButtonWidth, values, onChangeContentType, setCurrentContentType);
     }, [xButtonWidth, seriesButtonWidth, moviesButtonWidth])
+
+    const selectCategory = (categoryId: string) => {
+        animateCategorySelection(categoryId, xButtonWidth, values, onChangeCategory, setSelectedCategoryId)
+        onChangeCategory(categoryId);
+    }
 
     const handleLayout = useCallback((setState: (value: number) => void) => (event: LayoutChangeEvent) => {
         setState(event.nativeEvent.layout.width);
@@ -102,7 +107,7 @@ const TopBar = ({ top, profile, categories, topBarPadding, topBarButtonsPosition
                     <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
                 </AnimatedPressable>
             </Animated.View>
-            <CategoryList visible={categoryListVisible} setVisible={setCategoryListVisible} selectCategory={(id) => animateCategorySelection(id, xButtonWidth, values, onChangeCategory, setSelectedCategoryId)} />
+            <CategoryList visible={categoryListVisible} setVisible={setCategoryListVisible} selectCategory={selectCategory} />
         </>
     )
 }

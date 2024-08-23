@@ -71,9 +71,13 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
         if (contentType === "mixed") return setTempCategories(categories.filter((category) => category.type === "mixed"));
     }
 
+    const onChangeCategory = (categoryId: string) => {
+        setTempCategories(categories.filter((category) => category.id === categoryId));
+    }
+
     return (
         <>
-            <TopBar top={top} profile={profile} categories={categories} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} onChangeContentType={(contentType) => onChangeContenType(contentType)} onChangeCategory={(categoryId: string) => console.log("categoryId", categoryId)} />
+            <TopBar top={top} profile={profile} categories={categories} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} onChangeContentType={onChangeContenType} onChangeCategory={onChangeCategory} />
             <ContentList
                 data={tempCategories}
                 extraData={tempCategories}
