@@ -1,4 +1,5 @@
 import { HomeList } from "@/source/components";
+import { View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./styles";
 import userStore from "@/source/store/userStore";
@@ -45,9 +46,9 @@ const Home = () => {
     }
 
     return (
-        <SafeAreaView style={styles.container} edges={["left", "right"]}>
+        <View style={styles.container}>
             <HomeList profile={profile} contents={contents} categories={categories} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} movieOnPress={movieOnPress} />
-        </SafeAreaView>
+        </View>
     )
 }
 

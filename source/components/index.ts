@@ -4,5 +4,7 @@ export {
   ControlledInput,
   PasswordModal,
   Banner,
+  TopBar,
+  TabBar
 } from "./Molecules";
 export { HomeList } from "./Organisms";

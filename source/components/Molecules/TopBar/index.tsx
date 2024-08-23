@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, StyleSheet, LayoutChangeEvent, Pressable, Text as RNText } from 'react-native';
-import Animated, { SharedValue, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { SharedValue } from 'react-native-reanimated';
 import { Text } from '../../Atoms';
-import colors from '@/source/theme/colors';
 import responsiveFontSize from '@/source/theme/responsiveFontSize';
 import localization from '@/source/lib/locales/localization';
 import { MaterialIcons, Octicons, Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { router } from 'expo-router';
+import CategoryList from '../CategoryList';
+
+import { useAnimatedValues, animateContentTypeSelection, animateCategorySelection } from './animations';
+import colors from '@/source/theme/colors';
 
 type TopBarProps = {
     top: number
     profile: Profile
+    categories: Category[]
     topBarPadding: SharedValue<number>
     topBarButtonsPosition: SharedValue<number>
     topBarButtonsOpacity: SharedValue<number>
@@ -19,133 +23,53 @@ type TopBarProps = {
     setTopBarHeight: (event: LayoutChangeEvent) => void
     setTopBarButtonsHeight: (event: LayoutChangeEvent) => void
     onChangeContentType: (contentType: "movie" | "series" | "mixed") => void;
+    onChangeCategory: (categoryId: string) => void;
 }
 
-const TopBar = ({ top, profile, topBarPadding, topBarButtonsPosition, topBarButtonsOpacity, topBarBlurIntensity, setTopBarHeight, setTopBarButtonsHeight, onChangeContentType }: TopBarProps) => {
+const TopBar = ({ top, profile, categories, topBarPadding, topBarButtonsPosition, topBarButtonsOpacity, topBarBlurIntensity, setTopBarHeight, setTopBarButtonsHeight, onChangeContentType, onChangeCategory }: TopBarProps) => {
     const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
     const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
     const AnimatedRNText = Animated.createAnimatedComponent(RNText);
 
-    const [currentContentType, setCurrentContentType] = useState<"movie" | "series" | "mixed">("mixed")
+    const [currentContentType, setCurrentContentType] = useState<"movie" | "series" | "mixed">("mixed");
+
+    const [categoryListVisible, setCategoryListVisible] = useState<boolean>(false);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
     const [height, setHeight] = useState(0);
 
-    useEffect(() => {
-        console.log("profile", profile)
-    }, [profile])
-    
+    const values = useAnimatedValues();
 
     const [seriesButtonWidth, setSeriesButtonWidth] = useState(0);
-    const seriesButtonLeft = useSharedValue(0);
-    const seriesButtonOpacity = useSharedValue(1);
-    const seriesButtonBackground = useSharedValue(colors.black);
-    const seriesButtonTextColor = useSharedValue(colors.whiteGrey);
-
     const [moviesButtonWidth, setMoviesButtonWidth] = useState(0);
-    const moviesButtonLeft = useSharedValue(0);
-    const moviesButtonOpacity = useSharedValue(1);
-    const moviesButtonBackground = useSharedValue(colors.black);
-    const moviesButtonTextColor = useSharedValue(colors.whiteGrey);
-
     const [xButtonWidth, setXButtonWidth] = useState(0);
-    const xButtonLeft = useSharedValue(-50);
-    const xButtonOpacity = useSharedValue(0);
-
-    const categoriesButtonLeft = useSharedValue(0);
-    const categoriesButtonOpacity = useSharedValue(1);
     const [categoriesButtonWidth, setCategoriesButtonWidth] = useState(0);
 
-    const allCategoriesButtonLeft = useSharedValue(0);
-    const allCategoriesButtonOpacity = useSharedValue(0);
+    const selectContentType = useCallback((contentType: "movie" | "series" | "mixed") => {
+        animateContentTypeSelection(contentType, currentContentType, xButtonWidth, seriesButtonWidth, moviesButtonWidth, values, onChangeContentType, setCurrentContentType);
+    }, [xButtonWidth, seriesButtonWidth, moviesButtonWidth])
 
-    const onLayoutTopBar = (event: LayoutChangeEvent) => {
+    const selectCategory = (categoryId: string) => {
+        animateCategorySelection(categoryId, xButtonWidth, values, onChangeCategory, setSelectedCategoryId)
+        onChangeCategory(categoryId);
+    }
+
+    const handleLayout = useCallback((setState: (value: number) => void) => (event: LayoutChangeEvent) => {
+        setState(event.nativeEvent.layout.width);
+    }, []);
+
+    const handleLayoutTopBar = useCallback((event: LayoutChangeEvent) => {
         setTopBarHeight(event);
         setHeight(event.nativeEvent.layout.height);
-        if (moviesButtonWidth !== 0 && categoriesButtonWidth === 0) selectContentType("mixed");
-    };
-
-    const onLayoutTopBarButtons = (event: LayoutChangeEvent) => {
-        setTopBarButtonsHeight(event);
-    }
-
-    const onLayoutXButton = (event: LayoutChangeEvent) => {
-        setXButtonWidth(event.nativeEvent.layout.width);
-    }
-
-    const onLayoutSeriesButton = (event: LayoutChangeEvent) => {
-        setSeriesButtonWidth(event.nativeEvent.layout.width);
-    }
-
-    const onLayoutMoviesButton = (event: LayoutChangeEvent) => {
-        setMoviesButtonWidth(event.nativeEvent.layout.width);
-    }
-
-    const onLayoutCategoriesButton = (event: LayoutChangeEvent) => {
-        setCategoriesButtonWidth(event.nativeEvent.layout.width);
-    }
-
-    const selectContentType = (contentType: "movie" | "series" | "mixed") => {
-        console.log("selectContentType", contentType);
-        if (currentContentType !== contentType) {
-            onChangeContentType(contentType);
-            setCurrentContentType(contentType);
-            if (contentType === "movie") {
-                xButtonLeft.value = withSpring(0, { duration: 1350, dampingRatio: 0.7 });
-                xButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-                seriesButtonLeft.value = withSpring(-20, { duration: 1350, dampingRatio: 0.7 });
-                seriesButtonOpacity.value = withSpring(0, { duration: 750, dampingRatio: 0.7 });
-                seriesButtonBackground.value = withSpring(colors.black);
-                seriesButtonTextColor.value = withSpring(colors.whiteGrey);
-                moviesButtonLeft.value = withSpring(xButtonWidth + 10, { duration: 1350, dampingRatio: 0.7 });
-                moviesButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-                moviesButtonBackground.value = withSpring(colors.whiteGrey);
-                moviesButtonTextColor.value = withSpring(colors.white);
-                categoriesButtonLeft.value = withSpring(-20, { duration: 1350, dampingRatio: 0.7 });
-                categoriesButtonOpacity.value = withSpring(0, { duration: 750, dampingRatio: 0.7 });
-                allCategoriesButtonLeft.value = withSpring((xButtonWidth + moviesButtonWidth + 15), { duration: 1350, dampingRatio: 0.7 });
-                allCategoriesButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-                return;
-            }
-            if (contentType === "series") {
-                xButtonLeft.value = withSpring(0, { duration: 1350, dampingRatio: 0.7 });
-                xButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-                seriesButtonLeft.value = withSpring(xButtonWidth + 10, { duration: 1350, dampingRatio: 0.7 });
-                seriesButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-                seriesButtonBackground.value = withSpring(colors.whiteGrey);
-                seriesButtonTextColor.value = withSpring(colors.white);
-                moviesButtonLeft.value = withSpring(-20, { duration: 1350, dampingRatio: 0.7 })
-                moviesButtonOpacity.value = withSpring(0, { duration: 750, dampingRatio: 0.7 });
-                moviesButtonBackground.value = withSpring(colors.black);
-                moviesButtonTextColor.value = withSpring(colors.whiteGrey);
-                categoriesButtonOpacity.value = withSpring(0, { duration: 750, dampingRatio: 0.7 });
-                categoriesButtonLeft.value = withSpring(-20, { duration: 1350, dampingRatio: 0.7 });
-                allCategoriesButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-                allCategoriesButtonLeft.value = withSpring(xButtonWidth + moviesButtonWidth + 15, { duration: 1350, dampingRatio: 0.7 });
-                return;
-            }
+        if (moviesButtonWidth !== 0 && categoriesButtonWidth === 0) {
+            animateContentTypeSelection("mixed", currentContentType, xButtonWidth, seriesButtonWidth, moviesButtonWidth, values, onChangeContentType, setCurrentContentType);
         }
-        onChangeContentType("mixed");
-        setCurrentContentType("mixed");
-        xButtonLeft.value = withSpring(-50, { duration: 1350, dampingRatio: 0.7 });
-        xButtonOpacity.value = withSpring(0, { duration: 750, dampingRatio: 0.7 });
-        seriesButtonLeft.value = withSpring(0, { duration: 1350, dampingRatio: 0.7 });
-        seriesButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-        seriesButtonBackground.value = withSpring(colors.black);
-        seriesButtonTextColor.value = withSpring(colors.whiteGrey);
-        moviesButtonLeft.value = withSpring((seriesButtonWidth + 5), { duration: 1350, dampingRatio: 0.7 });
-        moviesButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-        moviesButtonBackground.value = withSpring(colors.black);
-        moviesButtonTextColor.value = withSpring(colors.whiteGrey);
-        categoriesButtonLeft.value = withSpring((seriesButtonWidth + moviesButtonWidth + 10), { duration: 1350, dampingRatio: 0.7 });
-        categoriesButtonOpacity.value = withSpring(1, { duration: 750, dampingRatio: 0.7 });
-        allCategoriesButtonLeft.value = withSpring(-20, { duration: 1350, dampingRatio: 0.7 });
-        allCategoriesButtonOpacity.value = withSpring(0, { duration: 750, dampingRatio: 0.7 });
-    }
+    }, [moviesButtonWidth]);
 
     return (
         <>
-            <Animated.View style={[styles.container, { height: height + top, paddingLeft: topBarPadding, paddingRight: topBarPadding }]}>
-                <View style={styles.profile} onLayout={onLayoutTopBar}>
+            <Animated.View style={[styles.container, { height: height + top, paddingHorizontal: topBarPadding }]}>
+                <View style={styles.profile} onLayout={handleLayoutTopBar}>
                     <Text text={profile.name} style={styles.profileName} />
                     <Text text={localization.t("for")} style={styles.for} />
                 </View>
@@ -156,29 +80,34 @@ const TopBar = ({ top, profile, topBarPadding, topBarButtonsPosition, topBarButt
                 </View>
                 <AnimatedBlurView style={[styles.blurView]} intensity={topBarBlurIntensity} />
             </Animated.View>
-            <Animated.View style={[styles.buttons, { top: topBarButtonsPosition, opacity: topBarButtonsOpacity }]} onLayout={onLayoutTopBarButtons}>
-                <AnimatedPressable onPress={() => selectContentType("mixed")} style={[styles.xButton, { zIndex: 7, left: xButtonLeft, opacity: xButtonOpacity }]} onLayout={onLayoutXButton}>
+            <Animated.View style={[styles.buttons, { top: topBarButtonsPosition, opacity: topBarButtonsOpacity }]} onLayout={setTopBarButtonsHeight}>
+                <AnimatedPressable onPress={() => selectContentType("mixed")} style={[styles.xButton, { zIndex: 7, left: values.xButtonLeft, opacity: values.xButtonOpacity }]} onLayout={handleLayout(setXButtonWidth)}>
                     <Ionicons name="close" size={responsiveFontSize(25)} color={colors.white} />
                 </AnimatedPressable>
-                <AnimatedPressable onPress={() => selectContentType("series")} style={[styles.button, { zIndex: 6, left: seriesButtonLeft, opacity: seriesButtonOpacity, backgroundColor: seriesButtonBackground }]} onLayout={onLayoutSeriesButton}>
-                    <AnimatedRNText style={[styles.buttonText, { color: seriesButtonTextColor }]}>
+                <AnimatedPressable onPress={() => selectContentType("series")} style={[styles.button, { zIndex: 6, left: values.seriesButtonLeft, opacity: values.seriesButtonOpacity, backgroundColor: values.seriesButtonBackground }]} onLayout={handleLayout(setSeriesButtonWidth)}>
+                    <AnimatedRNText style={[styles.buttonText, { color: values.seriesButtonTextColor }]}>
                         {localization.t("series")}
                     </AnimatedRNText>
                 </AnimatedPressable>
-                <AnimatedPressable onPress={() => selectContentType("movie")} style={[styles.button, { zIndex: 5, left: moviesButtonLeft, opacity: moviesButtonOpacity, backgroundColor: moviesButtonBackground }]} onLayout={onLayoutMoviesButton}>
-                    <AnimatedRNText style={[styles.buttonText, { color: moviesButtonTextColor }]}>
+                <AnimatedPressable onPress={() => selectContentType("movie")} style={[styles.button, { zIndex: 5, left: values.moviesButtonLeft, opacity: values.moviesButtonOpacity, backgroundColor: values.moviesButtonBackground }]} onLayout={handleLayout(setMoviesButtonWidth)}>
+                    <AnimatedRNText style={[styles.buttonText, { color: values.moviesButtonTextColor }]}>
                         {localization.t("movies")}
                     </AnimatedRNText>
                 </AnimatedPressable>
-                <AnimatedPressable style={[styles.button, { flexDirection: 'row', zIndex: 4, left: categoriesButtonLeft, opacity: categoriesButtonOpacity }]} onLayout={onLayoutCategoriesButton}>
+                <AnimatedPressable style={[styles.button, { flexDirection: 'row', zIndex: 4, left: values.categoriesButtonLeft, opacity: values.categoriesButtonOpacity }]} onLayout={handleLayout(setCategoriesButtonWidth)} onPress={() => setCategoryListVisible(true)}>
                     <Text text={localization.t("categories")} style={styles.buttonText} />
                     <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
                 </AnimatedPressable>
-                <AnimatedPressable style={[styles.button, { flexDirection: 'row', zIndex: 3, left: allCategoriesButtonLeft, opacity: allCategoriesButtonOpacity }]}>
+                <AnimatedPressable style={[styles.button, { flexDirection: 'row', zIndex: 3, left: values.allCategoriesButtonLeft, opacity: values.allCategoriesButtonOpacity }]} >
                     <Text text={localization.t("allCategories")} style={styles.buttonText} />
                     <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
                 </AnimatedPressable>
-            </Animated.View >
+                <AnimatedPressable style={[styles.button, { backgroundColor: values.categoryButtonBackground, zIndex: 2, left: values.categoryButtonLeft, opacity: values.categoryButtonOpacity, flexDirection: 'row' }]} onPress={() => setCategoryListVisible(true)}>
+                    <Text text={categories.find((category) => category.id === selectedCategoryId)?.title} style={[styles.buttonText, { color: colors.white }]} />
+                    <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
+                </AnimatedPressable>
+            </Animated.View>
+            <CategoryList visible={categoryListVisible} setVisible={setCategoryListVisible} selectCategory={selectCategory} />
         </>
     )
 }

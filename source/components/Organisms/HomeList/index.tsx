@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, StyleSheet, Image, Dimensions, Pressable, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 import { Text } from "../../Atoms";
-import { CategoryList, CategoryListHeader, MovieList, TopBar } from "../../Molecules";
+import { ContentList, ContentListHeader, MovieList, TopBar } from "../../Molecules";
 import colors from "@/source/theme/colors";
 import { ReduceMotion, useSharedValue, withSpring, withTiming, Easing } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -20,7 +20,6 @@ const { width } = Dimensions.get('screen');
 
 const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, posterOnPress, movieOnPress }: HomeListProps) => {
     const [tempCategories, setTempCategories] = useState<Category[]>(categories);
-    console.log("contents", contents);
     const { top } = useSafeAreaInsets();
     const [topBarHeight, setTopBarHeight] = useState(0);
     const [topBarButtonsHeight, setTopBarButtonsHeight] = useState(0);
@@ -67,20 +66,23 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
     }
 
     const onChangeContenType = (contentType: "movie" | "series" | "mixed") => {
-        console.log('onChangeContenType', contentType);
         if (contentType === "movie") return setTempCategories(categories.filter((category) => category.type === "movie"));
         if (contentType === "series") return setTempCategories(categories.filter((category) => category.type === "series"));
         if (contentType === "mixed") return setTempCategories(categories.filter((category) => category.type === "mixed"));
     }
 
+    const onChangeCategory = (categoryId: string) => {
+        setTempCategories(categories.filter((category) => category.id === categoryId));
+    }
+
     return (
         <>
-            <TopBar top={top} profile={profile} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} onChangeContentType={(contentType) => onChangeContenType(contentType)} />
-            <CategoryList
+            <TopBar top={top} profile={profile} categories={categories} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} onChangeContentType={onChangeContenType} onChangeCategory={onChangeCategory} />
+            <ContentList
                 data={tempCategories}
                 extraData={tempCategories}
                 renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
-                ListHeaderComponent={<CategoryListHeader content={contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
+                ListHeaderComponent={<ContentListHeader content={contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
                 onScroll={categoryListOnScroll}
                 contentInset={{ top: top * 2 + topBarHeight + 5, left: 0, right: 0, bottom: 0 }}
             />
