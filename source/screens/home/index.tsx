@@ -46,9 +46,9 @@ const Home = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container} edges={["left", "right"]}>
             <HomeList profile={profile} contents={contents} categories={categories} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} movieOnPress={movieOnPress} />
-        </View>
+        </SafeAreaView>
     )
 }
 
