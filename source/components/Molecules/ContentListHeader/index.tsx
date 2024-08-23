@@ -16,7 +16,7 @@ type CategoryListHeaderProps = {
     myListOnPress: (movie: Series | Movie) => void;
 }
 
-const CategoryListHeader = ({ content, posterOnPress, playOnPress, myListOnPress }: CategoryListHeaderProps) => {
+const ContentListHeader = ({ content, posterOnPress, playOnPress, myListOnPress }: CategoryListHeaderProps) => {
     const [listAdded, setListAdded] = useState<boolean>(false);
     const myListButton = () => {
         setListAdded(!listAdded);
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CategoryListHeader;
+export default ContentListHeader;
