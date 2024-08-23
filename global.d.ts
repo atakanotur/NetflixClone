@@ -20,12 +20,7 @@ declare global {
     id: string;
     title: string;
     type: "series" | "movie" | "mixed";
-    contents: {
-      id: string;
-      type: "movie" | "series";
-      title: string;
-      poster: string;
-    }[];
+    contents: (Series | Movie)[];
   };
 
   type EntertainmentContent = {
@@ -69,8 +64,9 @@ export {
   User,
   Profile,
   Category,
-  ContentRepresentation,
   EntertainmentContent,
   Season,
   Episode,
+  Series,
+  Movie,
 };

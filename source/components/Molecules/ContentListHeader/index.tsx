@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import categories from "@/source/data/categories";
 import colors from "@/source/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { View, ImageBackground, Pressable, StyleSheet, Dimensions } from "react-native"
@@ -25,7 +24,7 @@ const ContentListHeader = ({ content, posterOnPress, playOnPress, myListOnPress 
 
     return (
         <Pressable style={styles.container} onPress={() => posterOnPress(content)}>
-            <ImageBackground style={styles.posterContainer} source={{ uri: categories[0].contents[1].poster }} resizeMode="cover" imageStyle={styles.poster}>
+            <ImageBackground style={styles.posterContainer} source={{ uri: content.poster }} resizeMode="cover" imageStyle={styles.poster}>
                 <View style={styles.buttons}>
                     <Pressable style={styles.playButtonContainer} onPress={() => playOnPress(content)}>
                         <Ionicons name="play-sharp" size={25} color={colors.black} />
@@ -44,15 +43,17 @@ const ContentListHeader = ({ content, posterOnPress, playOnPress, myListOnPress 
 const styles = StyleSheet.create({
     container: {
         height: height / 1.5,
-        padding: 20
+        padding: 20,
     },
     posterContainer: {
         height: "100%",
         width: "100%",
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-end'
     },
     poster: {
         borderRadius: 10,
+        borderWidth: 1,
+        borderColor: colors.grey
     },
     buttons: {
         flexDirection: 'row',
