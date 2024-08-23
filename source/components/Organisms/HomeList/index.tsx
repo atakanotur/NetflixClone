@@ -82,7 +82,7 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
                 data={tempCategories}
                 extraData={tempCategories}
                 renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
-                ListHeaderComponent={<ContentListHeader content={contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
+                ListHeaderComponent={<ContentListHeader content={tempCategories[0].contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress}  posterOnPress={posterOnPress} />}
                 onScroll={categoryListOnScroll}
                 contentInset={{ top: top * 2 + topBarHeight + 5, left: 0, right: 0, bottom: 0 }}
             />
