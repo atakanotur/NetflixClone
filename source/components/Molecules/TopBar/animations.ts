@@ -14,12 +14,12 @@ export function useAnimatedValues() {
   return {
     seriesButtonLeft: useSharedValue(0),
     seriesButtonOpacity: useSharedValue(1),
-    seriesButtonBackground: useSharedValue(colors.black),
+    seriesButtonBackground: useSharedValue("transparent"),
     seriesButtonTextColor: useSharedValue(colors.whiteGrey),
 
     moviesButtonLeft: useSharedValue(0),
     moviesButtonOpacity: useSharedValue(1),
-    moviesButtonBackground: useSharedValue(colors.black),
+    moviesButtonBackground: useSharedValue("transparent"),
     moviesButtonTextColor: useSharedValue(colors.whiteGrey),
 
     xButtonLeft: useSharedValue(X_BUTTON_INITIAL_LEFT),
@@ -27,7 +27,7 @@ export function useAnimatedValues() {
 
     categoryButtonLeft: useSharedValue(0),
     categoryButtonOpacity: useSharedValue(1),
-    categoryButtonBackground: useSharedValue(colors.black),
+    categoryButtonBackground: useSharedValue("transparent"),
 
     categoriesButtonLeft: useSharedValue(0),
     categoriesButtonOpacity: useSharedValue(1),
@@ -88,7 +88,7 @@ export function animateContentTypeSelection(
       OPACITY_SPRING_CONFIG
     );
     seriesButtonBackground.value = withSpring(
-      isSeries ? colors.whiteGrey : colors.black
+      isSeries ? colors.whiteGrey : "transparent"
     );
     seriesButtonTextColor.value = withSpring(
       isSeries ? colors.white : colors.whiteGrey
@@ -103,7 +103,7 @@ export function animateContentTypeSelection(
       OPACITY_SPRING_CONFIG
     );
     moviesButtonBackground.value = withSpring(
-      isMovie ? colors.whiteGrey : colors.black
+      isMovie ? colors.whiteGrey : "transparent"
     );
     moviesButtonTextColor.value = withSpring(
       isMovie ? colors.white : colors.whiteGrey
@@ -133,7 +133,7 @@ export function animateContentTypeSelection(
 
   seriesButtonLeft.value = withSpring(0, SPRING_CONFIG);
   seriesButtonOpacity.value = withSpring(1, OPACITY_SPRING_CONFIG);
-  seriesButtonBackground.value = withSpring(colors.black);
+  seriesButtonBackground.value = withSpring("transparent");
   seriesButtonTextColor.value = withSpring(colors.whiteGrey);
 
   moviesButtonLeft.value = withSpring(
@@ -141,7 +141,7 @@ export function animateContentTypeSelection(
     SPRING_CONFIG
   );
   moviesButtonOpacity.value = withSpring(1, OPACITY_SPRING_CONFIG);
-  moviesButtonBackground.value = withSpring(colors.black);
+  moviesButtonBackground.value = withSpring("transparent");
   moviesButtonTextColor.value = withSpring(colors.whiteGrey);
 
   categoriesButtonLeft.value = withSpring(
@@ -158,7 +158,7 @@ export function animateContentTypeSelection(
 
   categoryButtonLeft.value = withSpring(INITIAL_BUTTON_OFFSET, SPRING_CONFIG);
   categoryButtonOpacity.value = withSpring(0, OPACITY_SPRING_CONFIG);
-  categoryButtonBackground.value = withSpring(colors.black);
+  categoryButtonBackground.value = withSpring("transparent");
 }
 
 export function animateCategorySelection(
@@ -198,12 +198,12 @@ export function animateCategorySelection(
   );
   seriesButtonLeft.value = withSpring(INITIAL_BUTTON_OFFSET, SPRING_CONFIG);
   seriesButtonOpacity.value = withSpring(0, OPACITY_SPRING_CONFIG);
-  seriesButtonBackground.value = withSpring(colors.black);
+  seriesButtonBackground.value = withSpring("transparent");
   seriesButtonTextColor.value = withSpring(colors.whiteGrey);
 
   moviesButtonLeft.value = withSpring(INITIAL_BUTTON_OFFSET, SPRING_CONFIG);
   moviesButtonOpacity.value = withSpring(0, OPACITY_SPRING_CONFIG);
-  moviesButtonBackground.value = withSpring(colors.black);
+  moviesButtonBackground.value = withSpring("transparent");
   moviesButtonTextColor.value = withSpring(colors.whiteGrey);
 
   categoriesButtonLeft.value = withSpring(INITIAL_BUTTON_OFFSET, SPRING_CONFIG);

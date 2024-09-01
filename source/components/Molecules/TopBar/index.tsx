@@ -8,7 +8,6 @@ import { MaterialIcons, Octicons, Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { router } from 'expo-router';
 import CategoryList from '../CategoryList';
-
 import { useAnimatedValues, animateContentTypeSelection, animateCategorySelection } from './animations';
 import colors from '@/source/theme/colors';
 
@@ -98,7 +97,7 @@ const TopBar = ({ top, profile, categories, topBarPadding, topBarButtonsPosition
                     <Text text={localization.t("categories")} style={styles.buttonText} />
                     <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
                 </AnimatedPressable>
-                <AnimatedPressable style={[styles.button, { flexDirection: 'row', zIndex: 3, left: values.allCategoriesButtonLeft, opacity: values.allCategoriesButtonOpacity }]} >
+                <AnimatedPressable style={[styles.button, { flexDirection: 'row', zIndex: 3, left: values.allCategoriesButtonLeft, opacity: values.allCategoriesButtonOpacity }]} onPress={() => setCategoryListVisible(true)}>
                     <Text text={localization.t("allCategories")} style={styles.buttonText} />
                     <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
                 </AnimatedPressable>
