@@ -29,7 +29,11 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
     const topBarBlurIntensity = useSharedValue(0);
 
     const categoryListOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        if (event.nativeEvent.contentOffset.y > -top * 2 + 10) {
+        console.log("categoryListOnScroll", event.nativeEvent.contentOffset.y);
+        console.log("top", top);
+        console.log("topBarHeight", topBarHeight);
+        console.log("topBarButtonsHeight", topBarButtonsHeight);
+        if (event.nativeEvent.contentOffset.y > top) {
             topBarPadding.value = withSpring(10);
             topBarButtonsPosition.value = withTiming((topBarHeight + top) - topBarButtonsHeight, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
             topBarButtonsOpacity.value = withSpring(0, { duration: 1000 });
@@ -82,9 +86,10 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
                 data={tempCategories}
                 extraData={tempCategories}
                 renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
-                ListHeaderComponent={<ContentListHeader content={tempCategories[0].contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress}  posterOnPress={posterOnPress} />}
+                ListHeaderComponent={<ContentListHeader content={tempCategories[0].contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
                 onScroll={categoryListOnScroll}
-                contentInset={{ top: top * 2 + topBarHeight + 5, left: 0, right: 0, bottom: 0 }}
+                contentContainerStyle={{ paddingTop: top + topBarHeight + topBarButtonsHeight }}
+                contentInset={{ top: 1 }}
             />
         </>
     )
