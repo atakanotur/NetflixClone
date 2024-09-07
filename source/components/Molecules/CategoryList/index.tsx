@@ -1,4 +1,4 @@
-import { forwardRef, Dispatch, useState } from 'react';
+import { Dispatch, useState } from 'react';
 import { ScrollView, StyleSheet, Dimensions, Pressable } from "react-native";
 import { BlurView } from "expo-blur";
 import categories from "@/source/data/categories";
@@ -6,6 +6,8 @@ import { Text } from "../../Atoms";
 import { Ionicons } from '@expo/vector-icons';
 import colors from '@/source/theme/colors';
 import responsiveFontSize from '@/source/theme/responsiveFontSize';
+import { Portal } from 'react-native-portalize';
+import Constants from 'expo-constants';
 
 type CategoryListProps = {
     visible: boolean;
@@ -15,8 +17,9 @@ type CategoryListProps = {
 
 const { height, width } = Dimensions.get('screen');
 
-const CategoryList = ({ visible = false, selectCategory, setVisible }: CategoryListProps) => {
+const { statusBarHeight } = Constants;
 
+const CategoryList = ({ visible = false, selectCategory, setVisible }: CategoryListProps) => {
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
     const handleSelectCategory = (categoryId: string) => {
         selectCategory(categoryId);
@@ -28,18 +31,20 @@ const CategoryList = ({ visible = false, selectCategory, setVisible }: CategoryL
     if (!visible) return null;
 
     return (
-        <BlurView style={styles.blurView}>
-            <ScrollView style={styles.container} scrollEnabled>
-                {categories.map((category) => (
-                    <Pressable key={category.id} onPress={() => handleSelectCategory(category.id)}>
-                        <Text text={category.title} style={selectedCategoryId !== category.id ? styles.categoryTitle : { padding: 20, color: colors.white, fontSize: responsiveFontSize(25), fontWeight: "800" }} />
-                    </Pressable>
-                ))}
-            </ScrollView>
-            <Pressable style={styles.closeButton} onPress={() => setVisible(false)}>
-                <Ionicons name="close" size={24} color={colors.grey} />
-            </Pressable>
-        </BlurView>
+        <Portal>
+            <BlurView style={styles.blurView}>
+                <ScrollView style={styles.container} scrollEnabled>
+                    {categories.map((category) => (
+                        <Pressable key={category.id} onPress={() => handleSelectCategory(category.id)}>
+                            <Text text={category.title} style={selectedCategoryId !== category.id ? styles.categoryTitle : { padding: 20, color: colors.white, fontSize: responsiveFontSize(25), fontWeight: "800" }} />
+                        </Pressable>
+                    ))}
+                </ScrollView>
+                <Pressable style={styles.closeButton} onPress={() => setVisible(false)}>
+                    <Ionicons name="close" size={24} color={colors.grey} />
+                </Pressable>
+            </BlurView>
+        </Portal>
     );
 };
 
@@ -52,11 +57,11 @@ const styles = StyleSheet.create({
         top: 0,
         width,
         height,
-        zIndex: 2,
+        zIndex: 2
     },
     container: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: statusBarHeight + 20,
     },
     categoryTitle: {
         padding: 20,
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
     },
     closeButton: {
         position: 'absolute',
-        bottom: 100,
+        bottom: 50,
         left: width / 2 - 25,
         height: 50,
         width: 50,
