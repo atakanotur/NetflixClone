@@ -101,9 +101,9 @@ const TopBar = ({ top, profile, categories, topBarPadding, topBarButtonsPosition
                     <Text text={localization.t("allCategories")} style={styles.buttonText} />
                     <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
                 </AnimatedPressable>
-                <AnimatedPressable style={[styles.button, { backgroundColor: values.categoryButtonBackground, zIndex: 2, left: values.categoryButtonLeft, opacity: values.categoryButtonOpacity, flexDirection: 'row' }]} onPress={() => setCategoryListVisible(true)}>
+                <AnimatedPressable style={[styles.button, { flexDirection: 'row', backgroundColor: values.categoryButtonBackground, zIndex: 2, left: values.categoryButtonLeft, opacity: values.categoryButtonOpacity }]} onPress={() => setCategoryListVisible(true)}>
                     <Text text={categories.find((category) => category.id === selectedCategoryId)?.title} style={[styles.buttonText, { color: colors.white }]} />
-                    <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.whiteGrey} style={{ marginLeft: 5 }} />
+                    <Ionicons name="chevron-down" size={responsiveFontSize(20)} color={colors.white} style={{ marginLeft: 5 }} />
                 </AnimatedPressable>
             </Animated.View>
             <CategoryList visible={categoryListVisible} setVisible={setCategoryListVisible} selectCategory={selectCategory} />
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: colors.whiteGrey,
         padding: 7,
-        paddingLeft: 13,
-        paddingRight: 13,
+        paddingHorizontal: 13,
+
     },
     xButton: {
         width: 30,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: colors.whiteGrey,
         fontSize: responsiveFontSize(15),
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     blurView: {
         zIndex: 0,
