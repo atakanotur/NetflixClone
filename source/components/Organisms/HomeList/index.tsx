@@ -29,10 +29,6 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
     const topBarBlurIntensity = useSharedValue(0);
 
     const categoryListOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        console.log("categoryListOnScroll", event.nativeEvent.contentOffset.y);
-        console.log("top", top);
-        console.log("topBarHeight", topBarHeight);
-        console.log("topBarButtonsHeight", topBarButtonsHeight);
         if (event.nativeEvent.contentOffset.y > top) {
             topBarPadding.value = withSpring(10);
             topBarButtonsPosition.value = withTiming((topBarHeight + top) - topBarButtonsHeight, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
