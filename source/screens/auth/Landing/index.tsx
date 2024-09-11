@@ -1,10 +1,10 @@
-import { View, TouchableOpacity, Text, Image, Linking } from "react-native";
+import { View, TouchableOpacity, Text, Image, Linking, ImageSourcePropType } from "react-native";
 import { router } from "expo-router";
 import styles from "./styles";
 import localization from "@/source/lib/locales/localization";
 import LandingList from "@/source/components/Molecules/LandingList";
 
-const landingData: { image: string, header: string, description: string, signUp: string }[] = [
+const landingData: { image: ImageSourcePropType, header: string, description: string, signUp: string }[] = [
     {
         image: require("@/assets/images/page1.jpeg"),
         header: localization.t("watchEverywhere"),

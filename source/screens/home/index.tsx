@@ -13,21 +13,16 @@ const Home = () => {
     const profile = userStore((state) => state.profile);
 
     const myListOnPress = (content: (Movie | Series)) => {
-        if (user.profiles[0].myList.includes(content)) {
-            setUser({
-                ...user,
-                profiles: [{
-                    ...user.profiles[0],
-                    myList: user.profiles[0].myList.filter((item) => item !== content)
-                }]
-            });
-            return;
-        }
+        if (user.profiles[0].myList.includes(content)) return updateUserMyList(user.profiles[0].myList.filter((item) => item !== content));
+        return updateUserMyList([...user.profiles[0].myList, content]);
+    }
+
+    const updateUserMyList = (myList: (Movie | Series)[]) => {
         setUser({
             ...user,
             profiles: [{
                 ...user.profiles[0],
-                myList: [...user.profiles[0].myList, content]
+                myList
             }]
         })
     }
@@ -46,7 +41,15 @@ const Home = () => {
 
     return (
         <SafeAreaView style={styles.container} edges={["left", "right"]}>
-            <HomeList profile={profile} contents={contents} categories={categories} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} movieOnPress={movieOnPress} />
+            <HomeList
+                profile={profile}
+                contents={contents}
+                categories={categories}
+                myListOnPress={myListOnPress}
+                playOnPress={playOnPress}
+                posterOnPress={posterOnPress}
+                movieOnPress={movieOnPress}
+            />
         </SafeAreaView>
     )
 }

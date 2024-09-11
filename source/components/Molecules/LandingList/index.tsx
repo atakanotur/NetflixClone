@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { StyleSheet, View, Image, ScrollView, Dimensions, NativeScrollEvent, NativeSyntheticEvent, Text as ReactNativeText, Linking } from 'react-native';
+import { StyleSheet, View, Image, ScrollView, Dimensions, NativeScrollEvent, NativeSyntheticEvent, Text as ReactNativeText, Linking, ImageSourcePropType } from 'react-native';
 import { FlashList, ListRenderItem } from "@shopify/flash-list"
 import { Text } from '../../Atoms';
 import colors from '@/source/theme/colors';
@@ -10,7 +10,7 @@ import Constants from "expo-constants";
 const { height, width } = Dimensions.get('screen');
 
 type LadingListItemProps = {
-    image: string
+    image: ImageSourcePropType
     header: string
     description: string
     signUp: string
@@ -20,15 +20,43 @@ type LandingListProps = {
     data: readonly any[]
 }
 
-const renderItem: ListRenderItem<LadingListItemProps> = ({ item }) => {
-    return (
-        <View style={styles.renderItemContainer}>
-            {item.image ? (
-                <>
-                    <View style={styles.imageContainer}>
-                        <Image style={styles.image} source={item.image} resizeMode='contain' />
-                    </View>
-                    <ScrollView style={styles.scrollView}>
+const LandingList = ({ data }: LandingListProps) => {
+    const listRef = useRef<FlashList<LadingListItemProps>>(null);
+    const [redDotIndex, setRedDotIndex] = useState<number>(0);
+    let currentPage = 0;
+
+    const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        const contentOffsetX = event.nativeEvent.contentOffset.x;
+        const newPage = Math.round(contentOffsetX / width);
+        if (newPage !== currentPage) {
+            currentPage = newPage;
+            listRef.current?.scrollToIndex({ index: currentPage, animated: true });
+        }
+        setRedDotIndex(newPage);
+    }
+
+    const renderItem: ListRenderItem<LadingListItemProps> = ({ item }) => {
+        console.log("item", item);
+        return (
+            <View style={styles.renderItemContainer}>
+                {item.image ? (
+                    <>
+                        <View style={styles.imageContainer}>
+                            <Image style={styles.image} source={item.image} resizeMode='contain' />
+                        </View>
+                        <ScrollView style={styles.scrollView}>
+                            <Text text={item.header} style={styles.header} adjustsFontSizeToFit={true} />
+                            <Text text={item.description} style={styles.description} adjustsFontSizeToFit={true} />
+                            <ReactNativeText style={styles.signUp}>
+                                <ReactNativeText onPress={() => Linking.openURL("https://www.netflix.com/more")} style={styles.more}>
+                                    netflix.com/more
+                                </ReactNativeText>
+                                {" " + item.signUp}
+                            </ReactNativeText>
+                        </ScrollView>
+                    </>
+                ) : (
+                    <View style={styles.noImageContainer}>
                         <Text text={item.header} style={styles.header} adjustsFontSizeToFit={true} />
                         <Text text={item.description} style={styles.description} adjustsFontSizeToFit={true} />
                         <ReactNativeText style={styles.signUp}>
@@ -37,38 +65,10 @@ const renderItem: ListRenderItem<LadingListItemProps> = ({ item }) => {
                             </ReactNativeText>
                             {" " + item.signUp}
                         </ReactNativeText>
-                    </ScrollView>
-                </>
-            ) : (
-                <View style={styles.noImageContainer}>
-                    <Text text={item.header} style={styles.header} adjustsFontSizeToFit={true} />
-                    <Text text={item.description} style={styles.description} adjustsFontSizeToFit={true} />
-                    <ReactNativeText style={styles.signUp}>
-                        <ReactNativeText onPress={() => Linking.openURL("https://www.netflix.com/more")} style={styles.more}>
-                            netflix.com/more
-                        </ReactNativeText>
-                        {" " + item.signUp}
-                    </ReactNativeText>
-                </View>
-            )}
-        </View>
-    )
-}
-
-const LandingList = ({ data }: LandingListProps) => {
-    const listRef = useRef<FlashList<LadingListItemProps>>(null);
-    const [redDotIndex, setRedDotIndex] = useState<number>(0);
-    let currentPage = 0;
-
-    const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const contentOffsetX = event.nativeEvent.contentOffset.x;
-        const contentWidth = event.nativeEvent.contentSize.width;
-        const newPage = Math.round(contentOffsetX / width);
-        if (newPage !== currentPage) {
-            currentPage = newPage;
-            listRef.current?.scrollToIndex({ index: currentPage, animated: true });
-        }
-        setRedDotIndex(newPage);
+                    </View>
+                )}
+            </View>
+        )
     }
 
     return (
@@ -148,11 +148,6 @@ const styles = StyleSheet.create({
         padding: 10,
         textAlign: 'center'
     },
-    paginationContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
 });
 
 export default LandingList;

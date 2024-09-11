@@ -30,9 +30,7 @@ const Login = () => {
     }
 
     const onSubmit = () => {
-        if ((emailOrPhoneNumber === user.email || emailOrPhoneNumber === user.phoneNumber) && password === user.password) {
-            router.replace({ pathname: "/profiles" });
-        }
+        if ((emailOrPhoneNumber === user.email || emailOrPhoneNumber === user.phoneNumber) && password === user.password) router.replace({ pathname: "/profiles" });
     }
 
     return (
