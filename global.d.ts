@@ -42,6 +42,7 @@ declare global {
 
   type Movie = EntertainmentContent & {
     type: "movie";
+    video: string;
   };
 
   type Season = {

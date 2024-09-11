@@ -5,6 +5,7 @@ import styles from './styles';
 import { router } from 'expo-router';
 import userStore from '@/source/store/userStore';
 import user from '@/source/data/user';
+import { Host } from 'react-native-portalize';
 
 const Loading = () => {
     const setUser = userStore((state) => state.setUser)
@@ -13,12 +14,14 @@ const Loading = () => {
         setTimeout(() => {
             router.replace({ pathname: "/landing" })
         }, 1000)
-    }, [])
+    }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ActivityIndicator size={"large"} />
-        </SafeAreaView>
+        <Host>
+            <SafeAreaView style={styles.container}>
+                <ActivityIndicator size={"large"} />
+            </SafeAreaView>
+        </Host>
     )
 }
 

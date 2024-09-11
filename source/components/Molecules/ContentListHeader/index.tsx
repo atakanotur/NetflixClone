@@ -9,7 +9,7 @@ import responsiveFontSize from '@/source/theme/responsiveFontSize';
 const { height } = Dimensions.get('screen');
 
 type CategoryListHeaderProps = {
-    content: Series | Movie
+    content: Series | Movie;
     posterOnPress: (movie: Series | Movie) => void;
     playOnPress: (movie: Series | Movie) => void;
     myListOnPress: (movie: Series | Movie) => void;
@@ -17,6 +17,7 @@ type CategoryListHeaderProps = {
 
 const ContentListHeader = ({ content, posterOnPress, playOnPress, myListOnPress }: CategoryListHeaderProps) => {
     const [listAdded, setListAdded] = useState<boolean>(false);
+
     const myListButton = () => {
         setListAdded(!listAdded);
         myListOnPress(content)

@@ -7,9 +7,9 @@ import { ReduceMotion, useSharedValue, withSpring, withTiming, Easing } from "re
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type HomeListProps = {
-    profile: Profile
-    categories: Category[]
-    contents: (Series | Movie)[]
+    profile: Profile;
+    categories: Category[];
+    contents: (Series | Movie)[];
     myListOnPress: (content: Series | Movie) => void;
     playOnPress: (content: Series | Movie) => void;
     posterOnPress: (content: Series | Movie) => void;
@@ -78,15 +78,27 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
             </View>
         )
     }
-  
+
     return (
         <>
-            <TopBar top={top} profile={profile} categories={categories} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} onChangeContentType={onChangeContenType} onChangeCategory={onChangeCategory} />
+            <TopBar
+                top={top}
+                profile={profile}
+                categories={categories}
+                topBarBlurIntensity={topBarBlurIntensity}
+                topBarPadding={topBarPadding}
+                topBarButtonsPosition={topBarButtonsPosition}
+                topBarButtonsOpacity={topBarButtonsOpacity}
+                setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)}
+                setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)}
+                onChangeContentType={onChangeContenType}
+                onChangeCategory={onChangeCategory}
+            />
             <ContentList
                 data={tempCategories}
                 extraData={tempCategories}
                 renderItem={({ item, index }: { item: Category, index: number }) => categoryListRenderItem({ item, index })}
-                ListHeaderComponent={<ContentListHeader content={tempCategories[0].contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
+                ListHeaderComponent={<ContentListHeader content={tempCategories[0]?.contents[0]} myListOnPress={myListOnPress} playOnPress={playOnPress} posterOnPress={posterOnPress} />}
                 onScroll={categoryListOnScroll}
                 contentContainerStyle={{ paddingTop: top + topBarHeight + topBarButtonsHeight }}
                 contentInset={{ top: 1 }}

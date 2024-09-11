@@ -8,6 +8,7 @@ const contents: (Movie | Series)[] = [
     cast: "Jamie Foxx, Joseph Gordon-Levitt, Dominique Fishback",
     creator: "Henry Joost, Ariel Schulman",
     poster: "https://pbs.twimg.com/media/Ec_7SzOUEAAuGit.jpg:large",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie2",
@@ -19,6 +20,7 @@ const contents: (Movie | Series)[] = [
     creator: "Anthony Russo, Joe Russo",
     poster:
       "https://dnm.nflximg.net/api/v6/2DuQlx0fM4wd1nzqm5BFBi6ILa8/AAAAQUNjavGNLx726Pz9ZVbVca9TYbA2wReQdgKp-NXHw3QTnVU9tSxVEvWLBURMX8LmWpu6M6sxlpUZCcM2p_sqQBGg9MNS3UOlY2axxZ6scJa1QCpJrQXrFaXABLJZQaJdHj2setyYXqipKeNkwhk-6GJa.jpg?r=396",
+      video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie3",
@@ -29,6 +31,7 @@ const contents: (Movie | Series)[] = [
     cast: "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page",
     creator: "Christopher Nolan",
     poster: "https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SL1500_.jpg",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie4",
@@ -39,6 +42,7 @@ const contents: (Movie | Series)[] = [
     cast: "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
     creator: "Christopher Nolan",
     poster: "https://m.media-amazon.com/images/I/91kFYg4fX3L._SL1500_.jpg",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie5",
@@ -49,6 +53,7 @@ const contents: (Movie | Series)[] = [
     cast: "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
     creator: "The Wachowskis",
     poster: "https://m.media-amazon.com/images/I/51EG732BV3L.jpg",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie6",
@@ -59,6 +64,7 @@ const contents: (Movie | Series)[] = [
     cast: "Christian Bale, Heath Ledger, Aaron Eckhart",
     creator: "Christopher Nolan",
     poster: "https://m.media-amazon.com/images/I/81AJdOIEI2L._SL1500_.jpg",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie7",
@@ -69,6 +75,7 @@ const contents: (Movie | Series)[] = [
     cast: "Brad Pitt, Edward Norton, Helena Bonham Carter",
     creator: "David Fincher",
     poster: "https://m.media-amazon.com/images/I/71KQwmqO8LL._AC_SY679_.jpg",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie8",
@@ -79,6 +86,7 @@ const contents: (Movie | Series)[] = [
     cast: "John Travolta, Uma Thurman, Samuel L. Jackson",
     creator: "Quentin Tarantino",
     poster: "https://m.media-amazon.com/images/I/71c05lTE03L._AC_SY679_.jpg",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie9",
@@ -89,6 +97,7 @@ const contents: (Movie | Series)[] = [
     cast: "Tim Robbins, Morgan Freeman, Bob Gunton",
     creator: "Frank Darabont",
     poster: "https://m.media-amazon.com/images/I/51NiGlapXlL.jpg",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "movie10",
@@ -99,6 +108,7 @@ const contents: (Movie | Series)[] = [
     cast: "Tom Hanks, Robin Wright, Gary Sinise",
     creator: "Robert Zemeckis",
     poster: "https://m.media-amazon.com/images/I/61JcGgDZX4L._AC_SY679_.jpg",
+    video: "https://www.youtube.com/watch?v=DKP16d_WdZM"
   },
   {
     id: "series1",
