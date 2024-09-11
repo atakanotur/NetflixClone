@@ -15,22 +15,30 @@ const PasswordModal = ({ onChange, onCancel }: PasswordModalProps) => {
     const [inputs, setInputs] = useState(["", "", "", ""]);
     const inputRefs = useRef([createRef<TextInput>(), createRef<TextInput>(), createRef<TextInput>(), createRef<TextInput>()]);
 
-    const handleChange = (index: number, value: string) => {
-        const newInputs = [...inputs];
-        newInputs[index] = value;
-        setInputs(newInputs);
-        if (value.length === 1 && index < inputRefs.current.length - 1) {
+    const handleChange = (index: number, inputValue: string) => {
+        manageFocusShift(index, inputValue);
+        handlePasswordInputChange(index, inputValue);
+    };
+
+    const manageFocusShift = (index: number, inputValue: string) => {
+        if (inputValue.length === 1 && index < inputRefs.current.length - 1) {
             inputRefs.current[index + 1]?.current?.focus();
-        } else if (value.length === 0 && index > 0) {
+        } else if (inputValue.length === 0 && index > 0) {
             inputRefs.current[index - 1]?.current?.focus();
         }
+    }
+
+    const handlePasswordInputChange = (index: number, inputValue: string) => {
+        const newInputs = [...inputs];
+        newInputs[index] = inputValue;
         const password = newInputs.join('');
+        setInputs(newInputs);
         if (!onChange(password)) {
             setInputs(["", "", "", ""]);
             inputRefs.current[0]?.current?.focus();
             setIsWrongCode(true);
         }
-    };
+    }
 
     const handleKeyPress = (index: number, event: any) => {
         if (event.nativeEvent.key === 'Backspace' && inputs[index] === "" && index > 0) {

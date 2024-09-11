@@ -29,18 +29,22 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
     const topBarBlurIntensity = useSharedValue(0);
 
     const categoryListOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        if (event.nativeEvent.contentOffset.y > top) {
-            topBarPadding.value = withSpring(10);
-            topBarButtonsPosition.value = withTiming((topBarHeight + top) - topBarButtonsHeight, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
-            topBarButtonsOpacity.value = withSpring(0, { duration: 1000 });
-            topBarBlurIntensity.value = withSpring(40, { duration: 1200 });
-        }
-        else {
-            topBarPadding.value = withSpring(0);
-            topBarButtonsPosition.value = withTiming(topBarHeight + top + 5, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
-            topBarButtonsOpacity.value = withSpring(1);
-            topBarBlurIntensity.value = withSpring(0, { duration: 1200 });
-        }
+        if (event.nativeEvent.contentOffset.y > top) return applyTopBarScrollEffect();
+        resetTopBarScrollEffect();
+    }
+
+    const applyTopBarScrollEffect = () => {
+        topBarPadding.value = withSpring(10);
+        topBarButtonsPosition.value = withTiming((topBarHeight + top) - topBarButtonsHeight, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
+        topBarButtonsOpacity.value = withSpring(0, { duration: 1000 });
+        topBarBlurIntensity.value = withSpring(40, { duration: 1200 });
+    }
+
+    const resetTopBarScrollEffect = () => {
+        topBarPadding.value = withSpring(0);
+        topBarButtonsPosition.value = withTiming(topBarHeight + top + 5, { duration: 250, easing: Easing.out(Easing.quad), reduceMotion: ReduceMotion.System });
+        topBarButtonsOpacity.value = withSpring(1);
+        topBarBlurIntensity.value = withSpring(0, { duration: 1200 });
     }
 
     const movieListRenderItem = ({ item, index }: { item: any, index: number }) => {
@@ -49,18 +53,6 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
                 <Pressable onPress={() => movieOnPress({ ...contents[0] })}>
                     <Image source={{ uri: item.poster }} style={styles.moviePoster} resizeMode="stretch" />
                 </Pressable>
-            </View>
-        )
-    }
-
-    const categoryListRenderItem = ({ item, index }: { item: Category, index: number }) => {
-        return (
-            <View style={styles.categoryContainer}>
-                <Text text={item.title} style={styles.categoryTitle} />
-                <MovieList
-                    data={categories[index].contents}
-                    renderItem={movieListRenderItem}
-                />
             </View>
         )
     }
@@ -75,6 +67,18 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
         setTempCategories(categories.filter((category) => category.id === categoryId));
     }
 
+    const categoryListRenderItem = ({ item, index }: { item: Category, index: number }) => {
+        return (
+            <View style={styles.categoryContainer}>
+                <Text text={item.title} style={styles.categoryTitle} />
+                <MovieList
+                    data={categories[index].contents}
+                    renderItem={movieListRenderItem}
+                />
+            </View>
+        )
+    }
+  
     return (
         <>
             <TopBar top={top} profile={profile} categories={categories} topBarBlurIntensity={topBarBlurIntensity} topBarPadding={topBarPadding} topBarButtonsPosition={topBarButtonsPosition} topBarButtonsOpacity={topBarButtonsOpacity} setTopBarButtonsHeight={(event) => setTopBarButtonsHeight(event.nativeEvent.layout.height)} setTopBarHeight={(event) => setTopBarHeight(event.nativeEvent.layout.height)} onChangeContentType={onChangeContenType} onChangeCategory={onChangeCategory} />

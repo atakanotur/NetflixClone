@@ -20,30 +20,28 @@ const Profiles = () => {
 
     const onChangeEditMode = () => {
         setEditMode(!editMode);
-        if (editMode) editModeBackgroundOpacity.value = withTiming("rgba(0, 0, 0, 0)", { duration: 220 });
-        else editModeBackgroundOpacity.value = withTiming("rgba(0, 0, 0, 0.6)", { duration: 220 });
+        if (editMode) return editModeBackgroundOpacity.value = withTiming("rgba(0, 0, 0, 0)", { duration: 220 });
+        return editModeBackgroundOpacity.value = withTiming("rgba(0, 0, 0, 0.6)", { duration: 220 });
     }
 
-    const onConfirmProfilePassword = (value: string) => {
-        if (value.length === 4) {
-            if (value === profile?.password) {
-                router.push({ pathname: "/home" });
-                return true;
-            }
-            return false;
+    const onConfirmProfilePassword = (password: string) => {
+        if (password.length === 4) return checProfilePassword(password);
+        return true;
+    }
+
+    const checProfilePassword = (password: string) => {
+        if (password === profile?.password) {
+            router.replace({ pathname: "/home" });
+            return true;
         }
-        return true
+        return false;
     }
 
     const selectProfile = (profile: Profile) => {
         setProfile(profile);
-        if (editMode) {
-            //open profile editor
-        }
-        if (profile.locked) {
-            return setProfileVisiblePassword(true);
-        }
-        return router.push({ pathname: "/home" });
+        if (editMode) return;
+        if (profile.locked) return setProfileVisiblePassword(true);
+        return router.replace({ pathname: "/home" });
     }
 
     const profilesRenderItem = ({ item }: { item: Profile, index: number }) => {
