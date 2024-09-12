@@ -47,10 +47,10 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
         topBarBlurIntensity.value = withSpring(0, { duration: 1200 });
     }
 
-    const contentListRenderItem = ({ item, index }: { item: any, index: number }) => {
+    const contentListRenderItem = ({ item, index }: { item: Series | Movie, index: number }) => {
         return (
             <View style={styles.contentContainer}>
-                <Pressable onPress={() => contentOnPress({ ...contents[0] })}>
+                <Pressable onPress={() => contentOnPress(item)}>
                     <Image source={{ uri: item.poster }} style={styles.contentPoster} resizeMode="stretch" />
                 </Pressable>
             </View>
@@ -103,7 +103,6 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
                 contentContainerStyle={{ paddingTop: top + topBarHeight + topBarButtonsHeight }}
                 contentInset={{ top: 1 }}
             />
-            {/* <VideoPlayer /> */}
         </>
     )
 }

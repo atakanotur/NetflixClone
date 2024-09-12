@@ -32,6 +32,7 @@ declare global {
     cast: string;
     creator: string;
     poster: string;
+    trailer: string;
   };
 
   type Series = EntertainmentContent & {

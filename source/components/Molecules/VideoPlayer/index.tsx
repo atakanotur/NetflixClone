@@ -11,9 +11,9 @@ type VideoPlayerProps = {
 const { width, height } = Dimensions.get('screen');
 
 const VideoPlayer = ({ videoSource, fullscreen, visible }: VideoPlayerProps) => {
+
     const ref = useRef<VideoView>(null);
     const player = useVideoPlayer({ uri: videoSource ? videoSource.toString() : 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }, player => {
-        player.play();
     });
 
     if (fullscreen) ref.current?.enterFullscreen();
