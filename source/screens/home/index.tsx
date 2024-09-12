@@ -35,7 +35,7 @@ const Home = () => {
         console.log("posterOnPress", content);
     }
 
-    const movieOnPress = (content: Series | Movie) => {
+    const contentOnPress = (content: Series | Movie) => {
         console.log("movieOnPress", content);
     }
 
@@ -48,7 +48,7 @@ const Home = () => {
                 myListOnPress={myListOnPress}
                 playOnPress={playOnPress}
                 posterOnPress={posterOnPress}
-                movieOnPress={movieOnPress}
+                contentOnPress={contentOnPress}
             />
         </SafeAreaView>
     )
