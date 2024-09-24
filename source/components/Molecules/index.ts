@@ -7,6 +7,7 @@ import ContentListHeader from "./ContentListHeader";
 import ContentList from "./ContentList";
 import TopBar from "./TopBar";
 import VideoPlayer from "./VideoPlayer";
+import ContentListRenderItem from "./ContentListRenderItem";
 
 export {
   LandingList,
@@ -18,4 +19,5 @@ export {
   ContentList,
   TopBar,
   VideoPlayer,
+  ContentListRenderItem,
 };

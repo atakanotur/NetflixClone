@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, StyleSheet, Image, Dimensions, Pressable, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 import { Text } from "../../Atoms";
-import { MainList, ContentListHeader, ContentList, TopBar, VideoPlayer } from "../../Molecules";
+import { MainList, ContentListHeader, ContentList, TopBar, VideoPlayer, ContentListRenderItem } from "../../Molecules";
 import colors from "@/source/theme/colors";
 import { ReduceMotion, useSharedValue, withSpring, withTiming, Easing } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -47,16 +47,6 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
         topBarBlurIntensity.value = withSpring(0, { duration: 1200 });
     }
 
-    const contentListRenderItem = ({ item, index }: { item: Series | Movie, index: number }) => {
-        return (
-            <View style={styles.contentContainer}>
-                <Pressable onPress={() => contentOnPress(item)}>
-                    <Image source={{ uri: item.poster }} style={styles.contentPoster} resizeMode="stretch" />
-                </Pressable>
-            </View>
-        )
-    }
-
     const onChangeContenType = (contentType: "movie" | "series" | "mixed") => {
         if (contentType === "movie") return setTempCategories(categories.filter((category) => category.type === "movie"));
         if (contentType === "series") return setTempCategories(categories.filter((category) => category.type === "series"));
@@ -73,7 +63,7 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
                 <Text text={item.title} style={styles.categoryTitle} />
                 <ContentList
                     data={categories[index].contents}
-                    renderItem={contentListRenderItem}
+                    renderItem={({ item, index }) => <ContentListRenderItem content={item} />}
                 />
             </View>
         )

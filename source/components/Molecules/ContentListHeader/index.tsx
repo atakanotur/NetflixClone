@@ -28,11 +28,11 @@ const ContentListHeader = ({ content, posterOnPress, playOnPress, myListOnPress 
             <ImageBackground style={styles.posterContainer} source={{ uri: content.poster }} resizeMode="cover" imageStyle={styles.poster}>
                 <View style={styles.buttons}>
                     <Pressable style={styles.playButtonContainer} onPress={() => playOnPress(content)}>
-                        <Ionicons name="play-sharp" size={25} color={colors.black} />
+                        <Ionicons name="play-sharp" size={responsiveFontSize(25)} color={colors.black} />
                         <Text text={localization.t("play")} style={[styles.buttonText, { color: colors.black }]} />
                     </Pressable>
                     <Pressable style={styles.myListButtonContainer} onPress={() => myListButton()}>
-                        <Ionicons name={listAdded ? "checkmark" : "add"} size={25} color={colors.whiteGrey} />
+                        <Ionicons name={listAdded ? "checkmark" : "add"} size={responsiveFontSize(25)} color={colors.whiteGrey} />
                         <Text text={localization.t("myList")} style={styles.buttonText} />
                     </Pressable>
                 </View>
