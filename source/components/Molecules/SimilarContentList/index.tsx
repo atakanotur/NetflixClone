@@ -1,17 +1,26 @@
+import { FlashList } from "@shopify/flash-list";
 import { View, StyleSheet } from "react-native";
+import ContentListRenderItem from "../ContentListRenderItem";
 
-const SimilarContentList = () => {
+type SimilarContentListProps = {
+    similarContent: (Series | Movie)[];
+}
+
+const SimilarContentList = ({ similarContent }: SimilarContentListProps) => {
+
     return (
-        <View style={styles.container}>
-
-        </View>
+        <FlashList
+            data={similarContent}
+            renderItem={({ item }) => <ContentListRenderItem content={item} />}
+            estimatedItemSize={100}
+            numColumns={3}
+            scrollEnabled={false}
+        />
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
 
-    }
 })
 
 export default SimilarContentList;

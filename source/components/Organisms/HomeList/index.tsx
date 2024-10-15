@@ -63,7 +63,7 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
                 <Text text={item.title} style={styles.categoryTitle} />
                 <ContentList
                     data={categories[index].contents}
-                    renderItem={({ item, index }) => <ContentListRenderItem content={item} />}
+                    renderItem={({ item, index }) => <ContentListRenderItem content={item} index={index}/>}
                 />
             </View>
         )

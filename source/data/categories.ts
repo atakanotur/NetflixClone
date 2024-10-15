@@ -14,6 +14,7 @@ const categories: Category[] = [
         plot: "A pill that grants superpowers for five minutes falls into the wrong hands, and a cop teams up with a teenage dealer to fight the chaos.",
         video: "https://www.youtube.com/watch?v=xw1vQgVaYNQ",
         year: 2020,
+        trailer: "https://www.youtube.com/watch?v=b9EkMc79ZSU",
       },
       {
         id: "movie2",
@@ -26,6 +27,7 @@ const categories: Category[] = [
         plot: "A highly skilled CIA operative becomes the target of international assassins after uncovering dark agency secrets.",
         video: "https://www.youtube.com/watch?v=BPGd3WRG6HA",
         year: 2022,
+        trailer: "https://www.youtube.com/watch?v=BPGd3WRG6HA",
       },
       {
         id: "movie3",
@@ -38,6 +40,7 @@ const categories: Category[] = [
         plot: "A thief who enters the subconscious of his targets to steal secrets is offered a chance to have his criminal record erased if he can plant an idea instead.",
         video: "https://www.youtube.com/watch?v=YoHD9XEInc0",
         year: 2010,
+        trailer: "https://www.youtube.com/watch?v=YoHD9XEInc0",
       },
       {
         id: "movie4",
@@ -49,6 +52,7 @@ const categories: Category[] = [
         plot: "A team of astronauts travel through a wormhole in search of a new home for humanity.",
         video: "https://www.youtube.com/watch?v=zSWdZVtXT7E",
         year: 2014,
+        trailer: "https://www.youtube.com/watch?v=zSWdZVtXT7E",
       },
       {
         id: "movie5",
@@ -60,6 +64,7 @@ const categories: Category[] = [
         plot: "A hacker learns that the world he lives in is a simulation and joins a rebellion to overthrow its controllers.",
         video: "https://www.youtube.com/watch?v=vKQi3bBA1y8",
         year: 1999,
+        trailer: "https://www.youtube.com/watch?v=vKQi3bBA1y8",
       },
       {
         id: "movie6",
@@ -71,6 +76,7 @@ const categories: Category[] = [
         plot: "Batman must face the Joker, a criminal mastermind who seeks to plunge Gotham into anarchy.",
         video: "https://www.youtube.com/watch?v=EXeTwQWrcwY",
         year: 2008,
+        trailer: "https://www.youtube.com/watch?v=EXeTwQWrcwY",
       },
       {
         id: "movie7",
@@ -83,6 +89,7 @@ const categories: Category[] = [
         plot: "An insomniac office worker and a devil-may-care soap salesman form an underground fight club.",
         video: "https://www.youtube.com/watch?v=SUXWAEX2jlg",
         year: 1999,
+        trailer: "https://www.youtube.com/watch?v=SUXWAEX2jlg",
       },
       {
         id: "movie8",
@@ -95,6 +102,7 @@ const categories: Category[] = [
         plot: "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
         video: "https://www.youtube.com/watch?v=s7EdQ4FqbhY",
         year: 1994,
+        trailer: "https://www.youtube.com/watch?v=s7EdQ4FqbhY",
       },
       {
         id: "movie9",
@@ -106,6 +114,7 @@ const categories: Category[] = [
         plot: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
         video: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         year: 1994,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie10",
@@ -118,6 +127,7 @@ const categories: Category[] = [
         plot: "The presidencies of Kennedy and Johnson, the Vietnam War, and Watergate all unfold from the perspective of an Alabama man with a low IQ.",
         video: "https://www.youtube.com/watch?v=bLvqoHBptjg",
         year: 1994,
+        trailer: "https://www.youtube.com/watch?v=bLvqoHBptjg",
       },
     ],
   },
@@ -137,6 +147,7 @@ const categories: Category[] = [
         plot: "Follows Wednesday Addams' years as a student, where she tries to master her psychic ability and solve a murder mystery.",
         year: 2022,
         numberOfSeasons: 1,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -145,10 +156,83 @@ const categories: Category[] = [
               {
                 id: "episode1",
                 title: "Wednesday's Child",
-                poster: "wednesday_s1_e1_poster.jpg",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
                 duration: "49m",
                 plot: "Wednesday Addams begins her school life at Nevermore Academy and faces several challenges.",
-                video: "wednesday_s1_e1_video.mp4",
+                video: "https://example.com/videos/wednesday_s1_e1_video.mp4",
+              },
+              {
+                id: "episode2",
+                title: "A Dark Beginning",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "50m",
+                plot: "Wednesday uncovers a mysterious secret about her family that ties her to Nevermore's dark history.",
+                video: "https://example.com/videos/wednesday_s1_e2_video.mp4",
+              },
+              {
+                id: "episode3",
+                title: "The Raven's Whisper",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "48m",
+                plot: "As strange things happen at school, Wednesday is determined to investigate a haunting presence.",
+                video: "https://example.com/videos/wednesday_s1_e3_video.mp4",
+              },
+              {
+                id: "episode4",
+                title: "Unseen Forces",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "47m",
+                plot: "Wednesday and her friends try to decipher an ancient prophecy that threatens the academy.",
+                video: "https://example.com/videos/wednesday_s1_e4_video.mp4",
+              },
+              {
+                id: "episode5",
+                title: "The Black Cat's Curse",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "49m",
+                plot: "A mysterious curse begins affecting students, and Wednesday must find its source before it's too late.",
+                video: "https://example.com/videos/wednesday_s1_e5_video.mp4",
+              },
+              {
+                id: "episode6",
+                title: "Moonlit Secrets",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "50m",
+                plot: "Wednesday uncovers a hidden chamber beneath Nevermore, revealing dark secrets about the academy's past.",
+                video: "https://example.com/videos/wednesday_s1_e6_video.mp4",
+              },
+              {
+                id: "episode7",
+                title: "Shadows in the Hall",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "49m",
+                plot: "A shadowy figure stalks Wednesday, forcing her to confront long-buried fears from her past.",
+                video: "https://example.com/videos/wednesday_s1_e7_video.mp4",
+              },
+              {
+                id: "episode8",
+                title: "The Midnight Gathering",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "52m",
+                plot: "Wednesday uncovers a secret society at Nevermore and tries to stop their dark ritual.",
+                video: "https://example.com/videos/wednesday_s1_e8_video.mp4",
+              },
+              {
+                id: "episode9",
+                title: "The Final Prophecy",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "53m",
+                plot: "As the prophecy comes to light, Wednesday must make a sacrifice to save Nevermore and her friends.",
+                video: "https://example.com/videos/wednesday_s1_e9_video.mp4",
               },
             ],
           },
@@ -165,6 +249,7 @@ const categories: Category[] = [
         plot: "Multinational immigrants traveling to the new continent encounter a terrifying riddle aboard a second ship adrift on the open sea.",
         year: 2022,
         numberOfSeasons: 1,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -193,6 +278,7 @@ const categories: Category[] = [
         plot: "A family saga with a supernatural twist, set in a German town where the disappearance of two young children exposes time travel secrets.",
         year: 2017,
         numberOfSeasons: 3,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -221,6 +307,7 @@ const categories: Category[] = [
         plot: "When a young boy disappears, a small town uncovers a mystery involving secret experiments and supernatural forces.",
         year: 2016,
         numberOfSeasons: 4,
+        trailer: "https://www.youtube.com/watch?v=b9EkMc79ZSU",
         seasons: [
           {
             id: "season1",
@@ -248,6 +335,7 @@ const categories: Category[] = [
         plot: "A high school chemistry teacher turned methamphetamine producer partners with a former student to build a drug empire.",
         year: 2008,
         numberOfSeasons: 5,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -275,6 +363,7 @@ const categories: Category[] = [
         plot: "Nine noble families wage war against each other to gain control of the Iron Throne.",
         year: 2011,
         numberOfSeasons: 8,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -302,6 +391,7 @@ const categories: Category[] = [
         plot: "Geralt of Rivia, a mutated monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.",
         year: 2019,
         numberOfSeasons: 8,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -329,6 +419,7 @@ const categories: Category[] = [
         plot: "The travels of a lone bounty hunter in the outer reaches of the galaxy, far from the authority of the New Republic.",
         year: 2019,
         numberOfSeasons: 3,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -357,6 +448,7 @@ const categories: Category[] = [
         plot: "Follows the reign of Queen Elizabeth II and the events that shaped the second half of the 20th century.",
         year: 2016,
         numberOfSeasons: 5,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -384,6 +476,7 @@ const categories: Category[] = [
         plot: "A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.",
         year: 2019,
         numberOfSeasons: 3,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -419,6 +512,7 @@ const categories: Category[] = [
         plot: "A thief who steals corporate secrets through dream-sharing technology is tasked with planting an idea into a target's subconscious.",
         video: "https://www.youtube.com/watch?v=YoHD9XEInc0",
         year: 2010,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie4",
@@ -430,6 +524,7 @@ const categories: Category[] = [
         plot: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
         video: "https://www.youtube.com/watch?v=zSWdZVtXT7E",
         year: 2014,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie6",
@@ -441,6 +536,7 @@ const categories: Category[] = [
         plot: "When the menace known as the Joker emerges, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
         video: "https://www.youtube.com/watch?v=EXeTwQWrcwY",
         year: 2008,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
     ],
   },
@@ -459,6 +555,7 @@ const categories: Category[] = [
         plot: "A hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
         video: "https://www.youtube.com/watch?v=vKQi3bBA1y8",
         year: 1999,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie3",
@@ -471,6 +568,7 @@ const categories: Category[] = [
         plot: "A thief who steals corporate secrets through dream-sharing technology is tasked with planting an idea into a target's subconscious.",
         video: "https://www.youtube.com/watch?v=YoHD9XEInc0",
         year: 2010,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie4",
@@ -482,6 +580,7 @@ const categories: Category[] = [
         plot: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
         video: "https://www.youtube.com/watch?v=zSWdZVtXT7E",
         year: 2014,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "series7",
@@ -493,6 +592,7 @@ const categories: Category[] = [
         plot: "Geralt of Rivia, a mutated monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.",
         year: 2019,
         numberOfSeasons: 3,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -521,6 +621,7 @@ const categories: Category[] = [
         plot: "When a young boy disappears, a small town uncovers a mystery involving secret experiments and supernatural forces.",
         year: 2016,
         numberOfSeasons: 4,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -556,6 +657,7 @@ const categories: Category[] = [
         plot: "An insomniac office worker and a soap salesman form an underground fight club that evolves into much more.",
         video: "https://www.youtube.com/watch?v=SUXWAEX2jlg",
         year: 1999,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie2",
@@ -568,6 +670,7 @@ const categories: Category[] = [
         plot: "When the CIA's top asset uncovers agency secrets, he triggers a global hunt by assassins set loose by his ex-colleague.",
         video: "https://www.youtube.com/watch?v=BPGd3WRG6HA",
         year: 2022,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "series5",
@@ -579,6 +682,7 @@ const categories: Category[] = [
         plot: "A high school chemistry teacher turned methamphetamine producer partners with a former student to build a drug empire.",
         year: 2008,
         numberOfSeasons: 5,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -606,6 +710,7 @@ const categories: Category[] = [
         plot: "The travels of a lone bounty hunter in the outer reaches of the galaxy, far from the authority of the New Republic.",
         year: 2019,
         numberOfSeasons: 3,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -633,6 +738,7 @@ const categories: Category[] = [
         plot: "Nine noble families wage war against each other to gain control of the Iron Throne.",
         year: 2011,
         numberOfSeasons: 8,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -667,6 +773,7 @@ const categories: Category[] = [
         plot: "When the menace known as the Joker emerges, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
         video: "https://www.youtube.com/watch?v=EXeTwQWrcwY",
         year: 2008,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie10",
@@ -679,6 +786,7 @@ const categories: Category[] = [
         plot: "The presidencies of Kennedy and Johnson, the Vietnam War, and Watergate all unfold from the perspective of an Alabama man with a low IQ.",
         video: "https://www.youtube.com/watch?v=bLvqoHBptjg",
         year: 1994,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie9",
@@ -690,6 +798,7 @@ const categories: Category[] = [
         plot: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
         video: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         year: 1994,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
     ],
   },
@@ -709,6 +818,7 @@ const categories: Category[] = [
         plot: "An insomniac office worker and a soap salesman form an underground fight club that evolves into much more.",
         video: "https://www.youtube.com/watch?v=SUXWAEX2jlg",
         year: 1999,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie8",
@@ -721,6 +831,7 @@ const categories: Category[] = [
         plot: "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
         video: "https://www.youtube.com/watch?v=s7EdQ4FqbhY",
         year: 1994,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "movie9",
@@ -732,6 +843,7 @@ const categories: Category[] = [
         plot: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
         video: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         year: 1994,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
     ],
   },
@@ -751,6 +863,7 @@ const categories: Category[] = [
         plot: "Follows Wednesday Addams' years as a student, where she tries to master her psychic ability and solve a murder mystery.",
         year: 2022,
         numberOfSeasons: 1,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -759,10 +872,83 @@ const categories: Category[] = [
               {
                 id: "episode1",
                 title: "Wednesday's Child",
-                poster: "wednesday_s1_e1_poster.jpg",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
                 duration: "49m",
                 plot: "Wednesday Addams begins her school life at Nevermore Academy and faces several challenges.",
-                video: "wednesday_s1_e1_video.mp4",
+                video: "https://example.com/videos/wednesday_s1_e1_video.mp4",
+              },
+              {
+                id: "episode2",
+                title: "A Dark Beginning",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "50m",
+                plot: "Wednesday uncovers a mysterious secret about her family that ties her to Nevermore's dark history.",
+                video: "https://example.com/videos/wednesday_s1_e2_video.mp4",
+              },
+              {
+                id: "episode3",
+                title: "The Raven's Whisper",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "48m",
+                plot: "As strange things happen at school, Wednesday is determined to investigate a haunting presence.",
+                video: "https://example.com/videos/wednesday_s1_e3_video.mp4",
+              },
+              {
+                id: "episode4",
+                title: "Unseen Forces",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "47m",
+                plot: "Wednesday and her friends try to decipher an ancient prophecy that threatens the academy.",
+                video: "https://example.com/videos/wednesday_s1_e4_video.mp4",
+              },
+              {
+                id: "episode5",
+                title: "The Black Cat's Curse",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "49m",
+                plot: "A mysterious curse begins affecting students, and Wednesday must find its source before it's too late.",
+                video: "https://example.com/videos/wednesday_s1_e5_video.mp4",
+              },
+              {
+                id: "episode6",
+                title: "Moonlit Secrets",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "50m",
+                plot: "Wednesday uncovers a hidden chamber beneath Nevermore, revealing dark secrets about the academy's past.",
+                video: "https://example.com/videos/wednesday_s1_e6_video.mp4",
+              },
+              {
+                id: "episode7",
+                title: "Shadows in the Hall",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "49m",
+                plot: "A shadowy figure stalks Wednesday, forcing her to confront long-buried fears from her past.",
+                video: "https://example.com/videos/wednesday_s1_e7_video.mp4",
+              },
+              {
+                id: "episode8",
+                title: "The Midnight Gathering",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "52m",
+                plot: "Wednesday uncovers a secret society at Nevermore and tries to stop their dark ritual.",
+                video: "https://example.com/videos/wednesday_s1_e8_video.mp4",
+              },
+              {
+                id: "episode9",
+                title: "The Final Prophecy",
+                poster:
+                  "https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/74/2498/49116/145815/SST4L5d2sZxuhViobb1qcs2rwSTpaQgkEdGy9OBsUOg.jpg",
+                duration: "53m",
+                plot: "As the prophecy comes to light, Wednesday must make a sacrifice to save Nevermore and her friends.",
+                video: "https://example.com/videos/wednesday_s1_e9_video.mp4",
               },
             ],
           },
@@ -779,6 +965,7 @@ const categories: Category[] = [
         plot: "Multinational immigrants traveling to the new continent encounter a terrifying riddle aboard a second ship adrift on the open sea.",
         year: 2022,
         numberOfSeasons: 1,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -807,6 +994,7 @@ const categories: Category[] = [
         plot: "A highly skilled CIA operative becomes the target of international assassins after uncovering dark agency secrets.",
         video: "https://www.youtube.com/watch?v=BPGd3WRG6HA",
         year: 2022,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
     ],
   },
@@ -825,6 +1013,7 @@ const categories: Category[] = [
         plot: "Nine noble families wage war against each other to gain control of the Iron Throne.",
         year: 2011,
         numberOfSeasons: 8,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -852,6 +1041,7 @@ const categories: Category[] = [
         plot: "Geralt of Rivia, a mutated monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.",
         year: 2019,
         numberOfSeasons: 3,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -879,6 +1069,7 @@ const categories: Category[] = [
         plot: "The travels of a lone bounty hunter in the outer reaches of the galaxy, far from the authority of the New Republic.",
         year: 2019,
         numberOfSeasons: 3,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -914,6 +1105,7 @@ const categories: Category[] = [
         plot: "An insomniac office worker and a soap salesman form an underground fight club that evolves into much more.",
         video: "https://www.youtube.com/watch?v=SUXWAEX2jlg",
         year: 1999,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
       },
       {
         id: "series3",
@@ -926,6 +1118,7 @@ const categories: Category[] = [
         plot: "A family saga with a supernatural twist, set in a German town where the disappearance of two young children exposes time travel secrets.",
         year: 2017,
         numberOfSeasons: 3,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
@@ -953,6 +1146,7 @@ const categories: Category[] = [
         plot: "A high school chemistry teacher turned methamphetamine producer partners with a former student to build a drug empire.",
         year: 2008,
         numberOfSeasons: 5,
+        trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc",
         seasons: [
           {
             id: "season1",
