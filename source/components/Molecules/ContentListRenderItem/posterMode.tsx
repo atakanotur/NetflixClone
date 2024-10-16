@@ -21,7 +21,7 @@ const PosterMode = forwardRef(({ content, index }: PosterModeProps, ref) => {
 
     const [isPortalView, setIsPortalView] = useState<boolean>(false);
 
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState<boolean>(false);
 
     //Content Animation Styles
     const contentAnimationHeight = useSharedValue(posterHeight);
@@ -41,7 +41,6 @@ const PosterMode = forwardRef(({ content, index }: PosterModeProps, ref) => {
     //Modal Animation Styles
     const modalAnimationHeight = useSharedValue(posterHeight);
     const modalAnimationWidth = useSharedValue(posterWidth);
-
 
     const modalAnimationPosition = useSharedValue<"relative" | "absolute" | "static">("relative");
 
@@ -79,70 +78,69 @@ const PosterMode = forwardRef(({ content, index }: PosterModeProps, ref) => {
         }
     });
 
-    const contentOnPress = (event: GestureResponderEvent) => {
+    const contentOnPress = () => {
         // detailModeRef.current?.openAnimation();
-        contentOpenAnimation(event);
+        contentOpenAnimation();
     }
 
-    const contentOpenAnimation = (event: GestureResponderEvent) => {
-        containerRef.current?.measure((pageX, pageY) => {
+    const contentOpenAnimation = () => {
+        getStartAndTempPositions();
+        setTimeout(() => {
+            if (!expanded) openDetailModeAnimation();
+            else closeDetailModeAnimation();
+            setExpanded(!expanded)
+        }, 1000);
+    }
+
+    const getStartAndTempPositions = () => {
+        containerRef.current?.measure((x, y, width, height, pageX, pageY) => {
             if (!expanded) {
                 modalAnimationTempLeft = pageX;
                 modalAnimationTempTop = pageY;
 
-                modalContainerAnimationLeft.value = pageX + posterWidth
+                modalContainerAnimationLeft.value = pageX + posterWidth + 15
                 modalContainerAnimationTop.value = pageY
             }
         });
-
-        setTimeout(() => {
-            console.log("modalAnimationTempLeft : ", modalAnimationTempLeft, "----- modalAnimationTempTop : ", modalAnimationTempTop);
-            if (!expanded) {
-                setIsPortalView(true)
-                modalAnimationPosition.value = "absolute";
-                console.log("height : ", height, "------ width : ", width);
-
-                modalAnimationHeight.value = withTiming(height, { duration: 1500 });
-                modalAnimationWidth.value = withTiming(width, { duration: 1500 });
-
-                modalContainerAnimationTop.value = withTiming(0, { duration: 1500 });
-                modalContainerAnimationLeft.value = withTiming(0, { duration: 1500 });
-
-                posterAnimationHeight.value = withTiming(height, { duration: 1500 });
-                posterAnimationWidth.value = withTiming(width, { duration: 1500 });
-            } else {
-                setTimeout(() => {
-                    setIsPortalView(false)
-                    modalAnimationPosition.value = "relative";
-                }, 2600);
-
-                modalAnimationHeight.value = withTiming(posterHeight, { duration: 1500 });
-                modalAnimationWidth.value = withTiming(posterWidth, { duration: 1500 });
-
-                modalContainerAnimationLeft.value = withTiming(modalAnimationTempLeft + posterWidth + contentAnimationMargin.value, { duration: 1500 });
-                modalContainerAnimationTop.value = withTiming(modalAnimationTempTop, { duration: 1500 });
-
-                posterAnimationHeight.value = withTiming(posterHeight, { duration: 1500 });
-                posterAnimationWidth.value = withTiming(posterWidth, { duration: 1500 });
-            }
-
-            setExpanded(!expanded)
-        }, 1000);
-
     }
 
-    const contentOnLayout = (event: LayoutChangeEvent) => {
-        const { x, y, width: onLayoutWidth, height: onLayoutHeight } = event.nativeEvent.layout;
-        console.log(x, y, onLayoutWidth, onLayoutHeight);
+    const openDetailModeAnimation = () => {
+        setIsPortalView(true)
+        modalAnimationPosition.value = "absolute";
+
+        modalAnimationHeight.value = withTiming(height, { duration: 1500 });
+        modalAnimationWidth.value = withTiming(width, { duration: 1500 });
+
+        modalContainerAnimationTop.value = withTiming(0, { duration: 1500 });
+        modalContainerAnimationLeft.value = withTiming(0, { duration: 1500 });
+
+        posterAnimationHeight.value = withTiming(height, { duration: 1500 });
+        posterAnimationWidth.value = withTiming(width, { duration: 1500 });
+    }
+
+    const closeDetailModeAnimation = () => {
+        setTimeout(() => {
+            setIsPortalView(false)
+            modalAnimationPosition.value = "relative";
+        }, 2600);
+
+        modalAnimationHeight.value = withTiming(posterHeight, { duration: 1500 });
+        modalAnimationWidth.value = withTiming(posterWidth, { duration: 1500 });
+
+        modalContainerAnimationLeft.value = withTiming(modalAnimationTempLeft + posterWidth + 15, { duration: 1500 });
+        modalContainerAnimationTop.value = withTiming(modalAnimationTempTop, { duration: 1500 });
+
+        posterAnimationHeight.value = withTiming(posterHeight, { duration: 1500 });
+        posterAnimationWidth.value = withTiming(posterWidth, { duration: 1500 });
     }
 
     if (isPortalView) {
         return (
             <>
-                <AnimatedModal visible={true} style={modalAnimationStyle} transparent animationType="none" onLayout={contentOnLayout}>
+                <AnimatedModal visible={true} style={modalAnimationStyle} transparent animationType="none">
                     <Animated.View style={modalContainerAnimationStyle} ref={containerRef}>
-                        <AnimatedPressable onPress={(event: GestureResponderEvent) => contentOnPress(event)} style={contentStyle}>
-                            <Animated.Image source={{ uri: content.poster }} style={posterAnimationStyle} resizeMode="cover" />
+                        <AnimatedPressable onPress={contentOnPress} style={contentStyle}>
+                            <Animated.Image source={{ uri: content.poster }} style={posterAnimationStyle} resizeMode="stretch" />
                         </AnimatedPressable>
                     </Animated.View>
                     <View style={styles.container} />
@@ -156,7 +154,7 @@ const PosterMode = forwardRef(({ content, index }: PosterModeProps, ref) => {
 
     return (
         <Animated.View style={styles.container} ref={containerRef}>
-            <AnimatedPressable onPress={(event: GestureResponderEvent) => contentOnPress(event)} style={contentStyle}>
+            <AnimatedPressable onPress={contentOnPress} style={contentStyle}>
                 <Animated.Image source={{ uri: content.poster }} style={posterAnimationStyle} resizeMode="stretch" />
             </AnimatedPressable>
         </Animated.View>
@@ -165,15 +163,15 @@ const PosterMode = forwardRef(({ content, index }: PosterModeProps, ref) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: (width / 3.275) * 1.3,
-        width: width / 3.275,
+        height: posterHeight,
+        width: posterWidth,
         margin: 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
     poster: {
-        height: (width / 3.275) * 1.3,
-        width: width / 3.275,
+        height: posterHeight,
+        width: posterWidth,
         borderRadius: 5
     }
 });
