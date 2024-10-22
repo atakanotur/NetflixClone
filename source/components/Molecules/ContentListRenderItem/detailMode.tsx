@@ -1,5 +1,5 @@
-import { useState, forwardRef, useImperativeHandle } from 'react';
-import { View, ScrollView, Pressable, StyleSheet, Dimensions, LayoutChangeEvent } from "react-native"
+import { useState, forwardRef } from 'react';
+import { View, ScrollView, Pressable, StyleSheet, Dimensions, LayoutChangeEvent, StyleProp, ViewStyle } from "react-native"
 import localization from "@/source/lib/locales/localization"
 import colors from "@/source/theme/colors"
 import responsiveFontSize from "@/source/theme/responsiveFontSize"
@@ -11,27 +11,18 @@ import RedBarAnimation from "./redBarAnimation"
 import { Text } from "../../Atoms"
 import Constant from 'expo-constants';
 import categoryStore from '@/source/store/categoryStore';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { AnimatedStyle } from 'react-native-reanimated';
 
 type DetailModeProps = {
     content: Series | Movie;
+    containerStyle: StyleProp<AnimatedStyle<StyleProp<ViewStyle>>>
     onClose: () => void;
-}
-
-export type DetailModeRef = {
-    animateOpen: () => void;
-    animateClose: () => void;
 }
 
 const { width, height } = Dimensions.get("window");
 const { statusBarHeight } = Constant;
 
-const DetailMode = forwardRef(({ content, onClose }: DetailModeProps, ref) => {
-    useImperativeHandle(ref, () => ({
-        animateOpen,
-        animateClose
-    }));
-
+const DetailMode = forwardRef(({ content, onClose, containerStyle }: DetailModeProps, ref) => {
     const categories = categoryStore(state => state.categories);
 
     const [similarOrEpisodesSelected, setSimilarOrEpisodesSelected] = useState<"similar" | "episodes">(content.type === "series" ? "episodes" : "similar");
@@ -41,31 +32,8 @@ const DetailMode = forwardRef(({ content, onClose }: DetailModeProps, ref) => {
     const [similarButtonWidth, setSimilarButtonWidth] = useState<number>(0);
     const [episodesButtonWidth, setEpisodesButtonWidth] = useState<number>(0);
 
-    const animationDuration: number = 200;
-
-    const containerOpacity = useSharedValue(0);
-    const containerPaddingTop = useSharedValue(0);
-    const containerStyle = useAnimatedStyle(() => {
-        return {
-            flex: 1,
-            paddingTop: containerPaddingTop.value,
-            borderTopRightRadius: 15,
-            borderTopLeftRadius: 15,
-            opacity: containerOpacity.value,
-            zIndex: 3
-        }
-    })
-
-    const animateOpen = () => {
-        console.log("open");
-        containerOpacity.value = withTiming(1, { duration: animationDuration });
-        containerPaddingTop.value = withTiming(statusBarHeight, { duration: animationDuration });
-    }
-
     const animateClose = () => {
         onClose();
-        containerOpacity.value = withTiming(0, { duration: animationDuration });
-        containerPaddingTop.value = withTiming(0, { duration: animationDuration });
     }
 
     const getCategoryByContentId = (contentId: string) => {

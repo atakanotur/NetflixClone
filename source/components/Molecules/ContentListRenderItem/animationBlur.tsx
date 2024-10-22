@@ -6,16 +6,16 @@ type AnimationBlurType = {
     content: Series | Movie
     intensity?: SharedValue<number>
     style?: StyleProp<AnimatedStyle<StyleProp<ViewStyle>>>
-    imageStyle?: StyleProp<AnimatedStyle<StyleProp<ImageStyle>>>
+    posterStyle?: StyleProp<AnimatedStyle<StyleProp<ImageStyle>>>
 }
 
-const AnimationBlur = ({ content, intensity, style, imageStyle }: AnimationBlurType) => {
+const AnimationBlur = ({ content, intensity, style, posterStyle }: AnimationBlurType) => {
     const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
     return (
         <>
             <AnimatedBlurView intensity={intensity} style={style} />
-            <Animated.Image source={{ uri: content.poster }} style={imageStyle} />
+            <Animated.Image source={{ uri: content.poster }} style={posterStyle} />
         </>
     )
 }
