@@ -36,7 +36,6 @@ const LandingList = ({ data }: LandingListProps) => {
     }
 
     const renderItem: ListRenderItem<LadingListItemProps> = ({ item }) => {
-        console.log("item", item);
         return (
             <View style={styles.renderItemContainer}>
                 {item.image ? (

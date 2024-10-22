@@ -33,12 +33,19 @@
   "whoIsWatching": "Who is watching ?",
   "for": "for",
   "play": "Play",
+  "download": "Download",
   "myList": "My List",
+  "giveScore": "Give Score",
+  "recommend": "Recommend",
   "home": "Home",
   "newAndPopular": "New & Popular",
   "myNetflix": "My Netflix",
   "series": "Series",
   "movies": "Movies",
   "categories": "Categories",
-  "allCategories": "All Categories"
+  "allCategories": "All Categories",
+  "cast": "Cast",
+  "creator": "Creator",
+  "episodes": "Episodes",
+  "similar": "Similar"
 }

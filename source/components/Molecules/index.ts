@@ -2,18 +2,22 @@ import LandingList from "./LandingList";
 import ControlledInput from "./ControlledInput";
 import PasswordModal from "./PasswordModal";
 import Banner from "./Banner";
-import ContentList from "./ContentList";
+import MainList from "./MainList";
 import ContentListHeader from "./ContentListHeader";
-import MovieList from "./MovieList";
+import ContentList from "./ContentList";
 import TopBar from "./TopBar";
+import VideoPlayer from "./VideoPlayer";
+import ContentListRenderItem from "./ContentListRenderItem";
 
 export {
   LandingList,
   ControlledInput,
   PasswordModal,
   Banner,
-  ContentList,
+  MainList,
   ContentListHeader,
-  MovieList,
+  ContentList,
   TopBar,
+  VideoPlayer,
+  ContentListRenderItem,
 };
