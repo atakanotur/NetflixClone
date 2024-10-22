@@ -110,9 +110,11 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
             zIndex: 3
         }
     })
-    const animateDetailContainerStyle = (opacity: number, paddingTop: number, callback?: AnimationCallback | undefined) => {
+    const animateDetailContainerStyle = (opacity: number, paddingTop: number) => {
         detailContainerOpacity.value = withTiming(opacity, animationDurationAndEasing);
-        detailContainerPaddingTop.value = withTiming(paddingTop, animationDurationAndEasing, () => callback);
+        detailContainerPaddingTop.value = withTiming(paddingTop, animationDurationAndEasing, () => {
+            if (opacity === 0 || paddingTop === 0) runOnJS(setIsDetailMode)(false)
+        });
     }
 
     const posterOnPress = async () => {
@@ -144,9 +146,7 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
         animatePosterStyle(1, posterHeight, posterWidth);
         animatePosterBlurStyle(posterHeight, posterWidth);
         animateModalContainerStyle(posterHeight, posterWidth, modalAnimationTempTop, modalAnimationTempLeft);
-        animateDetailContainerStyle(0, 0, () => {
-            runOnJS(setIsDetailMode)(false)
-        });
+        animateDetailContainerStyle(0, 0);
     }
 
     if (isDetailMode) {
