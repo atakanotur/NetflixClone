@@ -11,6 +11,7 @@ import RedBarAnimation from "./redBarAnimation"
 import { Text } from "../../Atoms"
 import Constant from 'expo-constants';
 import categoryStore from '@/source/store/categoryStore';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 type DetailModeProps = {
     content: Series | Movie;
@@ -40,10 +41,31 @@ const DetailMode = forwardRef(({ content, onClose }: DetailModeProps, ref) => {
     const [similarButtonWidth, setSimilarButtonWidth] = useState<number>(0);
     const [episodesButtonWidth, setEpisodesButtonWidth] = useState<number>(0);
 
-    const animateOpen = () => { }
+    const animationDuration: number = 200;
+
+    const containerOpacity = useSharedValue(0);
+    const containerPaddingTop = useSharedValue(0);
+    const containerStyle = useAnimatedStyle(() => {
+        return {
+            flex: 1,
+            paddingTop: containerPaddingTop.value,
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
+            opacity: containerOpacity.value,
+            zIndex: 3
+        }
+    })
+
+    const animateOpen = () => {
+        console.log("open");
+        containerOpacity.value = withTiming(1, { duration: animationDuration });
+        containerPaddingTop.value = withTiming(statusBarHeight, { duration: animationDuration });
+    }
 
     const animateClose = () => {
         onClose();
+        containerOpacity.value = withTiming(0, { duration: animationDuration });
+        containerPaddingTop.value = withTiming(0, { duration: animationDuration });
     }
 
     const getCategoryByContentId = (contentId: string) => {
@@ -62,7 +84,7 @@ const DetailMode = forwardRef(({ content, onClose }: DetailModeProps, ref) => {
     }
 
     return (
-        <View style={styles.container}>
+        <Animated.View style={containerStyle}>
             <Ionicons name="close" size={responsiveFontSize(24)} color={colors.white} onPress={animateClose} style={styles.closeIcon} />
             <VideoPlayer
                 fullscreen={fullscreen}
@@ -117,17 +139,11 @@ const DetailMode = forwardRef(({ content, onClose }: DetailModeProps, ref) => {
                 </View>
                 {content.type === "series" && similarOrEpisodesSelected === "episodes" ? <EpisodeList seasons={content.seasons} /> : <SimilarContentList similarContent={similarContent} />}
             </ScrollView>
-        </View>
+        </Animated.View>
     )
 })
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: statusBarHeight,
-        borderTopRightRadius: 15,
-        borderTopLeftRadius: 15,
-    },
     video: {
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,

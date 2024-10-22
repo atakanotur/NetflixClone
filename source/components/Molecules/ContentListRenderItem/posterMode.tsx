@@ -1,8 +1,8 @@
 import { forwardRef, useState, useRef, useImperativeHandle } from "react"
 import { View, Dimensions, Pressable, StyleSheet, Image, Modal } from "react-native"
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from "react-native-reanimated"
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, withSequence } from "react-native-reanimated"
 import DetailMode, { DetailModeRef } from "./detailMode"
-import { BlurView } from "expo-blur"
+import AnimationBlur from "./animationBlur"
 
 type PosterModeProps = {
     content: Series | Movie,
@@ -27,32 +27,26 @@ const PosterMode = forwardRef(({ content }: PosterModeProps, ref) => {
     }));
 
     const AnimatedModal = Animated.createAnimatedComponent(Modal);
-    const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
     const [isDetailMode, setIsDetailMode] = useState<boolean>(false);
-    const [expanded, setExpanded] = useState<boolean>(false);
 
-    const animationDuration: number = 1600;
+    const animationDuration: number = 500;
     const halfAnimationDuration: number = animationDuration / 2;
 
     const animationDurationAndEasing = {
         duration: animationDuration,
-        easing: Easing.out(Easing.exp)
+        easing: Easing.out(Easing.ease)
     }
 
     const halfAnimationDurationAndEasing = {
         duration: halfAnimationDuration,
-        easing: Easing.out(Easing.exp)
+        easing: Easing.out(Easing.ease)
     }
 
     //Modal Animation Styles
-    const modalAnimationHeight = useSharedValue(posterHeight);
-    const modalAnimationWidth = useSharedValue(posterWidth);
-
     const modalAnimationStyle = useAnimatedStyle(() => {
         return {
-            height: modalAnimationHeight.value,
-            width: modalAnimationWidth.value,
+            flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 5
@@ -63,11 +57,14 @@ const PosterMode = forwardRef(({ content }: PosterModeProps, ref) => {
     const modalContainerAnimationLeft = useSharedValue(0);
     const modalContainerAnimationTop = useSharedValue(0);
 
+    const modalContainerAnimationHeight = useSharedValue(posterHeight);
+    const modalContainerAnimationWidth = useSharedValue(posterWidth);
+
     const modalContainerAnimationStyle = useAnimatedStyle(() => {
         return {
+            height: modalContainerAnimationHeight.value,
+            width: modalContainerAnimationWidth.value,
             borderRadius: 15,
-            height: modalAnimationHeight.value,
-            width: modalAnimationWidth.value,
             alignItems: 'center',
             justifyContent: 'center',
             transform: [{ translateX: modalContainerAnimationLeft.value }, { translateY: modalContainerAnimationTop.value }]
@@ -75,44 +72,36 @@ const PosterMode = forwardRef(({ content }: PosterModeProps, ref) => {
     })
 
     //Poster Animation Styles
-    const posterAnimationHeight = useSharedValue(posterHeight);
-    const posterAnimationWidth = useSharedValue(posterWidth);
     const posterAnimationStyle = useAnimatedStyle(() => {
         return {
-            height: posterAnimationHeight.value,
-            width: posterAnimationWidth.value,
+            flex: 1,
             borderRadius: 5,
-            zIndex: 1
+            zIndex: 1,
         }
     });
 
-    //Poster Mode BlurView
-    const posterIntensity = useSharedValue(0);
+    const animationPosterOpacity = useSharedValue(1);
+    const animationPosterHeight = useSharedValue(posterHeight);
+    const animationPosterWidth = useSharedValue(posterWidth);
+    const animationPosterStyle = useAnimatedStyle(() => {
+        return {
+            position: 'absolute',
+            height: animationPosterHeight.value,
+            width: animationPosterWidth.value,
+            zIndex: 1,
+            opacity: animationPosterOpacity.value
+        }
+    });
+
+    const posterBlurIntensity = useSharedValue(100);
     const posterBlurHeight = useSharedValue(posterHeight);
     const posterBlurWidth = useSharedValue(posterWidth);
-    const posterModeBlurView = useAnimatedStyle(() => {
+    const posterBlurStyle = useAnimatedStyle(() => {
         return {
-            position: "absolute",
-            width: posterBlurWidth.value,
+            position: 'absolute',
             height: posterBlurHeight.value,
-            zIndex: 2,
-            top: 0,
-            left: 0
-        }
-    });
-
-    const [isDetailModeBlurred, setIsDetailModeBlurred] = useState<boolean>(false);
-    const detailIntensity = useSharedValue(100);
-    const detailBlurHeight = useSharedValue(posterHeight);
-    const detailBlurWidth = useSharedValue(posterWidth);
-    const detailModeBlurView = useAnimatedStyle(() => {
-        return {
-            position: "absolute",
-            width: detailBlurWidth.value,
-            height: detailBlurHeight.value,
-            top: 0,
-            left: 0,
-            zIndex: 5
+            width: posterBlurWidth.value,
+            zIndex: 2
         }
     })
 
@@ -138,81 +127,74 @@ const PosterMode = forwardRef(({ content }: PosterModeProps, ref) => {
 
     const detailModeOpen = () => {
         setIsDetailMode(true);
-        setIsDetailModeBlurred(true);
         animateDetailModeOpen();
-        expandAndAnimateDetailIntensity();
-        disableDetailBlurAfterAnimation();
-    }
+    };
 
     const animateDetailModeOpen = () => {
-        posterIntensity.value = withTiming(100, halfAnimationDurationAndEasing);
-        posterBlurHeight.value = withTiming(height, animationDurationAndEasing);
-        posterBlurWidth.value = withTiming(width, animationDurationAndEasing);
+        detailModeRef.current?.animateOpen();
 
-        detailBlurHeight.value = withTiming(height, animationDurationAndEasing);
-        detailBlurWidth.value = withTiming(width, animationDurationAndEasing);
+        posterOpenAnimations();
+        posterBlurOpenAnimations();
+        modalContainerOpenAnimations();
+    }
 
-        modalAnimationHeight.value = withTiming(height, animationDurationAndEasing);
-        modalAnimationWidth.value = withTiming(width, animationDurationAndEasing);
+    const posterOpenAnimations = () => {
+        animationPosterHeight.value = withTiming(height, animationDurationAndEasing)
+        animationPosterWidth.value = withTiming(width, animationDurationAndEasing)
+        animationPosterOpacity.value = withTiming(0, animationDurationAndEasing)
+    }
 
+    const posterBlurOpenAnimations = () => {
+        posterBlurHeight.value = withTiming(height, animationDurationAndEasing)
+        posterBlurWidth.value = withTiming(width, animationDurationAndEasing)
+        animateBlurSequence();
+    }
+
+    const modalContainerOpenAnimations = () => {
+        modalContainerAnimationHeight.value = withTiming(height, animationDurationAndEasing);
+        modalContainerAnimationWidth.value = withTiming(width, animationDurationAndEasing);
         modalContainerAnimationTop.value = withTiming(0, animationDurationAndEasing);
         modalContainerAnimationLeft.value = withTiming(0, animationDurationAndEasing);
-
-        posterAnimationHeight.value = withTiming(height, animationDurationAndEasing);
-        posterAnimationWidth.value = withTiming(width, animationDurationAndEasing);
-    }
-
-    const expandAndAnimateDetailIntensity = () => {
-        setTimeout(() => {
-            setExpanded(true);
-            detailIntensity.value = withTiming(0, { duration: animationDuration / 2 });
-        }, halfAnimationDuration);
-    }
-
-    const disableDetailBlurAfterAnimation = () => {
-        setTimeout(() => {
-            setIsDetailModeBlurred(false);
-
-        }, animationDuration);
     }
 
     const detailModeClose = () => {
-        setIsDetailModeBlurred(true);
         animateDetailModeClose();
-        disableDetailModeAndBlur();
-        collapseDetailMode();
+        disableDetailMode();
     }
 
     const animateDetailModeClose = () => {
-        posterIntensity.value = withTiming(0, animationDurationAndEasing);
-        posterBlurHeight.value = withTiming(posterHeight, animationDurationAndEasing);
-        posterBlurWidth.value = withTiming(posterWidth, animationDurationAndEasing);
-
-        detailIntensity.value = withTiming(100, halfAnimationDurationAndEasing);
-        detailBlurHeight.value = withTiming(posterHeight, animationDurationAndEasing);
-        detailBlurWidth.value = withTiming(posterWidth, animationDurationAndEasing);
-
-        modalAnimationHeight.value = withTiming(posterHeight, animationDurationAndEasing);
-        modalAnimationWidth.value = withTiming(posterWidth, animationDurationAndEasing);
-
-        modalContainerAnimationTop.value = withTiming(modalAnimationTempTop, animationDurationAndEasing);
-        modalContainerAnimationLeft.value = withTiming(modalAnimationTempLeft + posterWidth + 15, animationDurationAndEasing);
-
-        posterAnimationHeight.value = withTiming(posterHeight, animationDurationAndEasing);
-        posterAnimationWidth.value = withTiming(posterWidth, animationDurationAndEasing);
+        posterCloseAnimations();
+        posterBlurCloseAnimations();
+        modalContainerCloseAnimations();
     }
 
-    const disableDetailModeAndBlur = () => {
+    const posterCloseAnimations = () => {
+        animationPosterHeight.value = withTiming(posterHeight, animationDurationAndEasing)
+        animationPosterWidth.value = withTiming(posterWidth, animationDurationAndEasing)
+        animationPosterOpacity.value = withTiming(1, animationDurationAndEasing)
+    }
+
+    const posterBlurCloseAnimations = () => {
+        posterBlurHeight.value = withTiming(posterHeight, animationDurationAndEasing)
+        posterBlurWidth.value = withTiming(posterWidth, animationDurationAndEasing)
+        animateBlurSequence();
+    }
+
+    const modalContainerCloseAnimations = () => {
+        modalContainerAnimationHeight.value = withTiming(posterHeight, animationDurationAndEasing);
+        modalContainerAnimationWidth.value = withTiming(posterWidth, animationDurationAndEasing);
+        modalContainerAnimationTop.value = withTiming(modalAnimationTempTop, animationDurationAndEasing);
+        modalContainerAnimationLeft.value = withTiming(modalAnimationTempLeft, animationDurationAndEasing);
+    }
+
+    const disableDetailMode = () => {
         setTimeout(() => {
             setIsDetailMode(false)
-            setIsDetailModeBlurred(false);
         }, animationDuration);
     }
 
-    const collapseDetailMode = () => {
-        setTimeout(() => {
-            setExpanded(false);
-        }, halfAnimationDuration);
+    const animateBlurSequence = () => {
+        posterBlurIntensity.value = withSequence(withTiming(100, halfAnimationDurationAndEasing), withTiming(0, halfAnimationDurationAndEasing))
     }
 
     if (isDetailMode) {
@@ -220,21 +202,19 @@ const PosterMode = forwardRef(({ content }: PosterModeProps, ref) => {
             <>
                 <AnimatedModal visible={isDetailMode} style={modalAnimationStyle} transparent animationType="none">
                     <Animated.View style={modalContainerAnimationStyle}>
-                        {expanded ?
-                            <View style={styles.expandedDetailContainer}>
-                                {isDetailModeBlurred && <AnimatedBlurView intensity={detailIntensity} style={detailModeBlurView} />}
-                                <DetailMode
-                                    content={content}
-                                    onClose={detailModeClose}
-                                    ref={detailModeRef}
-                                />
-                            </View>
-                            :
-                            <>
-                                <AnimatedBlurView intensity={posterIntensity} style={posterModeBlurView} />
-                                <Animated.Image source={{ uri: content.poster }} style={posterAnimationStyle} />
-                            </>
-                        }
+                        <Animated.View style={posterAnimationStyle}>
+                            <AnimationBlur
+                                content={content}
+                                intensity={posterBlurIntensity}
+                                style={posterBlurStyle}
+                                imageStyle={animationPosterStyle}
+                            />
+                            <DetailMode
+                                ref={detailModeRef}
+                                content={content}
+                                onClose={detailModeClose}
+                            />
+                        </Animated.View>
                     </Animated.View>
                 </AnimatedModal>
                 <View style={styles.container}>
