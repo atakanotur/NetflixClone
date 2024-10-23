@@ -27,7 +27,7 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
 
     const [isDetailMode, setIsDetailMode] = useState<boolean>(false);
 
-    const animationDuration: number = 500;
+    const animationDuration: number = 1500;
     const halfAnimationDuration: number = animationDuration / 2;
     const animationDurationAndEasing = {
         duration: animationDuration,
@@ -70,7 +70,8 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
             height: animationPosterHeight.value,
             width: animationPosterWidth.value,
             zIndex: 1,
-            opacity: animationPosterOpacity.value
+            opacity: animationPosterOpacity.value,
+            borderRadius: 5
         }
     });
     const animatePosterStyle = (opacity: number, height: number, width: number) => {
@@ -88,7 +89,8 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
             position: 'absolute',
             height: posterBlurHeight.value,
             width: posterBlurWidth.value,
-            zIndex: 2
+            zIndex: 2,
+            borderRadius: 5
         }
     })
     const animatePosterBlurStyle = (height: number, width: number) => {
@@ -149,9 +151,9 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
         animateDetailContainerStyle(0, 0);
     }
 
-    if (isDetailMode) {
-        return (
-            <>
+    return (
+        <>
+            {isDetailMode &&
                 <AnimatedModal visible={isDetailMode} style={styles.detailModeModal} transparent animationType="none">
                     <Animated.View style={modalContainerAnimationStyle}>
                         <View style={styles.detailModePoster}>
@@ -168,26 +170,15 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
                             />
                         </View>
                     </Animated.View>
-                </AnimatedModal>
-                <PosterMode
-                    posterModeContainerRef={posterModeContainerRef}
-                    content={content}
-                    posterHeight={posterHeight}
-                    posterWidth={posterWidth}
-                    posterOnPress={posterOnPress}
-                />
-            </>
-        )
-    }
-
-    return (
-        <PosterMode
-            posterModeContainerRef={posterModeContainerRef}
-            content={content}
-            posterHeight={posterHeight}
-            posterWidth={posterWidth}
-            posterOnPress={posterOnPress}
-        />
+                </AnimatedModal>}
+            <PosterMode
+                posterModeContainerRef={posterModeContainerRef}
+                content={content}
+                posterHeight={posterHeight}
+                posterWidth={posterWidth}
+                posterOnPress={posterOnPress}
+            />
+        </>
     );
 })
 
@@ -196,7 +187,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 5
     },
     detailModePoster: {
         flex: 1

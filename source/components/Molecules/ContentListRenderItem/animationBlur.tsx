@@ -15,7 +15,7 @@ const AnimationBlur = ({ content, intensity, style, posterStyle }: AnimationBlur
     return (
         <>
             <AnimatedBlurView intensity={intensity} style={style} />
-            <Animated.Image source={{ uri: content.poster }} style={posterStyle} />
+            <Animated.Image source={{ uri: content.poster }} style={posterStyle} resizeMode="stretch" />
         </>
     )
 }
