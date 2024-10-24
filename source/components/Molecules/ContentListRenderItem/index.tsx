@@ -1,13 +1,19 @@
-import { useRef, useState, useImperativeHandle, forwardRef } from 'react'
+import { useRef, useState, forwardRef } from 'react'
 import { View, Dimensions, Modal, StyleSheet } from "react-native"
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, withSequence, withDelay, SharedValue, runOnJS, AnimationCallback } from "react-native-reanimated"
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, withSequence, runOnJS, interpolateColor } from "react-native-reanimated"
+import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Constant from 'expo-constants';
 import DetailMode from "./detailMode"
 import AnimationBlur from "./animationBlur"
 import PosterMode from './posterMode';
+import { BlurView } from 'expo-blur';
 
 type ContentListRenderItemProps = {
     content: Series | Movie,
+}
+
+function clamp(val: number, min: number, max: number) {
+    return Math.min(Math.max(val, min), max);
 }
 
 const { width, height } = Dimensions.get('window');
@@ -18,47 +24,84 @@ let modalAnimationTempTop = 0;
 const { statusBarHeight } = Constant;
 
 const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProps, ref) => {
-    useImperativeHandle(ref, () => ({
-        detailModeClose
-    }));
     const posterModeContainerRef = useRef<View>({} as View);
+    const detailModeScrollViewRef = useRef(null);
 
     const AnimatedModal = Animated.createAnimatedComponent(Modal);
+    const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
     const [isDetailMode, setIsDetailMode] = useState<boolean>(false);
 
-    const animationDuration: number = 1500;
+    const animationDuration: number = 500;
     const halfAnimationDuration: number = animationDuration / 2;
     const animationDurationAndEasing = {
         duration: animationDuration,
-        easing: Easing.inOut(Easing.ease)
+        easing: Easing.inOut(Easing.exp)
     }
     const halfAnimationDurationAndEasing = {
         duration: halfAnimationDuration,
-        easing: Easing.inOut(Easing.ease)
+        easing: Easing.inOut(Easing.exp)
+    }
+
+    //Detail Mode Background Blur
+    const detailModeBackgroundBlurIntensity = useSharedValue(0);
+    const detailModeBackgoundBlurColorProgress = useSharedValue(0);
+    const detailModeBackgroundBlur = useAnimatedStyle(() => {
+        return {
+            flex: 1,
+            backgroundColor: interpolateColor(detailModeBackgoundBlurColorProgress.value, [0, 1], ["transparent", "black"])
+        }
+    })
+    const animateDetailModeBackgroundBlur = (intensity: number, backgroundColorProgress: number) => {
+        detailModeBackgroundBlurIntensity.value = withTiming(intensity, halfAnimationDurationAndEasing);
+        detailModeBackgoundBlurColorProgress.value = withTiming(backgroundColorProgress, halfAnimationDurationAndEasing);
     }
 
     //Modal Container Animation Styles
-    const modalContainerAnimationLeft = useSharedValue(0);
-    const modalContainerAnimationTop = useSharedValue(0);
-    const modalContainerAnimationHeight = useSharedValue(posterHeight);
-    const modalContainerAnimationWidth = useSharedValue(posterWidth);
-    const modalContainerAnimationStyle = useAnimatedStyle(() => {
+    const modalContainerTranslateX = useSharedValue(0);
+    const modalContainerTranslateY = useSharedValue(0);
+    const modalContainerPrevTranslationX = useSharedValue(0);
+    const modalContainerPrevTranslationY = useSharedValue(0);
+    const modalContainerHeight = useSharedValue(posterHeight);
+    const modalContainerWidth = useSharedValue(posterWidth);
+    const modalContainerStyle = useAnimatedStyle(() => {
         return {
-            height: modalContainerAnimationHeight.value,
-            width: modalContainerAnimationWidth.value,
+            height: modalContainerHeight.value,
+            width: modalContainerWidth.value,
             borderRadius: 15,
             alignItems: 'center',
             justifyContent: 'center',
-            transform: [{ translateX: modalContainerAnimationLeft.value }, { translateY: modalContainerAnimationTop.value }]
+            transform: [{ translateX: modalContainerTranslateX.value }, { translateY: modalContainerTranslateY.value }]
         }
     })
     const animateModalContainerStyle = (height: number, width: number, top: number, left: number) => {
-        modalContainerAnimationHeight.value = withTiming(height, animationDurationAndEasing);
-        modalContainerAnimationWidth.value = withTiming(width, animationDurationAndEasing);
-        modalContainerAnimationTop.value = withTiming(top, animationDurationAndEasing);
-        modalContainerAnimationLeft.value = withTiming(left, animationDurationAndEasing);
+        modalContainerHeight.value = withTiming(height, animationDurationAndEasing);
+        modalContainerWidth.value = withTiming(width, animationDurationAndEasing);
+        modalContainerTranslateY.value = withTiming(top, animationDurationAndEasing);
+        modalContainerTranslateX.value = withTiming(left, animationDurationAndEasing);
     }
+    const modalContainerPan = Gesture.Pan()
+        .minDistance(2)
+        .simultaneousWithExternalGesture(detailModeScrollViewRef)
+        .onStart(() => {
+            modalContainerPrevTranslationX.value = modalContainerTranslateX.value;
+            modalContainerPrevTranslationY.value = modalContainerTranslateY.value;
+            animateDetailModeBackgroundBlur(70, 0);
+        })
+        .onUpdate((event) => {
+            const maxTranslateX = width;
+            const maxTranslateY = height;
+            modalContainerTranslateX.value = clamp(modalContainerPrevTranslationX.value + event.translationX, -maxTranslateX, maxTranslateX);
+            modalContainerTranslateY.value = clamp(modalContainerPrevTranslationY.value + event.translationY, -maxTranslateY, maxTranslateY);
+        }).onEnd((event) => {
+            if ((event.translationX > 50 || event.translationX < -50) && (event.translationY > 50 || event.translationY < -50)) detailModeClose();
+            else {
+                animateDetailModeBackgroundBlur(70, 1);
+                modalContainerTranslateX.value = withTiming(0, halfAnimationDurationAndEasing)
+                modalContainerTranslateY.value = withTiming(0, halfAnimationDurationAndEasing)
+            }
+        })
+        .runOnJS(true);
 
     //Poster Animation Styles
     const animationPosterOpacity = useSharedValue(1);
@@ -106,8 +149,8 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
         return {
             flex: 1,
             paddingTop: detailContainerPaddingTop.value,
-            borderTopRightRadius: 15,
-            borderTopLeftRadius: 15,
+            borderTopRightRadius: 5,
+            borderTopLeftRadius: 5,
             opacity: detailContainerOpacity.value,
             zIndex: 3
         }
@@ -130,8 +173,8 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
             posterModeContainerRef.current?.measure((x, y, width, height, pageX, pageY) => {
                 modalAnimationTempLeft = pageX;
                 modalAnimationTempTop = pageY;
-                modalContainerAnimationLeft.value = pageX + posterWidth + 15;
-                modalContainerAnimationTop.value = pageY;
+                modalContainerTranslateX.value = pageX;
+                modalContainerTranslateY.value = pageY;
                 resolve();
             });
         });
@@ -142,6 +185,7 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
         animatePosterBlurStyle(height, width)
         animateModalContainerStyle(height, width, 0, 0);
         animateDetailContainerStyle(1, statusBarHeight);
+        animateDetailModeBackgroundBlur(70, 1);
     }
 
     const detailModeClose = () => {
@@ -149,28 +193,37 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
         animatePosterBlurStyle(posterHeight, posterWidth);
         animateModalContainerStyle(posterHeight, posterWidth, modalAnimationTempTop, modalAnimationTempLeft);
         animateDetailContainerStyle(0, 0);
+        animateDetailModeBackgroundBlur(0, 0);
     }
 
     return (
         <>
             {isDetailMode &&
                 <AnimatedModal visible={isDetailMode} style={styles.detailModeModal} transparent animationType="none">
-                    <Animated.View style={modalContainerAnimationStyle}>
-                        <View style={styles.detailModePoster}>
-                            <AnimationBlur
-                                content={content}
-                                intensity={posterBlurIntensity}
-                                style={posterBlurStyle}
-                                posterStyle={animationPosterStyle}
-                            />
-                            <DetailMode
-                                content={content}
-                                onClose={detailModeClose}
-                                containerStyle={detailContainerStyle}
-                            />
-                        </View>
-                    </Animated.View>
-                </AnimatedModal>}
+                    <AnimatedBlurView style={detailModeBackgroundBlur} intensity={detailModeBackgroundBlurIntensity}>
+                        <GestureHandlerRootView style={{ position: "absolute", top: 0, left: 0 }}>
+                            <GestureDetector gesture={Gesture.Simultaneous(modalContainerPan)}>
+                                <Animated.View style={[modalContainerStyle]}>
+                                    <View style={styles.detailModePoster}>
+                                        <AnimationBlur
+                                            content={content}
+                                            intensity={posterBlurIntensity}
+                                            style={posterBlurStyle}
+                                            posterStyle={animationPosterStyle}
+                                        />
+                                        <DetailMode
+                                            scrollViewRef={detailModeScrollViewRef}
+                                            content={content}
+                                            onClose={detailModeClose}
+                                            containerStyle={detailContainerStyle}
+                                        />
+                                    </View>
+                                </Animated.View>
+                            </GestureDetector>
+                        </GestureHandlerRootView >
+                    </AnimatedBlurView>
+                </AnimatedModal>
+            }
             <PosterMode
                 posterModeContainerRef={posterModeContainerRef}
                 content={content}
@@ -184,13 +237,17 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
 
 const styles = StyleSheet.create({
     detailModeModal: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     detailModePoster: {
-        flex: 1
-    }
+        flex: 1,
+    },
+    box: {
+        width: 100,
+        height: 100,
+        backgroundColor: '#b58df1',
+        borderRadius: 20,
+        zIndex: 9
+    },
 })
 
 export default ContentListRenderItem;

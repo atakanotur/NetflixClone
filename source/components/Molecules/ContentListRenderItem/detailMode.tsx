@@ -1,4 +1,4 @@
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, LegacyRef } from 'react';
 import { View, ScrollView, Pressable, StyleSheet, Dimensions, LayoutChangeEvent, StyleProp, ViewStyle } from "react-native"
 import localization from "@/source/lib/locales/localization"
 import colors from "@/source/theme/colors"
@@ -14,6 +14,7 @@ import categoryStore from '@/source/store/categoryStore';
 import Animated, { AnimatedStyle } from 'react-native-reanimated';
 
 type DetailModeProps = {
+    scrollViewRef?: LegacyRef<ScrollView>;
     content: Series | Movie;
     containerStyle: StyleProp<AnimatedStyle<StyleProp<ViewStyle>>>
     onClose: () => void;
@@ -22,7 +23,7 @@ type DetailModeProps = {
 const { width, height } = Dimensions.get("window");
 const { statusBarHeight } = Constant;
 
-const DetailMode = forwardRef(({ content, onClose, containerStyle }: DetailModeProps, ref) => {
+const DetailMode = forwardRef(({ scrollViewRef, content, onClose, containerStyle }: DetailModeProps, ref) => {
     const categories = categoryStore(state => state.categories);
 
     const [similarOrEpisodesSelected, setSimilarOrEpisodesSelected] = useState<"similar" | "episodes">(content.type === "series" ? "episodes" : "similar");
@@ -59,7 +60,7 @@ const DetailMode = forwardRef(({ content, onClose, containerStyle }: DetailModeP
                 videoSource={content.trailer}
                 visible={true}
                 style={styles.video} />
-            <ScrollView style={styles.detailModeInformationContainer} contentContainerStyle={styles.detailModeInformationContainerContent} showsVerticalScrollIndicator={false}>
+            <ScrollView ref={scrollViewRef} style={styles.detailModeInformationContainer} contentContainerStyle={styles.detailModeInformationContainerContent} showsVerticalScrollIndicator={false}>
                 <Text text={content.title} style={styles.contentTitle} />
                 <View style={styles.yearAndSeasonNumberOrMovieDuration}>
                     <Text text={content.year.toString()} style={styles.year} />
@@ -113,12 +114,12 @@ const DetailMode = forwardRef(({ content, onClose, containerStyle }: DetailModeP
 
 const styles = StyleSheet.create({
     video: {
-        borderTopRightRadius: 15,
-        borderTopLeftRadius: 15,
     },
     detailModeInformationContainer: {
         backgroundColor: colors.darkGrey,
         padding: 10,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5
     },
     detailModeInformationContainerContent: {
         flexGrow: 1,
