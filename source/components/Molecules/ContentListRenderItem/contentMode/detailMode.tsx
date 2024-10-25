@@ -4,11 +4,11 @@ import localization from "@/source/lib/locales/localization"
 import colors from "@/source/theme/colors"
 import responsiveFontSize from "@/source/theme/responsiveFontSize"
 import { Ionicons, MaterialIcons, Octicons, Feather } from "@expo/vector-icons"
-import VideoPlayer from '../VideoPlayer';
-import EpisodeList from "../EpisodeList"
-import SimilarContentList from "../SimilarContentList"
-import RedBarAnimation from "./redBarAnimation"
-import { Text } from "../../Atoms"
+import VideoPlayer from '../../VideoPlayer';
+import EpisodeList from "../../EpisodeList"
+import SimilarContentList from "../../SimilarContentList"
+import RedBarAnimation from "../animations/redBarAnimation"
+import { Text } from "../../../Atoms"
 import Constant from 'expo-constants';
 import categoryStore from '@/source/store/categoryStore';
 import Animated, { AnimatedStyle } from 'react-native-reanimated';
