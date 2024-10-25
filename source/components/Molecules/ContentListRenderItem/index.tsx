@@ -1,30 +1,13 @@
-import { useRef, useState, forwardRef } from 'react'
+import { useRef, useState } from 'react'
 import { View, Dimensions, Modal, StyleSheet } from "react-native"
 import Animated from "react-native-reanimated"
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Constant from 'expo-constants';
 import DetailMode from "./contentMode/detailMode"
-import AnimationBlur from "./animations/blurAnimation"
 import PosterMode from './contentMode/posterMode';
 import { BlurView } from 'expo-blur';
-import {
-    animateDetailContainerStyle,
-    animateDetailModeBackgroundBlur,
-    animateModalContainerStyle,
-    animatePosterBlurStyle,
-    animatePosterStyle,
-    animationPosterStyle,
-    detailContainerStyle,
-    detailModeBackgroundBlur,
-    modalContainerPan,
-    modalContainerStyle,
-    posterBlurStyle,
-    capturePosterInitialPosition,
-    detailModeBackgroundBlurIntensity,
-    posterBlurIntensity,
-    modalAnimationTempLeft,
-    modalAnimationTempTop
-} from './animations/animations'
+import BlurAnimation from './animations/blurAnimation';
+import Animations from './animations/animations';
 
 type ContentListRenderItemProps = {
     content: Series | Movie,
@@ -35,7 +18,26 @@ const posterWidth: number = width / 3.275;
 const posterHeight: number = posterWidth * 1.3;
 const { statusBarHeight } = Constant;
 
-const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProps, ref) => {
+const ContentListRenderItem = ({ content }: ContentListRenderItemProps) => {
+    const {
+        animateDetailContainerStyle,
+        animateDetailModeBackgroundBlur,
+        animateModalContainerStyle,
+        animatePosterBlurStyle,
+        animatePosterStyle,
+        animationPosterStyle,
+        capturePosterInitialPosition,
+        detailContainerStyle,
+        detailModeBackgroundBlur,
+        detailModeBackgroundBlurIntensity,
+        modalAnimationTempLeft,
+        modalAnimationTempTop,
+        modalContainerPan,
+        modalContainerStyle,
+        posterBlurIntensity,
+        posterBlurStyle
+    } = Animations();
+
     const posterModeContainerRef = useRef<View>({} as View);
     const detailModeScrollViewRef = useRef(null);
 
@@ -75,7 +77,7 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
                             <GestureDetector gesture={Gesture.Simultaneous(modalContainerPan(detailModeScrollViewRef, detailModeClose))}>
                                 <Animated.View style={[modalContainerStyle]}>
                                     <View style={styles.detailModePoster}>
-                                        <AnimationBlur
+                                        <BlurAnimation
                                             content={content}
                                             intensity={posterBlurIntensity}
                                             style={posterBlurStyle}
@@ -103,7 +105,7 @@ const ContentListRenderItem = forwardRef(({ content }: ContentListRenderItemProp
             />
         </>
     );
-})
+}
 
 const styles = StyleSheet.create({
     detailModeModal: {
