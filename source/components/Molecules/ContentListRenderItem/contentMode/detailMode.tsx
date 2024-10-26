@@ -7,7 +7,6 @@ import { Ionicons, MaterialIcons, Octicons, Feather } from "@expo/vector-icons"
 import VideoPlayer from '../../VideoPlayer';
 import EpisodeList from "../../EpisodeList"
 import SimilarContentList from "../../SimilarContentList"
-import RedBarAnimation from "../animations/redBarAnimation"
 import { Text } from "../../../Atoms"
 import Constant from 'expo-constants';
 import categoryStore from '@/source/store/categoryStore';
@@ -98,11 +97,11 @@ const DetailMode = forwardRef(({ scrollViewRef, content, onClose, containerStyle
                 <View style={styles.similarAndEpisodesContainer}>
                     {content.type === "series" &&
                         <Pressable style={[styles.similarAndEpisodesButton, styles.episodesButton]} onLayout={onEpisodesButtonLayout} onPress={() => setSimilarOrEpisodesSelected("episodes")}>
-                            <RedBarAnimation isSelected={similarOrEpisodesSelected === "episodes"} width={episodesButtonWidth} />
+                            {/* <RedBarAnimation isSelected={similarOrEpisodesSelected === "episodes"} width={episodesButtonWidth} /> */}
                             <Text text={localization.t("episodes")} />
                         </Pressable>}
                     <Pressable style={[styles.similarAndEpisodesButton, styles.similarButton]} onLayout={onSimilarButtonLayout} onPress={() => setSimilarOrEpisodesSelected("similar")}>
-                        <RedBarAnimation isSelected={similarOrEpisodesSelected === "similar"} width={similarButtonWidth} />
+                        {/* <RedBarAnimation isSelected={similarOrEpisodesSelected === "similar"} width={similarButtonWidth} /> */}
                         <Text text={localization.t("similar")} />
                     </Pressable>
                 </View>

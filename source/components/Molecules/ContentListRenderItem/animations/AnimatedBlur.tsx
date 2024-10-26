@@ -9,7 +9,7 @@ type AnimationBlurType = {
     posterStyle?: StyleProp<AnimatedStyle<StyleProp<ImageStyle>>>
 }
 
-const BlurAnimation = ({ content, intensity, style, posterStyle }: AnimationBlurType) => {
+const AnimatedBlur = ({ content, intensity, style, posterStyle }: AnimationBlurType) => {
     const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
     return (
@@ -20,4 +20,4 @@ const BlurAnimation = ({ content, intensity, style, posterStyle }: AnimationBlur
     )
 }
 
-export default BlurAnimation;
+export default AnimatedBlur;

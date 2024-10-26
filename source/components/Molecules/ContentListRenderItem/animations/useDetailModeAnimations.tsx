@@ -1,15 +1,19 @@
-import { Dispatch, SetStateAction, MutableRefObject } from 'react'
+import { useState, MutableRefObject, useCallback } from 'react'
 import { Dimensions, View } from 'react-native';
-import { useSharedValue, useAnimatedStyle, withTiming, withSequence, runOnJS, interpolateColor, Easing } from 'react-native-reanimated'
+import { useSharedValue, useAnimatedStyle, withTiming, withSequence, runOnJS, interpolateColor, Easing, AnimationCallback } from 'react-native-reanimated';
 import { Gesture } from 'react-native-gesture-handler';
 import { captureViewPosition } from '@/source/lib/captureViewPositions';
+import Constants from 'expo-constants';
 
-const Animations = () => {
+let modalAnimationTempLeft = 0;
+let modalAnimationTempTop = 0;
+const useDetailModeAnimations = () => {
     const { height, width } = Dimensions.get("window");
+    const { statusBarHeight } = Constants;
     const posterWidth: number = width / 3.275;
     const posterHeight: number = posterWidth * 1.3;
-    let modalAnimationTempLeft = 0;
-    let modalAnimationTempTop = 0;
+
+    const [isDetailModeVisible, setIsDetailModeVisible] = useState(false);
 
     const animationDuration: number = 500;
     const halfAnimationDuration: number = animationDuration / 2;
@@ -140,14 +144,15 @@ const Animations = () => {
             zIndex: 3
         }
     })
-    const animateDetailContainerStyle = (opacity: number, paddingTop: number, setIsDetailMode: Dispatch<SetStateAction<boolean>>) => {
+    const animateDetailContainerStyle = (opacity: number, paddingTop: number) => {
         detailContainerOpacity.value = withTiming(opacity, animationDurationAndEasing);
         detailContainerPaddingTop.value = withTiming(paddingTop, animationDurationAndEasing, () => {
-            if (opacity === 0 || paddingTop === 0) runOnJS(setIsDetailMode)(false)
+            if (opacity === 0 || paddingTop === 0) runOnJS(setIsDetailModeVisible)(false)
         });
     }
 
     const capturePosterInitialPosition = async (posterModeContainerRef: MutableRefObject<View>) => {
+        console.log("here");
         const { pageX, pageY } = await captureViewPosition(posterModeContainerRef);
         modalAnimationTempLeft = pageX;
         modalAnimationTempTop = pageY;
@@ -155,24 +160,39 @@ const Animations = () => {
         modalContainerTranslateY.value = pageY;
     }
 
+    const expandDetailMode = useCallback(
+        async (posterModeContainerRef: MutableRefObject<View>) => {
+            await capturePosterInitialPosition(posterModeContainerRef).then(() => setIsDetailModeVisible(true));
+            animatePosterStyle(0, height, width);
+            animatePosterBlurStyle(height, width)
+            animateModalContainerStyle(height, width, 0, 0);
+            animateDetailContainerStyle(1, statusBarHeight);
+            animateDetailModeBackgroundBlur(70, 1);
+        }, [height, width, animateModalContainerStyle]);
+
+    const collapseDetailMode = useCallback(
+        () => {
+            animatePosterStyle(1, posterHeight, posterWidth);
+            animatePosterBlurStyle(posterHeight, posterWidth);
+            animateModalContainerStyle(posterHeight, posterWidth, modalAnimationTempTop, modalAnimationTempLeft);
+            animateDetailContainerStyle(0, 0);
+            animateDetailModeBackgroundBlur(0, 0);
+        }, [animateModalContainerStyle]);
+
     return {
-        animateDetailContainerStyle,
-        animateDetailModeBackgroundBlur,
-        animateModalContainerStyle,
-        animatePosterBlurStyle,
-        animatePosterStyle,
-        animationPosterStyle,
-        capturePosterInitialPosition,
-        detailContainerStyle,
-        detailModeBackgroundBlur,
-        detailModeBackgroundBlurIntensity,
-        modalAnimationTempLeft,
-        modalAnimationTempTop,
+        expandDetailMode,
+        collapseDetailMode,
         modalContainerPan,
+        detailModeBackgroundBlur,
         modalContainerStyle,
+        posterBlurStyle,
+        animationPosterStyle,
+        detailContainerStyle,
+        capturePosterInitialPosition,
+        detailModeBackgroundBlurIntensity,
         posterBlurIntensity,
-        posterBlurStyle
+        isDetailModeVisible,
     }
 }
 
-export default Animations;
+export default useDetailModeAnimations;
