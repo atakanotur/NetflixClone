@@ -5,11 +5,12 @@ import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 
 
 type RedBarAnimationProps = {
+    contentType: "series" | "movie"
     isSelected: boolean,
     width: number
 }
 
-const RedBarAnimation = ({ isSelected, width }: RedBarAnimationProps) => {
+const AnimatedRedBar = ({ isSelected, width }: RedBarAnimationProps) => {
     const barWidth = useSharedValue(0);
 
     useEffect(() => {
@@ -29,4 +30,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default RedBarAnimation;
+export default AnimatedRedBar;
