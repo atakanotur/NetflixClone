@@ -1,5 +1,6 @@
 import AnimatedBlur from "./AnimatedBlur";
-import AnimatedRedBar from "./AnimatedRedBar";
+import AnimatedDetailMode from "./AnimatedDetailMode";
+import { AnimatedDetailModeRef } from "./AnimatedDetailMode";
 import useDetailModeAnimations from "./useDetailModeAnimations";
 
-export { AnimatedBlur, AnimatedRedBar, useDetailModeAnimations }
+export { AnimatedBlur, AnimatedDetailMode, AnimatedDetailModeRef, useDetailModeAnimations }

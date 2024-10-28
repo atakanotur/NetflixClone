@@ -64,10 +64,11 @@ const useDetailModeAnimations = () => {
         modalContainerTranslateX.value = withTiming(left, animationDurationAndEasing);
     }
 
+    const clamp = (val: number, min: number, max: number) => {
+        return Math.min(Math.max(val, min), max);
+    }
+
     const modalContainerPan = (detailModeScrollViewRef: React.MutableRefObject<null>, detailModeClose: () => void) => {
-        const clamp = (val: number, min: number, max: number) => {
-            return Math.min(Math.max(val, min), max);
-        }
         return Gesture.Pan()
             .minDistance(2)
             .simultaneousWithExternalGesture(detailModeScrollViewRef)

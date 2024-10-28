@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { View, Dimensions } from "react-native"
-import PosterMode from './contentMode/posterMode';
-import AnimatedDetailMode, { AnimatedDetailModeRef } from './animations/AnimatedDetailMode';
+import PosterMode from './contentMode/PosterMode';
+import { AnimatedDetailMode, AnimatedDetailModeRef } from './animations';
 
 type ContentListRenderItemProps = {
     content: Series | Movie,

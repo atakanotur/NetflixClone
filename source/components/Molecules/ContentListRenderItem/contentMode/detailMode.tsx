@@ -1,16 +1,14 @@
 import { useState, forwardRef, LegacyRef } from 'react';
-import { View, ScrollView, Pressable, StyleSheet, Dimensions, LayoutChangeEvent, StyleProp, ViewStyle } from "react-native"
+import { View, ScrollView, Pressable, StyleSheet, Dimensions, StyleProp, ViewStyle } from "react-native"
 import localization from "@/source/lib/locales/localization"
 import colors from "@/source/theme/colors"
 import responsiveFontSize from "@/source/theme/responsiveFontSize"
 import { Ionicons, MaterialIcons, Octicons, Feather } from "@expo/vector-icons"
 import VideoPlayer from '../../VideoPlayer';
-import EpisodeList from "../../EpisodeList"
-import SimilarContentList from "../../SimilarContentList"
 import { Text } from "../../../Atoms"
 import Constant from 'expo-constants';
-import categoryStore from '@/source/store/categoryStore';
 import Animated, { AnimatedStyle } from 'react-native-reanimated';
+import ContentTabSelector from './ContentTabSelector';
 
 type DetailModeProps = {
     scrollViewRef?: LegacyRef<ScrollView>;
@@ -23,32 +21,14 @@ const { width, height } = Dimensions.get("window");
 const { statusBarHeight } = Constant;
 
 const DetailMode = forwardRef(({ scrollViewRef, content, onClose, containerStyle }: DetailModeProps, ref) => {
-    const categories = categoryStore(state => state.categories);
-
-    const [similarOrEpisodesSelected, setSimilarOrEpisodesSelected] = useState<"similar" | "episodes">(content.type === "series" ? "episodes" : "similar");
+   
     const [fullscreen, setFullscreen] = useState<boolean>(false);
 
     const [listAdded, setListAdded] = useState<boolean>(false);
-    const [similarButtonWidth, setSimilarButtonWidth] = useState<number>(0);
-    const [episodesButtonWidth, setEpisodesButtonWidth] = useState<number>(0);
+
 
     const animateClose = () => {
         onClose();
-    }
-
-    const getCategoryByContentId = (contentId: string) => {
-        return categories.find((category) => category.contents.find((item) => item.id === contentId))?.contents || [];
-    }
-    const similarContent: (Series | Movie)[] = getCategoryByContentId(content.id);
-
-    const onSimilarButtonLayout = (event: LayoutChangeEvent) => {
-        const { width } = event.nativeEvent.layout;
-        setSimilarButtonWidth(width);
-    }
-
-    const onEpisodesButtonLayout = (event: LayoutChangeEvent) => {
-        const { width } = event.nativeEvent.layout;
-        setEpisodesButtonWidth(width);
     }
 
     return (
@@ -78,8 +58,8 @@ const DetailMode = forwardRef(({ scrollViewRef, content, onClose, containerStyle
                     </Pressable>
                 </View>
                 <Text text={content.plot} style={styles.plot} />
-                <Text text={`Cast : ${content.cast}`} style={styles.cast} />
-                <Text text={`Creator : ${content.creator}`} style={styles.creator} />
+                <Text text={`${localization.t("cast")} : ${content.cast}`} style={styles.cast} />
+                <Text text={`${localization.t("creator")} : ${content.creator}`} style={styles.creator} />
                 <View style={styles.actionButtonContainer}>
                     <Pressable style={styles.actionButton}>
                         <Ionicons name={listAdded ? "checkmark" : "add"} size={responsiveFontSize(25)} color={colors.whiteGrey} />
@@ -91,21 +71,10 @@ const DetailMode = forwardRef(({ scrollViewRef, content, onClose, containerStyle
                     </Pressable>
                     <Pressable style={styles.actionButton}>
                         <Ionicons name="paper-plane-outline" size={responsiveFontSize(25)} color={colors.whiteGrey} />
-                        <Text text={localization.t("recommend")} style={styles.actionButtonText} />
+
                     </Pressable>
                 </View>
-                <View style={styles.similarAndEpisodesContainer}>
-                    {content.type === "series" &&
-                        <Pressable style={[styles.similarAndEpisodesButton, styles.episodesButton]} onLayout={onEpisodesButtonLayout} onPress={() => setSimilarOrEpisodesSelected("episodes")}>
-                            {/* <RedBarAnimation isSelected={similarOrEpisodesSelected === "episodes"} width={episodesButtonWidth} /> */}
-                            <Text text={localization.t("episodes")} />
-                        </Pressable>}
-                    <Pressable style={[styles.similarAndEpisodesButton, styles.similarButton]} onLayout={onSimilarButtonLayout} onPress={() => setSimilarOrEpisodesSelected("similar")}>
-                        {/* <RedBarAnimation isSelected={similarOrEpisodesSelected === "similar"} width={similarButtonWidth} /> */}
-                        <Text text={localization.t("similar")} />
-                    </Pressable>
-                </View>
-                {content.type === "series" && similarOrEpisodesSelected === "episodes" ? <EpisodeList seasons={content.seasons} /> : <SimilarContentList similarContent={similarContent} />}
+                <ContentTabSelector content={content} />
             </ScrollView>
         </Animated.View>
     )
@@ -197,18 +166,7 @@ const styles = StyleSheet.create({
         fontSize: responsiveFontSize(13),
         paddingVertical: 5
     },
-    similarAndEpisodesContainer: {
-        flexDirection: 'row',
-    },
-    similarAndEpisodesButton: {
 
-    },
-    similarButton: {
-
-    },
-    episodesButton: {
-        marginRight: 20
-    }
 })
 
 export default DetailMode;
