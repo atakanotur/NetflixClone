@@ -1,10 +1,10 @@
 
-import { MutableRefObject, forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { MutableRefObject, forwardRef, useImperativeHandle, useRef } from "react";
 import { View, Modal, StyleSheet } from "react-native"
 import { BlurView } from "expo-blur";
 import Animated from "react-native-reanimated"
 import { Gesture, GestureHandlerRootView, GestureDetector } from "react-native-gesture-handler";
-import DetailMode from "../contentMode/detailMode";
+import DetailMode from "../contentMode/DetailMode";
 import useDetailModeAnimations from "./useDetailModeAnimations";
 import AnimatedBlur from "./AnimatedBlur";
 
