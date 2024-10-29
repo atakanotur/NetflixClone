@@ -153,7 +153,6 @@ const useDetailModeAnimations = () => {
     }
 
     const capturePosterInitialPosition = async (posterModeContainerRef: MutableRefObject<View>) => {
-        console.log("here");
         const { pageX, pageY } = await captureViewPosition(posterModeContainerRef);
         modalAnimationTempLeft = pageX;
         modalAnimationTempTop = pageY;
