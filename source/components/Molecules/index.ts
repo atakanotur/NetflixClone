@@ -5,9 +5,10 @@ import Banner from "./Banner";
 import MainList from "./MainList";
 import ContentListHeader from "./ContentListHeader";
 import ContentList from "./ContentList";
-import TopBar from "./TopBar";
+import HomeTopBar from "./HomeTopBar";
 import VideoPlayer from "./VideoPlayer";
 import ContentListRenderItem from "./ContentListRenderItem";
+import ScreenHeader from "./ScreenHeader";
 
 export {
   LandingList,
@@ -17,7 +18,8 @@ export {
   MainList,
   ContentListHeader,
   ContentList,
-  TopBar,
+  HomeTopBar,
   VideoPlayer,
   ContentListRenderItem,
+  ScreenHeader,
 };

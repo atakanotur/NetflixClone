@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { View, StyleSheet, Image, Dimensions, Pressable, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
+import { View, StyleSheet, Dimensions, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 import { Text } from "../../Atoms";
-import { MainList, ContentListHeader, ContentList, TopBar, VideoPlayer, ContentListRenderItem } from "../../Molecules";
+import { MainList, ContentListHeader, ContentList, HomeTopBar, ContentListRenderItem } from "../../Molecules";
 import colors from "@/source/theme/colors";
 import { ReduceMotion, useSharedValue, withSpring, withTiming, Easing } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -63,7 +63,7 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
                 <Text text={item.title} style={styles.categoryTitle} />
                 <ContentList
                     data={categories[index].contents}
-                    renderItem={({ item, index }) => <ContentListRenderItem content={item}/>}
+                    renderItem={({ item, index }) => <ContentListRenderItem content={item} />}
                 />
             </View>
         )
@@ -71,7 +71,7 @@ const HomeList = ({ profile, categories, contents, myListOnPress, playOnPress, p
 
     return (
         <>
-            <TopBar
+            <HomeTopBar
                 top={top}
                 profile={profile}
                 categories={categories}

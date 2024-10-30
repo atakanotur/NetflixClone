@@ -5,7 +5,8 @@ export {
   PasswordModal,
   MainList,
   Banner,
-  TopBar,
-  VideoPlayer
+  HomeTopBar,
+  VideoPlayer,
+  ScreenHeader,
 } from "./Molecules";
-export { HomeList } from "./Organisms";
+export { HomeList, NewAndPopularList } from "./Organisms";
