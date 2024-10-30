@@ -9,7 +9,7 @@ type ScreenHeaderProps = {
     screenName: string
 }
 
-const ScreenHeader = ({ screenName = "New and Popular" }: ScreenHeaderProps) => {
+const ScreenHeader = ({ screenName }: ScreenHeaderProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.screenName}>
@@ -31,10 +31,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     screenName: {
+        justifyContent: 'center'
     },
     screenNameText: {
         fontSize: responsiveFontSize(25),
-        fontWeight: '600'
+        fontWeight: '600',
     },
     icons: {
         flexDirection: 'row',
