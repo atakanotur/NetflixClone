@@ -11,7 +11,6 @@ type PosterModeProps = {
 }
 
 const PosterMode = forwardRef(({ posterModeContainerRef, content, posterHeight, posterWidth, posterOnPress }: PosterModeProps, ref) => {
-
     return (
         <View ref={posterModeContainerRef} style={[styles.container, { height: posterHeight, width: posterWidth }]}>
             <Pressable onPress={posterOnPress}>

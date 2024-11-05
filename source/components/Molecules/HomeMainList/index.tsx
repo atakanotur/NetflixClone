@@ -18,7 +18,7 @@ type MainListProps = {
     contentContainerStyle?: ContentStyle
 }
 
-const MainList = ({ data, extraData, renderItem, ListHeaderComponent, onScroll, onScrollAnimationEnd, onScrollBeginDrag, onScrollEndDrag, onScrollToTop, contentOffset, contentInset, snapToOffsets, contentContainerStyle }: MainListProps) => {
+const HomeMainList = ({ data, extraData, renderItem, ListHeaderComponent, onScroll, onScrollAnimationEnd, onScrollBeginDrag, onScrollEndDrag, onScrollToTop, contentOffset, contentInset, snapToOffsets, contentContainerStyle }: MainListProps) => {
     return (
         <FlashList
             data={data}
@@ -41,4 +41,4 @@ const MainList = ({ data, extraData, renderItem, ListHeaderComponent, onScroll, 
     )
 }
 
-export default MainList;
+export default HomeMainList;

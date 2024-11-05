@@ -1,6 +1,6 @@
 import { FlashList } from "@shopify/flash-list";
 import { View, StyleSheet } from "react-native";
-import ContentListRenderItem from "../ContentListRenderItem";
+import ContentListRenderItem from "../ContentList/ContentListRenderItem";
 
 type SimilarContentListProps = {
     similarContent: (Series | Movie)[];

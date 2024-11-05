@@ -1,15 +1,27 @@
+import { useRef } from 'react';
 import { StyleSheet } from "react-native";
-import { FlashList, ListRenderItem } from "@shopify/flash-list";
+import NewAndPopularTopList, { NewAndPopulatTopListRef } from "../../Molecules/NewAndPopularTopList";
+import NewAndPopularMainList from "../../Molecules/NewAndPopularMainList";
+import { FlashList } from '@shopify/flash-list';
 
 type NewAndPopularListProps = {
-    renderItem: ListRenderItem<unknown>
+    categories: Category[]
 }
 
-const NewAndPopularList = ({ renderItem }: NewAndPopularListProps) => {
+const NewAndPopularList = ({ categories }: NewAndPopularListProps) => {
+    const topListRef = useRef<NewAndPopulatTopListRef>(null);
+    const mainListRef = useRef(null);
+
+    const categoryListRef = useRef<FlashList<Category>>(null);
+    const contentListRef = useRef<FlashList<Series | Movie>>(null);
+
+    const animationDuration: number = 100;
+
     return (
-        <FlashList
-            renderItem={renderItem}
-        />
+        <>
+            <NewAndPopularTopList ref={topListRef} categoryListRef={categoryListRef} contentListRef={contentListRef} data={categories} animationDuration={animationDuration} />
+            <NewAndPopularMainList ref={mainListRef} contentListRef={contentListRef} categoryListRef={categoryListRef} topListRef={topListRef} data={categories} animationDuration={animationDuration} />
+        </>
     )
 }
 

@@ -4,8 +4,8 @@ import { Text } from "@/source/components/Atoms";
 import colors from "@/source/theme/colors";
 import Animated, { SharedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import localization from "@/source/lib/locales/localization";
-import EpisodeList from "../../EpisodeList";
-import SimilarContentList from "../../SimilarContentList";
+import EpisodeList from "../../../EpisodeList";
+import SimilarContentList from "../../../SimilarContentList";
 import categoryStore from "@/source/store/categoryStore";
 
 

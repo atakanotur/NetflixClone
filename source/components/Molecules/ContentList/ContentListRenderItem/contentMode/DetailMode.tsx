@@ -4,8 +4,8 @@ import localization from "@/source/lib/locales/localization"
 import colors from "@/source/theme/colors"
 import responsiveFontSize from "@/source/theme/responsiveFontSize"
 import { Ionicons, MaterialIcons, Octicons, Feather } from "@expo/vector-icons"
-import VideoPlayer from '../../VideoPlayer';
-import { Text } from "../../../Atoms"
+import VideoPlayer from '../../../VideoPlayer';
+import { Text } from "../../../../Atoms"
 import Constant from 'expo-constants';
 import Animated, { AnimatedStyle } from 'react-native-reanimated';
 import ContentTabSelector from './ContentTabSelector';
@@ -21,7 +21,7 @@ const { width, height } = Dimensions.get("window");
 const { statusBarHeight } = Constant;
 
 const DetailMode = forwardRef(({ scrollViewRef, content, onClose, containerStyle }: DetailModeProps, ref) => {
-   
+
     const [fullscreen, setFullscreen] = useState<boolean>(false);
 
     const [listAdded, setListAdded] = useState<boolean>(false);
@@ -71,7 +71,7 @@ const DetailMode = forwardRef(({ scrollViewRef, content, onClose, containerStyle
                     </Pressable>
                     <Pressable style={styles.actionButton}>
                         <Ionicons name="paper-plane-outline" size={responsiveFontSize(25)} color={colors.whiteGrey} />
-
+                        <Text text={localization.t("recommend")} style={styles.actionButtonText} />
                     </Pressable>
                 </View>
                 <ContentTabSelector content={content} />
