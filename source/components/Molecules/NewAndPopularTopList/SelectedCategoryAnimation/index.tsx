@@ -1,10 +1,10 @@
-import colors from '@/source/theme/colors';
 import { forwardRef, useImperativeHandle } from 'react';
-import Animated, { Easing, EasingFunction, WithTimingConfig, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { Easing, EasingFunction, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import colors from '@/source/theme/colors';
 
 type SelectedCategoryAnimationProps = {
     animationDuration: number,
-    height?: number | null
+    height: number
 }
 
 export type SelectedCategoryAnimationRef = {
@@ -29,12 +29,11 @@ const SelectedCategoryAnimation = forwardRef(({ animationDuration, height }: Sel
         return {
             position: "absolute",
             top: 10,
-            left: animatedLeft.value,
             backgroundColor: colors.white,
-            height: height || 40,
             width: animatedWidth.value,
+            zIndex: -1,
             borderRadius: 20,
-            zIndex: -1
+            transform: [{ translateX: animatedLeft.value }],
         }
     });
     const animatePositionX = (pageX: number) => {
@@ -53,9 +52,9 @@ const SelectedCategoryAnimation = forwardRef(({ animationDuration, height }: Sel
     const scrollCategoryIndicator = (pageX: number) => {
         animatedLeft.value = pageX;
     }
-   
+
     return (
-        <Animated.View style={animatedStyle} />
+        <Animated.View style={[animatedStyle, { height }]} />
     )
 })
 

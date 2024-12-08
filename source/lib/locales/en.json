@@ -47,5 +47,12 @@
   "cast": "Cast",
   "creator": "Creator",
   "episodes": "Episodes",
-  "similar": "Similar"
+  "similar": "Similar",
+  "Very Soon": "Very Soon",
+  "Everyone is Watching These": "Everyone is Watching These",
+  "Top 10 Series List": "Top 10 Series List",
+  "Top 10 Movies List": "Top 10 Movies List",
+  "remindMe": "Remind Me",
+  "newSeasonReleaseDate" : "New Season Release Date",
+  "releaseDate": "Release Date"
 }
