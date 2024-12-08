@@ -1,23 +1,25 @@
 import LandingList from "./LandingList";
 import ControlledInput from "./ControlledInput";
 import PasswordModal from "./PasswordModal";
-import Banner from "./Banner";
-import MainList from "./MainList";
-import ContentListHeader from "./ContentListHeader";
+import HomeMainList from "./HomeMainList";
+import ContentListHeader from "./ContentList/ContentListHeader";
 import ContentList from "./ContentList";
-import TopBar from "./TopBar";
+import HomeTopBar from "./HomeTopBar";
 import VideoPlayer from "./VideoPlayer";
-import ContentListRenderItem from "./ContentListRenderItem";
+import ContentListRenderItem from "./ContentList/ContentListRenderItem";
+import ScreenHeader from "./ScreenHeader";
+import NewAndPopularMainList from "./NewAndPopularMainList";
 
 export {
   LandingList,
   ControlledInput,
   PasswordModal,
-  Banner,
-  MainList,
+  HomeMainList,
   ContentListHeader,
   ContentList,
-  TopBar,
+  HomeTopBar,
   VideoPlayer,
   ContentListRenderItem,
+  ScreenHeader,
+  NewAndPopularMainList
 };

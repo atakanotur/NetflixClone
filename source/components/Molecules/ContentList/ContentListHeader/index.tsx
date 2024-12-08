@@ -2,7 +2,7 @@ import { useState } from 'react';
 import colors from "@/source/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { View, ImageBackground, Pressable, StyleSheet, Dimensions } from "react-native"
-import { Text } from "../../Atoms";
+import { Text } from "../../../Atoms";
 import localization from "@/source/lib/locales/localization";
 import responsiveFontSize from '@/source/theme/responsiveFontSize';
 

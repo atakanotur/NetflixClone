@@ -3,9 +3,9 @@ export {
   LandingList,
   ControlledInput,
   PasswordModal,
-  MainList,
-  Banner,
-  TopBar,
-  VideoPlayer
+  HomeMainList,
+  HomeTopBar,
+  VideoPlayer,
+  ScreenHeader,
 } from "./Molecules";
-export { HomeList } from "./Organisms";
+export { HomeList, NewAndPopularList } from "./Organisms";

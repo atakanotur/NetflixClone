@@ -41,8 +41,6 @@ const AnimatedDetailMode = forwardRef(({ content, posterModeContainerRef }: Anim
         isDetailModeVisible
     } = useDetailModeAnimations();
 
-    console.log(isDetailModeVisible);
-
     const expand = () => {
         expandDetailMode(posterModeContainerRef);
     }

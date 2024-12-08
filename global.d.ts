@@ -46,6 +46,12 @@ declare global {
     video: string;
   };
 
+  type Content = (Series | Movie);
+
+  type ContentWithCategory = Content & {
+    categoryId: string;
+  };
+
   type Season = {
     id: string;
     name: string;
