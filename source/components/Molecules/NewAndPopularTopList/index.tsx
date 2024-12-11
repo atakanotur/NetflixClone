@@ -50,7 +50,7 @@ const NewAndPopularTopList = forwardRef(({ categoryListRef, contentListRef, data
         categoryListRef.current?.scrollToIndex({
             index,
             animated: true,
-            viewPosition: 0.5,
+            viewPosition: 0.5
         });
     };
 
@@ -82,7 +82,7 @@ const NewAndPopularTopList = forwardRef(({ categoryListRef, contentListRef, data
     const calculatePageXOfSelectedItem = (index: number, itemWidth: number): number => {
         const renderItemMargin: number = 3;
         if (index === 0) return renderItemMargin;
-        if (index !== data.length - 1) return (width / 2) - (itemWidth / 2) + renderItemMargin;
+        if (index !== data.length - 1) return (width / 2) - (itemWidth / 2);
         return width - renderItemMargin - itemWidth;
     };
 
@@ -90,7 +90,6 @@ const NewAndPopularTopList = forwardRef(({ categoryListRef, contentListRef, data
         if (isScrolling) return;
         const { pageX } = await captureViewPosition(itemContainerRefs.current[selectedCategoryIndex]);
         animationRef.current?.scrollCategoryIndicator(pageX);
-
     };
 
     const categoryListOnScrollBeginDrag = () => {
