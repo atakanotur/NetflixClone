@@ -54,5 +54,10 @@
   "Top 10 Movies List": "Top 10 Movies List",
   "remindMe": "Remind Me",
   "newSeasonReleaseDate" : "New Season Release Date",
-  "releaseDate": "Release Date"
+  "releaseDate": "Release Date",
+  "recommendedSeriesAndMovies": "Recommended Series and Movies",
+  "seriesOrMovieSearch": "Search for a TV series or movie.",
+  "bestResult": "Best Results",
+  "weDontHaveThat": "Oops! We don't have that.",
+  "tryAnotherContent": "Try searching with another movie, series, actor, director or genre."
 }

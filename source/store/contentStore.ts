@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import contents from "../data/content";
+import recommendedContents from "../data/recommendedContents";
 
 type State = {
-  contents: (Series | Movie)[];
+  contents: Content[];
+  recommendedContents: Content[];
 };
 
 type Action = {
@@ -11,6 +13,7 @@ type Action = {
 
 const contentStore = create<State & Action>()((set) => ({
   contents,
+  recommendedContents,
   setContents: (contents) => set(() => ({ contents })),
 }));
 

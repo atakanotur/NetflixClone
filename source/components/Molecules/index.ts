@@ -9,6 +9,9 @@ import VideoPlayer from "./VideoPlayer";
 import ContentListRenderItem from "./ContentList/ContentListRenderItem";
 import ScreenHeader from "./ScreenHeader";
 import NewAndPopularMainList from "./NewAndPopularMainList";
+import SearchBar from "./SearchBar";
+import RecommendedContentList from "./RecommendedContentList";
+import SearchedContentList from "./SearchedContentList";
 
 export {
   LandingList,
@@ -21,5 +24,8 @@ export {
   VideoPlayer,
   ContentListRenderItem,
   ScreenHeader,
-  NewAndPopularMainList
+  NewAndPopularMainList,
+  SearchBar,
+  RecommendedContentList,
+  SearchedContentList
 };

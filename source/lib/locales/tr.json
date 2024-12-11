@@ -54,5 +54,10 @@
   "Top 10 Movies List": "Top 10 Film Listesi",
   "remindMe": "Bana Hatırlat",
   "newSeasonReleaseDate": "Yeni Sezon Yayın Tarihi",
-  "releaseDate": "Yayın Tarihi"
+  "releaseDate": "Yayın Tarihi",
+  "recommendedSeriesAndMovies": "Önerilen Dizi ve Filmler",
+  "seriesOrMovieSearch": "Dizi veya film arayın.",
+  "bestResult": "En İyi Sonuçlar",
+  "weDontHaveThat": "Tüh! Bizde yok bu.",
+  "tryAnotherContent": "Başka bir film, dizi, oyuncu, yönetmen ya da tür adıyla aramayı dene."
 }
