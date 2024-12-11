@@ -31,11 +31,13 @@ const CustomTextInput = ({ ref, style, onChangeText, value, onBlur, placeholder,
         selectionColor={"#fff"}
         onFocus={onFocus}
         maxLength={maxLength}
-        keyboardType={keyboardType} />
+        keyboardType={keyboardType} 
+        />
 }
 
 const styles = StyleSheet.create({
-    input: {}
+    input: {
+    }
 })
 
 export default CustomTextInput;

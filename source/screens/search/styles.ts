@@ -6,6 +6,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.black,
   },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  backIcon: {
+    alignItems: "flex-start",
+    padding: 0,
+  },
+  searchBar: {
+    marginHorizontal: 15,
+  },
+ 
 });
 
 export default styles;
