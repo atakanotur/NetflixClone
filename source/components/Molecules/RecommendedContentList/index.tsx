@@ -31,6 +31,7 @@ const RecommendedContentList = ({ contents }: RecommendedListProps) => {
             <FlashList
                 data={contents}
                 renderItem={recommendedListRenderItem}
+                estimatedItemSize={50}
             />
         </>
     )
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     categoryName: {
         fontWeight: "700",
         marginVertical: 10,
-      },
+    },
 });
 
 export default RecommendedContentList;
