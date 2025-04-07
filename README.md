@@ -1,11 +1,11 @@
-# 🎬 NetflixClone – Mobil Arayüz ve Animasyon Klonu
+# 🎬 NetflixClone – Mobile UI & Animation Clone
 
-Bu proje, Netflix’in mobil uygulamasının arayüzünü ve animasyonlarını klonlamak için oluşturulmuştur.  
-React Native’in animasyon ve gesture sistemlerini derinlemesine öğrenmek ve modern bir kullanıcı deneyimi yaratmak hedeflenmiştir.
+This project was built to replicate the interface and animations of the Netflix mobile app.  
+The main goal was to deeply explore React Native’s animation and gesture systems while delivering a smooth, modern user experience.
 
 ---
 
-## 🛠️ Kullanılan Teknolojiler
+## 🛠️ Technologies Used
 
 - React Native (Expo)
 - React Native Reanimated v2
@@ -15,12 +15,10 @@ React Native’in animasyon ve gesture sistemlerini derinlemesine öğrenmek ve 
 
 ---
 
-## 🚀 Uygulama Özellikleri
+## 🚀 Features
 
-- 📺 Netflix benzeri ana sayfa: yatay scroll ile içerik listeleri  
-- 🔄 Seçilen kategoriye göre dinamik içerik geçişi  
-- ✨ Detay ekranı için yumuşak geçişli animasyonlu modal  
-- 🎯 Özelleştirilmiş kart animasyonları  
-- ⚙️ Performans için FlashList entegrasyonu
-
----
+- 📺 Netflix-style home screen with horizontal scrolling content lists  
+- 🔄 Dynamic content switching based on selected category  
+- ✨ Smooth animated modal for detailed views  
+- 🎯 Custom card animations  
+- ⚙️ Optimized performance using FlashList
